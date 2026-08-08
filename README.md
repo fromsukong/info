@@ -30,6 +30,14 @@ Automatic deployment on push to `main` via `.github/workflows/deploy.yml`:
 
 Manual alternative: `npx wrangler login` then `npx wrangler pages deploy dist --project-name=fromsukong`.
 
+## AI agent setup (Cloudflare)
+
+Configured for [Cloudflare agent setup](https://developers.cloudflare.com/agent-setup/opencode/):
+
+- **MCP servers** — defined in `.opencode/opencode.json` (Code Mode API, docs, bindings, builds, observability). First tool call from a server triggers Cloudflare OAuth.
+- **Skills** — `npx skills add https://github.com/cloudflare/skills` installs the Cloudflare skill bundle into `.agents/` (gitignored). `skills-lock.json` pins the installed version.
+- **Wrangler** — config lives in `wrangler.jsonc`.
+
 ## Structure
 
 ```
