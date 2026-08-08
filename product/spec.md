@@ -18,18 +18,30 @@ Pageview and link-click analytics via Cloudflare Web Analytics; no backend, no d
 ---
 
 ## 2. Tech Stack & Environment
-- **Format**: Static HTML (single page)
+- **Framework**: Astro 5 (static output) with `@astrojs/react` (React 19)
+- **UI library**: `@astryxdesign/core` + `@astryxdesign/theme-gothic` (extended, see `src/themes/fromsukong.ts`)
 - **Analytics**: Cloudflare Web Analytics (free, privacy-friendly)
-- **Runtime**: Any static file server (e.g. `python3 -m http.server 8000`) / Cloudflare Pages
+- **Runtime**: `npm run build` → static `dist/` for Cloudflare Pages
 
 ---
 
 ## 3. Directory Structure
 ```
 services/
-├── index.html              # Linktree page (2 links)
+├── src/
+│   ├── pages/
+│   │   └── index.astro              # Page shell (meta, fonts)
+│   ├── components/
+│   │   └── LinkBio.tsx              # Page built from Astryx components
+│   ├── themes/
+│   │   ├── fromsukong.ts            # Gothic theme extended with Linktree palette
+│   │   └── fromsukong.css           # Pre-built theme (generated)
+│   └── styles/
+│       └── global.css               # Reset + astryx + theme imports
+├── public/
+│   └── assets/                      # Profile images
 ├── README.md
-└── product/                # Local repo spec
+└── product/                         # Local repo spec
     └── spec.md
 ```
 
