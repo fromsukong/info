@@ -30,7 +30,6 @@ body {
 
 /* Header */
 .profile-header {
-  padding-top: 56px;
   margin-bottom: 24px;
 }
 
@@ -130,9 +129,8 @@ body {
   padding: 12px 32px;
 }
 
-/* Social icons */
+/* Social icons row (top of page, then 16px before the header) */
 .socials {
-  margin-top: 8px;
   padding-bottom: 16px;
 }
 

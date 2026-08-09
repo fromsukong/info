@@ -1,6 +1,5 @@
 import {Theme} from '@astryxdesign/core/theme';
 import {VStack} from '@astryxdesign/core/Layout';
-import {Globe} from 'lucide-react';
 import {fromsukongTheme} from '../themes/fromsukong';
 import ProfileHeader from './ProfileHeader';
 import LinkSection from './LinkSection';
@@ -14,6 +13,7 @@ export default function LinkBioPage() {
   return (
     <Theme theme={fromsukongTheme} mode="dark">
       <VStack className="page">
+        <SocialLinks />
         <ProfileHeader />
         <VStack className="section-gap">
           <LinkSection title="Working on">
@@ -25,12 +25,13 @@ export default function LinkBioPage() {
             ))}
             <LinkCard
               label={LEARN_MORE.label}
+              sub={LEARN_MORE.sub}
               href={LEARN_MORE.href}
-              iconNode={<Globe size={48} className="link-card-contact-icon" />}
+              icon={LEARN_MORE.icon}
+              iconAlt={LEARN_MORE.iconAlt}
             />
             <ContactCard />
           </LinkSection>
-          <SocialLinks />
         </VStack>
       </VStack>
     </Theme>

@@ -29,8 +29,11 @@ export const HIRE_CARDS = [
 ];
 
 export const LEARN_MORE = {
-  label: 'Learn more about me at fromsukong.com',
+  label: 'Learn more about me',
+  sub: 'fromsukong.com',
   href: 'https://fromsukong.com',
+  icon: '/assets/avatar.png',
+  iconAlt: 'Supakone Kongprapan avatar',
 };
 
 export const CONTACT = {
