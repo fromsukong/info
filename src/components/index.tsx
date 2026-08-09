@@ -2,6 +2,7 @@ import {Theme} from '@astryxdesign/core/theme';
 import {VStack} from '@astryxdesign/core/Layout';
 import {fromsukongTheme} from '../themes/fromsukong';
 import ProfileHeader from './ProfileHeader';
+import LinkSection from './LinkSection';
 import FeaturedCard from './FeaturedCard';
 import LinkCard from './LinkCard';
 import ContactCard from './ContactCard';
@@ -14,10 +15,10 @@ export default function LinkBioPage() {
       <VStack className="page">
         <ProfileHeader />
         <VStack className="section-gap">
-          <VStack className="link-stack">
+          <LinkSection title="Working on">
             <FeaturedCard {...WORK_LINK} />
-          </VStack>
-          <VStack className="link-stack">
+          </LinkSection>
+          <LinkSection title="Contact me" offset>
             {HIRE_CARDS.map(({icon, iconAlt, label, sub, href}) => (
               <LinkCard key={label} icon={icon} iconAlt={iconAlt} label={label} sub={sub} href={href} />
             ))}
@@ -29,7 +30,7 @@ export default function LinkBioPage() {
               iconAlt={LEARN_MORE.iconAlt}
             />
             <ContactCard />
-          </VStack>
+          </LinkSection>
           <SocialLinks />
         </VStack>
       </VStack>

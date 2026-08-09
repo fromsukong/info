@@ -4,7 +4,7 @@ export const PROFILE = {
 };
 
 export const WORK_LINK = {
-  title: 'Check out GoToPamaet Project',
+  title: 'GoToPamaet Project',
   subtitle: 'Experience The Slow Life',
   href: 'http://gotopamaet.fromsukong.com/',
   image: '/assets/gotopamaet.jpeg',

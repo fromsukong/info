@@ -46,6 +46,15 @@ body {
   row-gap: var(--link-gap);
 }
 
+.section-header {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.section-header-hire {
+  padding-top: var(--link-gap);
+}
+
 /* Link cards: 64px min-height, 12/64 padding, icon pinned left */
 .link-card-inner {
   position: relative;
@@ -250,6 +259,7 @@ body {
 
 /* Desktop: keep the black background, only bump font sizes */
 @media (min-width: 576px) {
+  .section-header,
   .link-card-label {
     font-size: 16px !important;
   }
