@@ -15,7 +15,7 @@ export const HIRE_CARDS = [
   {
     icon: '/assets/fastwork.jpeg',
     iconAlt: 'Fastwork logo',
-    label: 'via Fastwork',
+    label: 'Hire me via Fastwork',
     sub: null,
     href: 'https://fastwork.co/byob/5rBVa61qjC?openExternalBrowser=1&source=byob',
   },
@@ -27,6 +27,11 @@ export const HIRE_CARDS = [
     href: 'https://ig.me/m/fromsukong',
   },
 ];
+
+export const LEARN_MORE = {
+  label: 'Learn more about me at fromsukong.com',
+  href: 'https://fromsukong.com',
+};
 
 export const CONTACT = {
   name: 'Supakone Kongprapan',
