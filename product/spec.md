@@ -1,7 +1,7 @@
 # Repository Specification: `services`
 
 > **Belongs to Product**: [`personal-brand`](../../../products/personal-brand/prd.md)
-> **Repository URL**: [`https://github.com/fromsukong/links`](https://github.com/fromsukong/links)
+> **Repository URL**: [`https://github.com/fromsukong/info`](https://github.com/fromsukong/info)
 > **Visibility**: Public
 > **Maintainer**: @fromsukong
 
@@ -48,5 +48,5 @@ services/
 ---
 
 ## 4. Integration Contracts
-- **Local clone**: `/home/prame/Project/links`.
-- **Hosting**: deployed on Cloudflare Pages (project `links`) under `info.fromsukong.com`.
+- **Local clone**: `/home/prame/Project/info`.
+- **Hosting**: deployed on Cloudflare Pages (project `info`) under `fromsukong.com`.

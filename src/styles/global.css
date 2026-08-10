@@ -108,6 +108,22 @@ body {
   opacity: 0.6;
 }
 
+/* About page: info items */
+.info-item {
+  font-size: 14px;
+  line-height: 1.6;
+  opacity: 0.85;
+}
+
+.info-link {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.info-link:hover {
+  text-decoration: underline;
+}
+
 /* Featured card: full-bleed 16:9 thumb (top corners only), label row */
 .featured-thumb {
   border-radius: 16px 16px 0 0;

@@ -17,18 +17,18 @@ npm run build      # static site into dist/
 npm run preview    # serve the production build
 ```
 
-## Deploy (info.fromsukong.com via Cloudflare Pages)
+## Deploy (fromsukong.com via Cloudflare Pages)
 
 Automatic deployment on push to `main` via `.github/workflows/deploy.yml`:
 
-1. Push this repo to GitHub (`github.com/fromsukong/links`).
+1. Push this repo to GitHub (`github.com/fromsukong/info`).
 2. In GitHub → repo → **Settings → Secrets and variables → Actions**, add:
    - `CLOUDFLARE_API_TOKEN` — API token with **Cloudflare Pages — Edit** permission (dash.cloudflare.com → My Profile → API Tokens).
    - `CLOUDFLARE_ACCOUNT_ID` — your Cloudflare account ID (right sidebar of any dashboard page).
-3. Push to `main` (or run the workflow manually). It runs `npm run build` and deploys `dist/` to the `links` Pages project (served at `links.pages.dev`, custom domain `info.fromsukong.com`).
-4. Custom domain `info.fromsukong.com` is bound to the Pages project and kept up to date in the Cloudflare dashboard.
+3. Push to `main` (or run the workflow manually). It runs `npm run build` and deploys `dist/` to the `info` Pages project (served at `fromsukong.pages.dev`, custom domain `fromsukong.com`).
+4. Custom domain `fromsukong.com` is bound to the Pages project and kept up to date in the Cloudflare dashboard.
 
-Manual alternative: `npx wrangler login` then `npx wrangler pages deploy dist --project-name=links`.
+Manual alternative: `npx wrangler login` then `npx wrangler pages deploy dist --project-name=info`.
 
 ## AI agent setup (Cloudflare)
 

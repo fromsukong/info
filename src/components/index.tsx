@@ -28,6 +28,7 @@ export default function LinkBioPage() {
               href={LEARN_MORE.href}
               icon={LEARN_MORE.icon}
               iconAlt={LEARN_MORE.iconAlt}
+              target="_self"
             />
             <ContactCard />
           </LinkSection>

@@ -30,8 +30,8 @@ export const HIRE_CARDS = [
 
 export const LEARN_MORE = {
   label: 'Learn more about me',
-  sub: 'fromsukong.com',
-  href: 'https://fromsukong.com',
+  sub: null,
+  href: '/about',
   icon: '/assets/avatar.png',
   iconAlt: 'Supakone Kongprapan avatar',
 };
