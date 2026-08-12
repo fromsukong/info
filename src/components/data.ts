@@ -19,7 +19,7 @@ export const CONTACT_CARDS = [
     iconAlt: 'Do.ink logo',
     label: 'Visit my do.ink store',
     sub: null,
-    href: 'https://app.do.ink/stores/fromsukong',
+    href: 'https://analytics.fromsukong.com/q/doink-store',
   },
   {
     icon: '/assets/ig-dm.png',
