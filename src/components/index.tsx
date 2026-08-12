@@ -12,8 +12,8 @@ import {FASTWORK, CONTACT_CARDS, LEARN_MORE} from './data';
 export default function LinkBioPage() {
   return (
     <Theme theme={fromsukongTheme} mode="dark">
+      <ProfileHeader />
       <VStack className="page">
-        <ProfileHeader />
         <VStack className="section-gap">
           <LinkSection title="Hire me">
             <FeaturedCard {...FASTWORK} />
