@@ -52,6 +52,8 @@ body {
 .hero-wrap {
   position: relative;
   width: 100%;
+  max-width: 580px;
+  margin-inline: auto;
   height: 40vh;
   min-height: 300px;
   max-height: 460px;
