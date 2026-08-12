@@ -28,6 +28,22 @@ body {
   min-height: 100lvh;
 }
 
+/* Back link on non-landing pages */
+.back-link {
+  display: block;
+  max-width: 580px;
+  margin-inline: auto;
+  padding: 20px var(--link-gap) 0;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.back-link:hover {
+  color: var(--color-accent);
+}
+
 /* Header */
 .profile-header {
   padding-top: 56px;

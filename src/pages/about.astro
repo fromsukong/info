@@ -1,5 +1,6 @@
 ---
 import Page from '../components/about';
+import BackLink from '../components/BackLink.astro';
 import '../styles/global.css';
 
 const SITE = 'https://fromsukong.com';
@@ -81,6 +82,7 @@ const OG_IMAGE = 'https://fromsukong.com/assets/og-image.png';
     })} />
   </head>
   <body>
+    <BackLink />
     <Page client:load />
   </body>
 </html>
