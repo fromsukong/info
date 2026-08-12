@@ -1,5 +1,6 @@
 ---
 import Page from '../components/index';
+import ConsentBanner from '../components/ConsentBanner.astro';
 import '../styles/global.css';
 
 const SITE = 'https://fromsukong.com';
@@ -16,8 +17,24 @@ const OG_IMAGE = 'https://fromsukong.com/assets/og-image.png';
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#C04000" />
     <script defer src="https://analytics.fromsukong.com/script.js" data-website-id="a6739677-17bb-418d-bf02-b5a581710fa5"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', {
+        'ad_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied',
+        'analytics_storage': 'denied',
+        'wait_for_update': 500,
+      });
+      try {
+        if (localStorage.getItem('fs-consent') === 'accepted') {
+          gtag('consent', 'update', {'analytics_storage': 'granted'});
+        }
+      } catch (e) {}
+    </script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-4R5CYWR2M4"></script>
-    <script>
+    <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
@@ -95,5 +112,6 @@ const OG_IMAGE = 'https://fromsukong.com/assets/og-image.png';
   </head>
   <body>
     <Page client:load />
+    <ConsentBanner />
   </body>
 </html>

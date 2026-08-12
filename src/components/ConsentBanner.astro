@@ -1,0 +1,65 @@
+---
+// Cookie consent banner — Google Consent Mode v2 (advanced).
+// Default consent state (denied) is set in the page <head> BEFORE gtag.js loads.
+// This banner updates consent when the user chooses, persists the choice in
+// localStorage, and re-applies it on the next page load via the head script.
+---
+
+<div id="consent-banner" class="consent-banner" role="dialog" aria-label="Cookie consent" hidden>
+  <p class="consent-banner-text">We use analytics cookies to understand how our site is used.</p>
+  <div class="consent-banner-actions">
+    <button type="button" class="consent-btn consent-accept" data-umami-event="consent-accept">Accept</button>
+    <button type="button" class="consent-btn consent-decline" data-umami-event="consent-decline">Decline</button>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    var KEY = 'fs-consent';
+    var banner = document.getElementById('consent-banner');
+    var acceptBtn = banner && banner.querySelector('.consent-accept');
+    var declineBtn = banner && banner.querySelector('.consent-decline');
+
+    function hide() {
+      if (banner) {
+        banner.hidden = true;
+      }
+    }
+
+    function setChoice(choice) {
+      try {
+        localStorage.setItem(KEY, choice);
+      } catch (e) {}
+      hide();
+    }
+
+    if (acceptBtn) {
+      acceptBtn.addEventListener('click', function () {
+        if (window.gtag) {
+          gtag('consent', 'update', {'analytics_storage': 'granted'});
+        }
+        setChoice('accepted');
+      });
+    }
+
+    if (declineBtn) {
+      declineBtn.addEventListener('click', function () {
+        if (window.gtag) {
+          gtag('consent', 'update', {'analytics_storage': 'denied'});
+        }
+        setChoice('declined');
+      });
+    }
+
+    // Show the banner only if the visitor hasn't chosen yet.
+    var made;
+    try {
+      made = !!localStorage.getItem(KEY);
+    } catch (e) {
+      made = true;
+    }
+    if (!made && banner) {
+      banner.hidden = false;
+    }
+  })();
+</script>
