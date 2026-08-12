@@ -1,6 +1,8 @@
 export const PROFILE = {
   name: '(Su)pakone (Kong)prapan',
+  tagline: 'Make Digital',
   avatar: '/assets/avatar.png',
+  hero: '/assets/hero-banner.png',
 };
 
 export const FASTWORK = {
@@ -8,7 +10,7 @@ export const FASTWORK = {
   subtitle: '★ Recommended',
   href: 'https://fastwork.co/byob/5rBVa61qjC?openExternalBrowser=1&source=byob',
   image: '/assets/fastwork-banner.png',
-  imageAlt: 'FromSukong brand',
+  imageAlt: 'Fastwork logo',
 };
 
 export const CONTACT_CARDS = [

@@ -1,27 +1,21 @@
 import {Center} from '@astryxdesign/core/Center';
 import {Heading} from '@astryxdesign/core/Heading';
-import {VStack} from '@astryxdesign/core/Layout';
 import {PROFILE} from './data';
 
 export default function ProfileHeader() {
   return (
     <header className="profile-header">
       <Center>
-        <VStack hAlign="center" gap={4}>
-          <div className="avatar-wrap">
-            <div className="avatar-glow" aria-hidden="true" />
-            <img
-              className="profile-banner"
-              src={PROFILE.avatar}
-              alt={`${PROFILE.name} avatar`}
-              width={400}
-              height={400}
-            />
+        <div className="hero-wrap">
+          <img className="hero-img" src={PROFILE.hero} alt={`${PROFILE.name} banner`} width={1152} height={648} />
+          <div className="hero-overlay" aria-hidden="true" />
+          <div className="hero-text">
+            <Heading level={1} className="profile-title">
+              {PROFILE.name}
+            </Heading>
+            <p className="hero-tagline">{PROFILE.tagline}</p>
           </div>
-          <Heading level={1} className="profile-title" justify="center">
-            {PROFILE.name}
-          </Heading>
-        </VStack>
+        </div>
       </Center>
     </header>
   );
