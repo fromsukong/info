@@ -1,6 +1,12 @@
 ---
 import Page from '../components/index';
 import '../styles/global.css';
+
+const SITE = 'https://fromsukong.com';
+const TITLE = 'FromSukong | AI Automation & Web Development — Supakone Kongprapan';
+const DESCRIPTION =
+  "Link-in-bio for Supakone Kongprapan (@fromsukong) — AI automation & web development. Hire me on Fastwork or connect on Instagram, TikTok, YouTube.";
+const OG_IMAGE = 'https://fromsukong.com/assets/avatar.png';
 ---
 
 <!doctype html>
@@ -8,13 +14,23 @@ import '../styles/global.css';
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>(Su)pakone (Kong)prapan Official: TikTok, Instagram, Facebook, Threads</title>
-    <meta name="description" content="(Su)pakone (Kong)prapan Official: TikTok, Instagram, Facebook, Threads" />
-    <meta property="og:title" content="(Su)pakone (Kong)prapan Official: TikTok, Instagram, Facebook, Threads" />
-    <meta property="og:description" content="(Su)pakone (Kong)prapan Official: TikTok, Instagram, Facebook, Threads" />
+    <title>{TITLE}</title>
+    <meta name="description" content={DESCRIPTION} />
+    <link rel="canonical" href={SITE + '/'} />
+
     <meta property="og:type" content="profile" />
-    <meta property="og:image" content="/assets/avatar.png" />
+    <meta property="og:title" content={TITLE} />
+    <meta property="og:description" content={DESCRIPTION} />
+    <meta property="og:url" content={SITE + '/'} />
+    <meta property="og:site_name" content="FromSukong" />
+    <meta property="og:image" content={OG_IMAGE} />
     <meta property="profile:username" content="fromsukong" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={TITLE} />
+    <meta name="twitter:description" content={DESCRIPTION} />
+    <meta name="twitter:image" content={OG_IMAGE} />
+
     <link rel="icon" type="image/png" href="/assets/avatar.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -22,6 +38,46 @@ import '../styles/global.css';
       href="https://fonts.googleapis.com/css2?family=Fustat:wght@300;400;500;600;700&family=JetBrains+Mono&display=swap"
       rel="stylesheet"
     />
+
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'Person',
+          '@id': SITE + '/#person',
+          name: 'Supakone Kongprapan',
+          alternateName: 'FromSukong',
+          url: SITE + '/',
+          image: OG_IMAGE,
+          jobTitle: 'AI Automation & Web Developer',
+          description: 'AI automation and web development services. Hire me via Fastwork or connect on Instagram.',
+          knowsAbout: ['AI automation', 'web development', 'n8n', 'Activepieces', 'React', 'Astro'],
+          email: 'mailto:supakone.kongprapan@gmail.com',
+          telephone: '+66622645246',
+          sameAs: [
+            'https://instagram.com/fromsukong',
+            'https://www.youtube.com/channel/UC12xsWSeHKOZHff8W6xPx6g',
+            'https://www.threads.com/@fromsukong',
+            'https://tiktok.com/@prem_sukong',
+            'https://www.facebook.com/fromsukong/',
+          ],
+        },
+        {
+          '@type': 'WebSite',
+          '@id': SITE + '/#website',
+          url: SITE + '/',
+          name: 'FromSukong',
+          description: 'AI automation and web development services by Supakone Kongprapan.',
+          publisher: { '@id': SITE + '/#person' },
+        },
+        {
+          '@type': 'ProfilePage',
+          '@id': SITE + '/#page',
+          url: SITE + '/',
+          mainEntity: { '@id': SITE + '/#person' },
+        },
+      ],
+    })} />
   </head>
   <body>
     <Page client:load />
