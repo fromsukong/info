@@ -108,25 +108,17 @@ body {
   opacity: 0.6;
 }
 
-/* Highlighted card (primary CTA — Fastwork): orange gradient border + glow + arrow */
+/* Highlighted card (primary CTA — Fastwork): minimal — hairline accent border
+   + small 'Last used'-style recommended tag. Subtle but still stands out. */
 .link-card-highlight {
-  background: linear-gradient(180deg, rgba(255, 138, 61, 0.16), rgba(255, 138, 61, 0.04) 60%);
-  border: 1px solid rgba(255, 138, 61, 0.65) !important;
-  box-shadow: 0 0 24px rgba(255, 138, 61, 0.22), inset 0 0 0 1px rgba(255, 138, 61, 0.15);
+  border: 1px solid rgba(255, 138, 61, 0.35) !important;
 }
 
-.link-card-highlight .link-card-label {
-  color: #ffb877;
-}
-
-.link-card-highlight .link-card-inner::after {
-  content: '→';
-  position: absolute;
-  right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 18px;
-  color: #ff8a3d;
+.link-card-highlight .link-card-sub {
+  font-size: 11px;
+  letter-spacing: 0.3px;
+  color: rgba(255, 170, 102, 0.8);
+  opacity: 1;
 }
 
 /* About page: info items */

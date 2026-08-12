@@ -15,10 +15,17 @@ export const HIRE_CARDS = [
   {
     icon: '/assets/fastwork.jpeg',
     iconAlt: 'Fastwork logo',
-    label: 'Start hiring me via Fastwork',
-    sub: null,
+    label: 'Hire me via Fastwork',
+    sub: '★ Recommended',
     href: 'https://fastwork.co/byob/5rBVa61qjC?openExternalBrowser=1&source=byob',
     highlight: true,
+  },
+  {
+    icon: '/assets/doink.png',
+    iconAlt: 'Do.ink logo',
+    label: 'Visit my do.ink store',
+    sub: null,
+    href: 'https://app.do.ink/stores/fromsukong',
   },
   {
     icon: '/assets/ig-dm.png',
