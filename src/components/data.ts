@@ -15,9 +15,10 @@ export const HIRE_CARDS = [
   {
     icon: '/assets/fastwork.jpeg',
     iconAlt: 'Fastwork logo',
-    label: 'Hire me via Fastwork',
+    label: 'Start hiring me via Fastwork',
     sub: null,
     href: 'https://fastwork.co/byob/5rBVa61qjC?openExternalBrowser=1&source=byob',
+    highlight: true,
   },
   {
     icon: '/assets/ig-dm.png',
