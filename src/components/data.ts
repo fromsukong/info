@@ -1,6 +1,6 @@
 export const PROFILE = {
   name: '(Su)pakone (Kong)prapan',
-  tagline: 'Make Digital',
+  tagline: 'Make Exciting Website',
   avatar: '/assets/avatar.png',
   hero: '/assets/avatar.png',
 };

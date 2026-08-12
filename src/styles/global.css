@@ -209,6 +209,17 @@ body {
   padding: 12px 32px;
 }
 
+/* Fastwork featured card: orange accent — border + glow + orange sub */
+.featured-highlight {
+  border: 1px solid rgba(255, 138, 61, 0.55) !important;
+  box-shadow: 0 0 26px rgba(255, 138, 61, 0.22), 0 0 0 1px rgba(255, 138, 61, 0.12) inset;
+}
+
+.featured-highlight .link-card-sub {
+  color: #ff8a3d;
+  opacity: 1;
+}
+
 /* Social icons row (bottom of page) */
 .socials {
   margin-top: 8px;
