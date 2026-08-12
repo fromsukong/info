@@ -1,0 +1,139 @@
+---
+import { getCollection } from 'astro:content';
+import BlogLayout from '../../layouts/BlogLayout.astro';
+
+const posts = (await getCollection('blog'))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const SITE = 'https://fromsukong.com';
+const TITLE = 'Blog — FromSukong | Supakone Kongprapan';
+const DESCRIPTION =
+  'Articles on AI automation, web development and building in public by Supakone Kongprapan (@fromsukong).';
+
+const formatDate = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+---
+
+<BlogLayout title={TITLE} description={DESCRIPTION} canonical={SITE + '/blog/'}>
+  <main class="page">
+    <header class="blog-header">
+      <h1>Blog</h1>
+      <p class="blog-sub">AI automation · web development · building in public</p>
+    </header>
+
+    {
+      posts.length === 0 ? (
+        <div class="empty">
+          <p>No posts yet — coming soon.</p>
+          <a href="/">← back home</a>
+        </div>
+      ) : (
+        <ul class="post-list">
+          {
+            posts.map((post) => (
+              <li>
+                <a class="post-link" href={`/blog/${post.id}/`}>
+                  <span class="post-title">{post.data.title}</span>
+                  <time datetime={post.data.pubDate.toISOString()}>
+                    {formatDate(post.data.pubDate)}
+                  </time>
+                  <span class="post-desc">{post.data.description}</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      )
+    }
+  </main>
+</BlogLayout>
+
+<script type="application/ld+json" set:html={JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Blog',
+  '@id': 'https://fromsukong.com/blog/#blog',
+  url: 'https://fromsukong.com/blog/',
+  name: 'FromSukong Blog',
+  description: DESCRIPTION,
+  author: { '@id': 'https://fromsukong.com/#person' },
+  blogPost: posts.map((post) => ({
+    '@type': 'BlogPosting',
+    '@id': `https://fromsukong.com/blog/${post.id}/#post`,
+    url: `https://fromsukong.com/blog/${post.id}/`,
+    headline: post.data.title,
+    description: post.data.description,
+    datePublished: post.data.pubDate.toISOString(),
+    author: { '@id': 'https://fromsukong.com/#person' },
+  })),
+})} />
+
+<style>
+  .blog-header {
+    padding-top: 56px;
+    margin-bottom: 24px;
+  }
+  .blog-header h1 {
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin: 0 0 4px;
+  }
+  .blog-sub {
+    font-size: 14px;
+    opacity: 0.6;
+    margin: 0;
+  }
+  .post-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .post-link {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 16px;
+    border-radius: 12px;
+    background: rgba(245, 246, 247, 0.06);
+    color: var(--color-text-primary);
+    text-decoration: none;
+    transition: background 0.15s ease;
+  }
+  .post-link:hover {
+    background: rgba(245, 246, 247, 0.12);
+  }
+  .post-title {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .post-list time {
+    font-size: 12px;
+    opacity: 0.6;
+  }
+  .post-desc {
+    font-size: 14px;
+    opacity: 0.85;
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+  .empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 48px 0;
+    font-size: 15px;
+    opacity: 0.75;
+  }
+  .empty a {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+  .empty a:hover {
+    text-decoration: underline;
+  }
+</style>
