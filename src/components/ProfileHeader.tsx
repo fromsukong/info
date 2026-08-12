@@ -1,4 +1,3 @@
-import {Avatar} from '@astryxdesign/core/Avatar';
 import {Center} from '@astryxdesign/core/Center';
 import {Heading} from '@astryxdesign/core/Heading';
 import {VStack} from '@astryxdesign/core/Layout';
@@ -11,12 +10,12 @@ export default function ProfileHeader() {
         <VStack hAlign="center" gap={4}>
           <div className="avatar-wrap">
             <div className="avatar-glow" aria-hidden="true" />
-            <Avatar
+            <img
+              className="profile-banner"
               src={PROFILE.avatar}
-              name={PROFILE.name}
               alt={`${PROFILE.name} avatar`}
-              size={96}
-              tooltip={false}
+              width={400}
+              height={400}
             />
           </div>
           <Heading level={1} className="profile-title" justify="center">

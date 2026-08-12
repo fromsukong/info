@@ -3,16 +3,13 @@ export const PROFILE = {
   avatar: '/assets/avatar.png',
 };
 
-export const HIRE_CARDS = [
-  {
-    icon: '/assets/avatar.png',
-    iconAlt: 'FromSukong brand',
-    label: 'Hire me via Fastwork',
-    sub: '★ Recommended',
-    href: 'https://fastwork.co/byob/5rBVa61qjC?openExternalBrowser=1&source=byob',
-    highlight: true,
-  },
-];
+export const FASTWORK = {
+  title: 'Hire me via Fastwork',
+  subtitle: '★ Recommended',
+  href: 'https://fastwork.co/byob/5rBVa61qjC?openExternalBrowser=1&source=byob',
+  image: '/assets/fastwork-banner.png',
+  imageAlt: 'FromSukong brand',
+};
 
 export const CONTACT_CARDS = [
   {
