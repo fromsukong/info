@@ -7,7 +7,7 @@ export default function ProfileHeader() {
     <header className="profile-header">
       <Center>
         <div className="hero-wrap">
-          <img className="hero-img" src={PROFILE.hero} alt={`${PROFILE.name} banner`} width={1152} height={648} />
+          <img className="hero-img" src={PROFILE.hero} alt={`${PROFILE.name} banner`} width={512} height={512} />
           <div className="hero-overlay" aria-hidden="true" />
           <div className="hero-text">
             <Heading level={1} className="profile-title">

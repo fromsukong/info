@@ -2,7 +2,7 @@ export const PROFILE = {
   name: '(Su)pakone (Kong)prapan',
   tagline: 'Make Digital',
   avatar: '/assets/avatar.png',
-  hero: '/assets/hero-banner.png',
+  hero: '/assets/avatar.png',
 };
 
 export const FASTWORK = {
