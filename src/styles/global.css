@@ -50,6 +50,31 @@ body {
   margin-bottom: 24px;
 }
 
+/* Subtle orange brand glow behind the profile avatar */
+.avatar-wrap {
+  position: relative;
+  display: inline-flex;
+}
+
+.avatar-glow {
+  position: absolute;
+  inset: -26px;
+  border-radius: 9999px;
+  background: radial-gradient(
+    closest-side,
+    transparent 58%,
+    rgba(255, 138, 61, 0.6) 76%,
+    transparent 100%
+  );
+  filter: blur(3px);
+  pointer-events: none;
+}
+
+.avatar-wrap > :not(.avatar-glow) {
+  position: relative;
+  z-index: 1;
+}
+
 .profile-title {
   font-size: 24px;
   font-weight: 600;

@@ -3,23 +3,18 @@ export const PROFILE = {
   avatar: '/assets/avatar.png',
 };
 
-export const WORK_LINK = {
-  title: 'GoToPamaet Project',
-  subtitle: 'Experience The Slow Life',
-  href: 'http://gotopamaet.fromsukong.com/',
-  image: '/assets/gotopamaet.jpeg',
-  imageAlt: '(Su)pakone (Kong)prapan GoToPamaet Project',
-};
-
 export const HIRE_CARDS = [
   {
-    icon: '/assets/fastwork.jpeg',
-    iconAlt: 'Fastwork logo',
+    icon: '/assets/avatar.png',
+    iconAlt: 'FromSukong brand',
     label: 'Hire me via Fastwork',
     sub: '★ Recommended',
     href: 'https://fastwork.co/byob/5rBVa61qjC?openExternalBrowser=1&source=byob',
     highlight: true,
   },
+];
+
+export const CONTACT_CARDS = [
   {
     icon: '/assets/doink.png',
     iconAlt: 'Do.ink logo',

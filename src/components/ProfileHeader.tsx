@@ -9,13 +9,16 @@ export default function ProfileHeader() {
     <header className="profile-header">
       <Center>
         <VStack hAlign="center" gap={4}>
-          <Avatar
-            src={PROFILE.avatar}
-            name={PROFILE.name}
-            alt={`${PROFILE.name} avatar`}
-            size={96}
-            tooltip={false}
-          />
+          <div className="avatar-wrap">
+            <div className="avatar-glow" aria-hidden="true" />
+            <Avatar
+              src={PROFILE.avatar}
+              name={PROFILE.name}
+              alt={`${PROFILE.name} avatar`}
+              size={96}
+              tooltip={false}
+            />
+          </div>
           <Heading level={1} className="profile-title" justify="center">
             {PROFILE.name}
           </Heading>
