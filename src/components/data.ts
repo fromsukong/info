@@ -11,6 +11,7 @@ export const FASTWORK = {
   href: 'https://fastwork.co/byob/5rBVa61qjC?openExternalBrowser=1&source=byob',
   image: '/assets/fastwork-banner.png',
   imageAlt: 'Fastwork logo',
+  eventName: 'hire-fastwork',
 };
 
 export const CONTACT_CARDS = [
@@ -20,6 +21,7 @@ export const CONTACT_CARDS = [
     label: 'Visit my do.ink store',
     sub: null,
     href: 'https://analytics.fromsukong.com/q/doink-store',
+    eventName: 'doink-store',
   },
   {
     icon: '/assets/ig-dm.png',
@@ -27,6 +29,7 @@ export const CONTACT_CARDS = [
     label: 'Connect with me via DM',
     sub: '@fromsukong',
     href: 'https://ig.me/m/fromsukong',
+    eventName: 'ig-dm',
   },
 ];
 
@@ -36,6 +39,7 @@ export const LEARN_MORE = {
   href: '/about',
   icon: '/assets/avatar.png',
   iconAlt: 'Supakone Kongprapan avatar',
+  eventName: 'learn-more',
 };
 
 export const CONTACT = {

@@ -10,9 +10,10 @@ interface LinkCardProps {
   href: string;
   target?: string;
   highlight?: boolean;
+  eventName?: string;
 }
 
-export default function LinkCard({icon, iconAlt, label, sub, href, target = '_blank', highlight = false}: LinkCardProps) {
+export default function LinkCard({icon, iconAlt, label, sub, href, target = '_blank', highlight = false, eventName}: LinkCardProps) {
   return (
     <ClickableCard
       href={href}
@@ -20,6 +21,7 @@ export default function LinkCard({icon, iconAlt, label, sub, href, target = '_bl
       label={label}
       padding={0}
       className={`link-card${highlight ? ' link-card-highlight' : ''}`}
+      {...(eventName ? {'data-umami-event': eventName} : {})}
     >
       <div className="link-card-inner">
         <Thumbnail src={icon} alt={iconAlt} className="link-card-icon" />

@@ -31,7 +31,7 @@ export default function ContactCard() {
 
   return (
     <>
-      <ClickableCard label="Other Preferd Method" padding={0} className="link-card" onClick={() => setOpen(true)}>
+      <ClickableCard label="Other Preferd Method" padding={0} className="link-card" onClick={() => setOpen(true)} data-umami-event="contact-open">
         <div className="link-card-inner">
           <div className="link-card-icon">
             <ContactRound size={48} className="link-card-contact-icon" />
@@ -53,16 +53,16 @@ export default function ContactCard() {
           <VStack gap={2} className="contact-sheet-cards">
             <div className="contact-sheet-row">
               <Mail size={20} aria-hidden="true" />
-              <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
+              <a href={`mailto:${CONTACT.email}`} data-umami-event="contact-email">{CONTACT.email}</a>
             </div>
             <div className="contact-sheet-row">
               <Phone size={20} aria-hidden="true" />
-              <a href={`tel:${CONTACT.phone}`}>{CONTACT.phone}</a>
+              <a href={`tel:${CONTACT.phone}`} data-umami-event="contact-phone">{CONTACT.phone}</a>
             </div>
           </VStack>
 
           <footer className="contact-sheet-bar">
-            <button className="contact-sheet-save" onClick={saveContact}>
+            <button className="contact-sheet-save" onClick={saveContact} data-umami-event="contact-save">
               Save contact
             </button>
             <IconButton label="Close" icon={<Icon icon="close" />} variant="secondary" onClick={() => setOpen(false)} />

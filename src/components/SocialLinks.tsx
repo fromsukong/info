@@ -9,7 +9,7 @@ export default function SocialLinks() {
     <nav aria-label="Social media">
       <HStack gap={0.5} hAlign="center" wrap="wrap" className="socials">
         {SOCIAL_LINKS.map(({name, url}) => (
-          <Link key={name} href={url} target="_blank" label={name} className="social-link">
+          <Link key={name} href={url} target="_blank" label={name} className="social-link" data-umami-event={`social-${name.toLowerCase()}`}>
             <Icon icon={BRAND_ICONS[name]} size="lg" color="primary" className="social-icon" />
           </Link>
         ))}

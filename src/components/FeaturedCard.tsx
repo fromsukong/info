@@ -8,11 +8,19 @@ interface FeaturedCardProps {
   href: string;
   image: string;
   imageAlt: string;
+  eventName?: string;
 }
 
-export default function FeaturedCard({title, subtitle, href, image, imageAlt}: FeaturedCardProps) {
+export default function FeaturedCard({title, subtitle, href, image, imageAlt, eventName}: FeaturedCardProps) {
   return (
-    <ClickableCard href={href} target="_blank" label={title} padding={0} className="link-card featured-highlight">
+    <ClickableCard
+      href={href}
+      target="_blank"
+      label={title}
+      padding={0}
+      className="link-card featured-highlight"
+      {...(eventName ? {'data-umami-event': eventName} : {})}
+    >
       <div className="featured-thumb">
         <AspectRatio ratio={16 / 9} fit="cover">
           <img src={image} alt={imageAlt} loading="eager" />
