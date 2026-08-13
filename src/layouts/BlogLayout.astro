@@ -1,0 +1,80 @@
+---
+import BackLink from '../components/BackLink.astro';
+import ConsentBanner from '../components/ConsentBanner.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical: string;
+  ogType?: string;
+}
+
+const { title, description, canonical, ogType = 'website' } = Astro.props;
+const OG_IMAGE = 'https://fromsukong.com/assets/og-image.png';
+---
+
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#C04000" />
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', {
+        'ad_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied',
+        'analytics_storage': 'denied',
+        'wait_for_update': 500,
+      });
+      try {
+        if (localStorage.getItem('fs-consent') === 'accepted') {
+          gtag('consent', 'update', {'analytics_storage': 'granted'});
+        }
+      } catch (e) {}
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4R5CYWR2M4"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-4R5CYWR2M4');
+    </script>
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="FromSukong" />
+    <meta property="og:image" content={OG_IMAGE} />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={OG_IMAGE} />
+
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fustat:wght@300;400;500;600;700&family=JetBrains+Mono&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <BackLink />
+    <slot />
+    <ConsentBanner />
+  </body>
+</html>

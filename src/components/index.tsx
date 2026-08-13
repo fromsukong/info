@@ -19,8 +19,8 @@ export default function LinkBioPage() {
             <FeaturedCard {...FASTWORK} />
           </LinkSection>
           <LinkSection title="Contact me">
-            {CONTACT_CARDS.map(({icon, iconAlt, label, sub, href, eventName}) => (
-              <LinkCard key={label} icon={icon} iconAlt={iconAlt} label={label} sub={sub} href={href} eventName={eventName} />
+            {CONTACT_CARDS.map(({icon, iconAlt, label, sub, href, eventName, target}) => (
+              <LinkCard key={label} icon={icon} iconAlt={iconAlt} label={label} sub={sub} href={href} eventName={eventName} target={target} />
             ))}
             <LinkCard
               label={LEARN_MORE.label}

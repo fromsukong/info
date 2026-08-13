@@ -24,12 +24,13 @@ export const CONTACT_CARDS = [
     eventName: 'doink-store',
   },
   {
-    icon: '/assets/ig-dm.png',
-    iconAlt: 'Instagram icon',
-    label: 'Connect with me via DM',
-    sub: '@fromsukong',
-    href: 'https://ig.me/m/fromsukong',
-    eventName: 'ig-dm',
+    icon: '/assets/blog.png',
+    iconAlt: 'Blog icon',
+    label: 'Check out my blog',
+    sub: 'AI automation · building in public',
+    href: '/blog',
+    target: '_self',
+    eventName: 'blog',
   },
 ];
 
