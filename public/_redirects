@@ -2,4 +2,4 @@
 # /services → Fastwork gig page
 /services https://fastwork.co/byob/5rBVa61qjC?openExternalBrowser=1&source=byob 301
 # Blog slug change (2026-08-13): Lovable tutorial → Manah announcement
-/blog/lovable-line-google-maps/* /blog/manah-thai-lovable/* 301
+/blog/lovable-line-google-maps/* /blog/manah-thai-lovable/:splat 301
