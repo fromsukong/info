@@ -1,5 +1,7 @@
 ---
-// Small back-to-home button shown on non-landing pages (iOS-style chevron only).
+// Small back button shown on non-landing pages (iOS-style chevron only).
+// Goes BACK in history when possible (Prame 2026-08-13: "make it actually go back,
+// no always go to home"), falls back to home on a fresh tab.
 ---
 
 <a href="/" class="back-link" aria-label="Back to home" data-umami-event="back-home">
@@ -9,3 +11,15 @@
     </svg>
   </span>
 </a>
+
+<script is:inline>
+  const backEl = document.querySelector('a.back-link');
+  if (backEl) {
+    backEl.addEventListener('click', (e) => {
+      if (window.history.length > 1) {
+        e.preventDefault();
+        window.history.back();
+      }
+    });
+  }
+</script>

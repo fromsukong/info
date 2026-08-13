@@ -25,7 +25,6 @@ const formatDate = (d: Date) =>
   ogType="article"
 >
   <main class="page post-page">
-    <a class="back" href="/blog/">← Blog</a>
     <article>
       <header class="post-head">
         <h1>{post.data.title}</h1>
@@ -61,14 +60,6 @@ const formatDate = (d: Date) =>
   .post-page {
     padding-top: 32px;
     padding-bottom: 64px;
-  }
-  .back {
-    color: var(--color-accent);
-    text-decoration: none;
-    font-size: 14px;
-  }
-  .back:hover {
-    text-decoration: underline;
   }
   .post-head {
     margin: 16px 0 24px;
