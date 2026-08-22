@@ -97,8 +97,10 @@ const START = 104.4;
       .delta.down { color: #4ade80; }
       .delta.up { color: #f87171; }
       .day-body { margin-top: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-      .day-block h4 { font-size: 10px; letter-spacing: .6px; color: #ff751f; text-transform: uppercase; margin-bottom: 4px; }
-      .day-block p { font-size: 13px; color: #d0d0d0; white-space: pre-line; }
+      .day-block h4 { font-size: 10px; letter-spacing: .6px; color: #ff751f; text-transform: uppercase; margin-bottom: 5px; }
+      .day-block ul { list-style: none; margin: 0; padding: 0; }
+      .day-block li { position: relative; font-size: 13px; color: #d0d0d0; padding-left: 12px; margin-bottom: 3px; }
+      .day-block li::before { content: ""; position: absolute; left: 0; top: 7px; width: 5px; height: 5px; border-radius: 50%; background: #ff751f; }
 
       .loading, .error { text-align: center; color: #9a9a9a; padding: 48px 0; font-size: 15px; }
       .error { color: #f87171; }
@@ -156,6 +158,17 @@ const START = 104.4;
         }
 
         function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+        // Split a workout/food cell into bullet items (on · • or newline), strip leading "- "/"* ".
+        function bullets(s) {
+          if (!s) return null;
+          const items = String(s)
+            .split(/\s*[·•\n]\s*/)
+            .map(i => i.replace(/^[-*]\s*/, '').trim())
+            .filter(Boolean);
+          if (!items.length) return null;
+          return '<ul>' + items.map(i => '<li>' + esc(i) + '</li>').join('') + '</ul>';
+        }
 
         function build(rows) {
           const sorted = rows.slice().sort((a, b) => String(a.date).localeCompare(String(b.date)));
@@ -232,8 +245,8 @@ const START = 104.4;
               + '</div></div>'
               + (workout !== '—' || food !== '—'
                   ? '<div class="day-body">'
-                    + (workout !== '—' ? '<div class="day-block"><h4>Workout</h4><p>' + esc(workout) + '</p></div>' : '')
-                    + (food !== '—' ? '<div class="day-block"><h4>Food</h4><p>' + esc(food) + '</p></div>' : '')
+                    + (workout !== '—' ? '<div class="day-block"><h4>Workout</h4>' + (bullets(workout) || '<p>—</p>') + '</div>' : '')
+                    + (food !== '—' ? '<div class="day-block"><h4>Food</h4>' + (bullets(food) || '<p>—</p>') + '</div>' : '')
                     + '</div>' : '')
               + '</div>';
           }).join('');
