@@ -104,6 +104,20 @@ const START = 104.4;
 
       .loading, .error { text-align: center; color: #9a9a9a; padding: 48px 0; font-size: 15px; }
       .error { color: #f87171; }
+
+      /* habit grid */
+      .habits { margin-top: 26px; }
+      .habit-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .habit { background: #141414; border: 1px solid #232323; border-radius: 12px; padding: 12px 14px; }
+      .habit .hk { font-size: 10px; letter-spacing: .6px; color: #ff751f; text-transform: uppercase; }
+      .habit .hv { font-size: 20px; font-weight: 800; margin-top: 2px; }
+      .habit .ht { font-size: 11px; color: #9a9a9a; margin-top: 2px; }
+      .hbar { height: 6px; background: #1c1c1c; border-radius: 999px; overflow: hidden; margin-top: 8px; border: 1px solid #262626; }
+      .hfill { height: 100%; border-radius: 999px; transition: width .8s ease; }
+      .hfill.good { background: #4ade80; }
+      .hfill.ok { background: #ffa75c; }
+      .hfill.low { background: #f87171; }
+
       footer { text-align: center; color: #5f5f5f; font-size: 12px; margin-top: 40px; }
       .updated { text-align: center; color: #5f5f5f; font-size: 12px; margin-top: 8px; }
     </style>
@@ -151,6 +165,10 @@ const START = 104.4;
               delta: fmt(3),
               workout: cell(4) && cell(4).v != null ? String(cell(4).v) : '',
               food: cell(5) && cell(5).v != null ? String(cell(5).v) : '',
+              steps: cell(6) && cell(6).v != null ? Number(cell(6).v) : null,
+              sleep: cell(7) && cell(7).v != null ? Number(cell(7).v) : null,
+              protein: cell(8) && cell(8).v != null ? Number(cell(8).v) : null,
+              water: cell(9) && cell(9).v != null ? Number(cell(9).v) : null,
             };
             return o;
           }).filter(r => r.date && /^\d{4}/.test(String(r.date)));
@@ -193,6 +211,32 @@ const START = 104.4;
             + '<div class="bar"><div class="bar-fill" style="width:' + pct.toFixed(1) + '%"></div></div>'
             + '<div class="progress-labels"><span>Start <b>' + START + '</b></span><span>' + pct.toFixed(1) + '%</span><span>Goal <b>' + GOAL + '</b></span></div>'
             + '</div>';
+
+          // 7-day habit averages (steps / sleep / protein / water)
+          const recent7 = sorted.slice(-7);
+          const avgOf = (key) => {
+            const vals = recent7.map(r => r[key]).filter(v => v != null && !isNaN(v));
+            return vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : null;
+          };
+          const habits = [
+            { k: 'Steps', v: avgOf('steps'), target: 8000, fmt: v => Math.round(v).toLocaleString() },
+            { k: 'Sleep', v: avgOf('sleep'), target: 8, fmt: v => v.toFixed(1) + 'h' },
+            { k: 'Protein', v: avgOf('protein'), target: 120, fmt: v => Math.round(v) + 'g' },
+            { k: 'Water', v: avgOf('water'), target: 3, fmt: v => v.toFixed(1) + 'L' },
+          ];
+          const hasHabits = habits.some(h => h.v != null);
+          if (hasHabits) {
+            html += '<div class="habits"><div class="log-title">Last 7 days — daily habits</div><div class="habit-grid">';
+            html += habits.map(h => {
+              if (h.v == null) return '<div class="habit"><div class="hk">' + h.k + '</div><div class="hv">–</div><div class="ht">target ' + h.fmt(h.target) + '</div></div>';
+              const p = Math.max(0, Math.min(100, (h.v / h.target) * 100));
+              const cls = p >= 90 ? 'good' : (p >= 60 ? 'ok' : 'low');
+              return '<div class="habit"><div class="hk">' + h.k + '</div><div class="hv">' + h.fmt(h.v) + '</div>'
+                + '<div class="hbar"><div class="hfill ' + cls + '" style="width:' + p.toFixed(0) + '%"></div></div>'
+                + '<div class="ht">/ ' + h.fmt(h.target) + '</div></div>';
+            }).join('');
+            html += '</div></div>';
+          }
 
           // Chart (SVG line) — only if 2+ weight points
           if (sorted.length >= 2) {
