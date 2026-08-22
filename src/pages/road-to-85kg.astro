@@ -1,0 +1,260 @@
+---
+// Road to 85kg — Prame's public 365-day weight-loss challenge tracker.
+// Reads LIVE data from the published Google Sheet (gviz/tq JSON endpoint).
+// Sheets ID: 1X8HKW_cZI-luydidRbb_o98umaFYEP4_nRk6xdfTO0w
+const SITE = 'https://fromsukong.com';
+const TITLE = 'Road to 85kg — FromSukong Challenge Tracker';
+const DESCRIPTION =
+  "Prame's 365-day weight-loss challenge: 104.4 kg → 85 kg. Live daily weight, workouts and food log. Follow the journey on Instagram @fromsukong.";
+const GOAL = 85;
+const START = 104.4;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#C04000" />
+    <title>{TITLE}</title>
+    <meta name="description" content={DESCRIPTION} />
+    <link rel="canonical" href={SITE + '/road-to-85kg/'} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={TITLE} />
+    <meta property="og:description" content={DESCRIPTION} />
+    <meta property="og:url" content={SITE + '/road-to-85kg/'} />
+    <meta property="og:site_name" content="FromSukong" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={TITLE} />
+    <meta name="twitter:description" content={DESCRIPTION} />
+
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
+
+    <style is:global>
+      :root { color-scheme: dark; }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html { background: #0a0a0a; }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background: #0a0a0a; color: #f5f5f5; line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+      }
+      a { color: #ff751f; text-decoration: none; }
+      .wrap { max-width: 560px; margin: 0 auto; padding: 0 18px 64px; }
+
+      /* top bar */
+      .top { display: flex; align-items: center; justify-content: space-between; padding: 18px 0 6px; }
+      .wordmark { font-weight: 700; font-size: 15px; letter-spacing: 0.2px; color: #ff751f; }
+      .follow { font-size: 13px; padding: 7px 14px; border: 1px solid rgba(255,117,31,.5); border-radius: 999px; color: #ff751f; }
+
+      /* hero */
+      .hero { text-align: center; padding: 26px 0 8px; }
+      .badge { display: inline-block; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+        color: #ff751f; border: 1px solid rgba(255,117,31,.4); border-radius: 999px; padding: 5px 12px; margin-bottom: 14px; }
+      .hero h1 { font-size: 26px; font-weight: 800; letter-spacing: -0.5px; }
+      .hero .sub { color: #9a9a9a; font-size: 14px; margin-top: 4px; }
+      .daypill { display: inline-flex; align-items: baseline; gap: 6px; margin-top: 14px;
+        background: rgba(255,117,31,.12); border: 1px solid rgba(255,117,31,.35);
+        padding: 6px 16px; border-radius: 999px; font-size: 14px; }
+      .daypill b { font-size: 20px; color: #ff751f; }
+
+      /* stat cards */
+      .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 24px; }
+      .card { background: #141414; border: 1px solid #232323; border-radius: 14px; padding: 16px 10px; text-align: center; }
+      .card .k { font-size: 11px; color: #9a9a9a; text-transform: uppercase; letter-spacing: .6px; }
+      .card .v { font-size: 26px; font-weight: 800; margin-top: 4px; }
+      .card .sun { font-size: 12px; color: #ff751f; margin-top: 2px; }
+      .card.orange .v { color: #ff751f; }
+
+      /* progress */
+      .progress-wrap { text-align: center; margin-top: 26px; }
+      .progress-title { font-size: 13px; color: #9a9a9a; text-transform: uppercase; letter-spacing: .6px; }
+      .bar { height: 14px; background: #1c1c1c; border-radius: 999px; overflow: hidden; margin: 10px 0 6px; border: 1px solid #262626; }
+      .bar-fill { height: 100%; background: linear-gradient(90deg,#ff751f,#ffa75c); width: 0%; border-radius: 999px; transition: width 1s ease; }
+      .progress-labels { display: flex; justify-content: space-between; font-size: 12px; color: #9a9a9a; }
+      .progress-labels b { color: #f5f5f5; }
+
+      /* chart */
+      .chart-card { background: #141414; border: 1px solid #232323; border-radius: 14px; padding: 18px; margin-top: 26px; }
+      .chart-card h2 { font-size: 15px; font-weight: 700; }
+      .chart-card .cap { font-size: 12px; color: #9a9a9a; margin-bottom: 14px; }
+      svg text { fill: #6f6f6f; font-size: 10px; }
+
+      /* log table */
+      .log { margin-top: 26px; }
+      .log-title { font-size: 13px; color: #9a9a9a; text-transform: uppercase; letter-spacing: .6px; padding: 0 2px 10px; }
+      .day { background: #141414; border: 1px solid #232323; border-radius: 12px; padding: 12px 14px; margin-bottom: 10px; }
+      .day-head { display: flex; align-items: baseline; justify-content: space-between; }
+      .day-num { font-weight: 800; font-size: 15px; }
+      .day-num span { color: #9a9a9a; font-weight: 400; font-size: 12px; margin-left: 6px; }
+      .day-wt { font-size: 15px; font-weight: 700; }.day-wt small { color: #9a9a9a; font-weight: 400; }
+      .delta { font-size: 12px; font-weight: 700; }
+      .delta.down { color: #4ade80; }
+      .delta.up { color: #f87171; }
+      .day-body { margin-top: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+      .day-block h4 { font-size: 10px; letter-spacing: .6px; color: #ff751f; text-transform: uppercase; margin-bottom: 4px; }
+      .day-block p { font-size: 13px; color: #d0d0d0; white-space: pre-line; }
+
+      .loading, .error { text-align: center; color: #9a9a9a; padding: 48px 0; font-size: 15px; }
+      .error { color: #f87171; }
+      footer { text-align: center; color: #5f5f5f; font-size: 12px; margin-top: 40px; }
+      .updated { text-align: center; color: #5f5f5f; font-size: 12px; margin-top: 8px; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="top">
+        <a class="wordmark" href="https://fromsukong.com">FROMSUKONG</a>
+        <a class="follow" target="_blank" rel="noopener" href="https://instagram.com/fromsukong">Follow @fromsukong</a>
+      </div>
+
+      <div id="app">
+        <div class="hero">
+          <span class="badge">365-day challenge</span>
+          <h1>Road to 85kg</h1>
+          <p class="sub">{START} kg → {GOAL} kg · logged daily</p>
+          <div class="daypill">Day <b id="day">–</b> <span>/ 365</span></div>
+        </div>
+        <div id="content"><div class="loading">Loading latest weight…</div></div>
+      </div>
+
+      <footer>
+        Built &amp; tracked by <a href="https://fromsukong.com" target="_blank" rel="noopener">FromSukong</a><br />
+        <span class="updated" id="updated"></span>
+      </footer>
+    </div>
+
+    <script is:inline>
+      (function () {
+        const GOAL = 85, START = 104.4;
+        const SHEET = 'https://docs.google.com/spreadsheets/d/1X8HKW_cZI-luydidRbb_o98umaFYEP4_nRk6xdfTO0w/gviz/tq?tqx=out:json&sheet=Log';
+
+        function parseGviz(text) {
+          const m = text.match(/setResponse\(([\s\S]*)\);?\s*$/) || text.match(/setResponse\(([\s\S]*)\)/);
+          if (!m) throw new Error('bad gviz payload');
+          const j = JSON.parse(m[1]);
+          const cols = j.table.cols;
+          const rows = (j.table.rows || []).map(r => {
+            const cell = (i) => r.c[i] || {};
+            const fmt = (i) => (r.c[i] && r.c[i].f != null ? r.c[i].f : (cell(i).v == null ? '' : cell(i).v));
+            const o = {
+              date: fmt(0),
+              day: cell(1).v,
+              weight: cell(2).v,
+              delta: fmt(3),
+              workout: cell(4) && cell(4).v != null ? String(cell(4).v) : '',
+              food: cell(5) && cell(5).v != null ? String(cell(5).v) : '',
+            };
+            return o;
+          }).filter(r => r.date && /^\d{4}/.test(String(r.date)));
+          return rows;
+        }
+
+        function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+        function build(rows) {
+          const sorted = rows.slice().sort((a, b) => String(a.date).localeCompare(String(b.date)));
+          const last = sorted[sorted.length - 1];
+          const cur = last ? parseFloat(last.weight) : NaN;
+          const day = last && last.day != null ? Number(last.day) : (sorted.length || 1);
+
+          // Update hero pill
+          document.getElementById('day').textContent = String(day);
+
+          const loss = isNaN(cur) ? 0 : Math.max(0, START - cur);
+          const pct = isNaN(cur) ? 0 : Math.min(100, ((START - cur) / (START - GOAL)) * 100);
+
+          let html = '<div class="stats">'
+            + '<div class="card"><div class="k">Current</div><div class="v">' + (isNaN(cur) ? '–' : cur + '') + '</div><div class="sun">kg</div></div>'
+            + '<div class="card orange"><div class="k">Lost</div><div class="v">' + loss.toFixed(1) + '</div><div class="sun">kg</div></div>'
+            + '<div class="card"><div class="k">Left</div><div class="v">' + (isNaN(cur) ? '–' : Math.max(0, (cur - GOAL).toFixed(1))) + '</div><div class="sun">to goal</div></div>'
+            + '</div>';
+
+          html += '<div class="progress-wrap">'
+            + '<div class="progress-title">Journey to ' + GOAL + ' kg</div>'
+            + '<div class="bar"><div class="bar-fill" style="width:' + pct.toFixed(1) + '%"></div></div>'
+            + '<div class="progress-labels"><span>Start <b>' + START + '</b></span><span>' + pct.toFixed(1) + '%</span><span>Goal <b>' + GOAL + '</b></span></div>'
+            + '</div>';
+
+          // Chart (SVG line) — only if 2+ weight points
+          if (sorted.length >= 2) {
+            const pts = sorted.filter(r => r.weight != null && !isNaN(parseFloat(r.weight)));
+            if (pts.length >= 2) {
+              const W = 560, H = 220, PAD = 26;
+              const weights = pts.map(r => parseFloat(r.weight));
+              const wmin = Math.floor(Math.min.apply(null, weights.concat([GOAL])) - 1);
+              const wmax = Math.ceil(Math.max.apply(null, weights.concat([START])) + 1);
+              const y = v => PAD + (wmax - v) / (wmax - wmin) * (H - PAD * 2);
+              const x = i => PAD + (i / (pts.length - 1)) * (W - PAD * 2);
+              let path = pts.map((r, i) => (i ? 'L' : 'M') + x(i).toFixed(1) + ',' + y(parseFloat(r.weight)).toFixed(1)).join(' ');
+              const area = path + ' L' + x(pts.length - 1).toFixed(1) + ',' + (H - PAD) + ' L' + x(0).toFixed(1) + ',' + (H - PAD) + ' Z';
+              let dots = '', labels = '';
+              pts.forEach((r, i) => {
+                dots += '<circle cx="' + x(i).toFixed(1) + '" cy="' + y(parseFloat(r.weight)).toFixed(1) + '" r="3.5" fill="#ff751f" />';
+                if (i === 0 || i === pts.length - 1) {
+                  labels += '<text x="' + x(i).toFixed(1) + '" y="' + (H - 6) + '" text-anchor="' + (i ? 'end' : 'start') + '">' + esc(String(r.date).slice(5)) + '</text>';
+                }
+              });
+              // goal reference line
+              const gy = y(GOAL);
+              html += '<div class="chart-card"><h2>Weight trend</h2><div class="cap">Daily weight (kg) toward goal</div>'
+                + '<svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none" style="width:100%;height:auto">'
+                + '<line x1="' + PAD + '" y1="' + gy + '" x2="' + (W - PAD) + '" y2="' + gy + '" stroke="#4ade80" stroke-dasharray="4 4" stroke-width="1" opacity="0.6"/>'
+                + '<text x="' + (W - PAD) + '" y="' + (gy - 4) + '" text-anchor="end">Goal ' + GOAL + '</text>'
+                + '<path d="' + area + '" fill="rgba(255,117,31,0.18)" />'
+                + '<path d="' + path + '" fill="none" stroke="#ff751f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />'
+                + dots + labels
+                + '</svg></div>';
+            }
+          }
+
+          // Log — most recent 14 days (newest first)
+          const recent = sorted.slice(-14).reverse();
+          html += '<div class="log"><div class="log-title">Daily log</div>';
+          html += recent.map(r => {
+            const d = (r.day != null ? r.day : '–');
+            const wt = r.weight != null ? r.weight : '–';
+            const dl = (r.delta != null ? r.delta : '');
+            const dlNum = parseFloat(dl);
+            const dlCls = dlNum > 0 ? 'up' : (dlNum < 0 ? 'down' : '');
+            const workout = r.workout || '—';
+            const food = r.food || '—';
+            return '<div class="day">'
+              + '<div class="day-head">'
+              + '<div class="day-num">Day ' + esc(d) + '<span>' + esc(String(r.date).slice(5)) + '</span></div>'
+              + '<div class="day-wt">' + esc(wt) + ' kg'
+              + (dl !== '' && !isNaN(dlNum) ? ' <small class="delta ' + dlCls + '">' + (dlNum > 0 ? '▲' : dlNum < 0 ? '▼' : '') + '' + esc(dl) + '</small>' : '')
+              + '</div></div>'
+              + (workout !== '—' || food !== '—'
+                  ? '<div class="day-body">'
+                    + (workout !== '—' ? '<div class="day-block"><h4>Workout</h4><p>' + esc(workout) + '</p></div>' : '')
+                    + (food !== '—' ? '<div class="day-block"><h4>Food</h4><p>' + esc(food) + '</p></div>' : '')
+                    + '</div>' : '')
+              + '</div>';
+          }).join('');
+          html += '</div>';
+
+          const updated = last ? ('Last updated: ' + String(last.date)) : '';
+          document.getElementById('updated').textContent = updated;
+          document.getElementById('content').innerHTML = html;
+        }
+
+        function fail(msg) {
+          document.getElementById('content').innerHTML =
+            '<div class="error">' + esc(msg || 'Couldn\'t load data.') + '</div>';
+        }
+
+        fetch(SHEET).then(r => r.text()).then(text => {
+          const rows = parseGviz(text);
+          if (!rows.length) throw new Error('No data yet');
+          build(rows);
+        }).catch(e => fail(e.message));
+      })();
+    </script>
+  </body>
+</html>
