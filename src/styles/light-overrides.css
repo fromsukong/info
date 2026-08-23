@@ -9,21 +9,34 @@
   --color-text-secondary: #52525b;
   --color-icon-primary: #18181b;
   --color-border: #ececee;
+  /* Dark-theme leftover: --color-text-accent stays #e8f1f6 (near-white), so
+     any .astryx-text.accent span (e.g. inline info links) paints invisible on
+     white. Pin it to the brand orange. */
+  --color-text-accent: #fc5200;
   background: #fff;
   color: #18181b;
 }
 
-/* Link cards: dark surface -> white card with hairline border.
+/* Link cards: dark surface -> white card with a VISIBLE border.
+   Border token is #d4d4d8 (zinc-300) — the earlier #ececee hairline vanished
+   against the white page (Prame: "very hard to see the box boundary").
    ClickableCard renders a div.astryx-card (role=button) with an inner overlay
    anchor — style the card root, not the anchor. */
 .astryx-card.link-card {
   background: #fff !important;
   color: #18181b !important;
-  border: 1px solid #ececee !important;
+  border: 1px solid #d4d4d8 !important;
 }
 
 .astryx-card.link-card:hover {
   border-color: rgba(252, 82, 0, 0.45) !important;
+}
+
+/* Highlighted CTA card (Road to 85kg): accent border must beat the generic
+   card border. Same selector specificity as the rule above + declared later,
+   so it wins the cascade (the old single-class rule lost to (0,2,0)). */
+.astryx-card.link-card.link-card-highlight {
+  border-color: rgba(252, 82, 0, 0.55) !important;
 }
 
 .link-card-label {
@@ -51,7 +64,9 @@
   color: #fff !important;
 }
 
-/* Section headers (e.g. "About") — muted uppercase feel like roadmap labels */
+/* Section headers (e.g. "About") — readable secondary gray.
+   #a1a1aa was ~2.3:1 on white (hard to read); #52525b keeps the muted
+   hierarchy but passes WCAG AA comfortably. */
 .section-header {
-  color: #a1a1aa;
+  color: #52525b;
 }

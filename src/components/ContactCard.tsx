@@ -34,7 +34,7 @@ export default function ContactCard() {
       <ClickableCard label="Contact me via" padding={0} className="link-card" onClick={() => setOpen(true)} data-umami-event="contact-open">
         <div className="link-card-inner">
           <div className="link-card-icon">
-            <ContactRound size={48} className="link-card-contact-icon" />
+            <ContactRound size={48} className="link-card-glyph" />
           </div>
           <Text type="body" weight="medium" justify="center" display="block" className="link-card-label">
             Contact me via

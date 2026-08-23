@@ -39,8 +39,6 @@ export const LEARN_MORE = {
   label: 'Learn more about me',
   sub: null,
   href: '/about',
-  icon: '/assets/avatar.png',
-  iconAlt: 'Supakone Kongprapan avatar',
   eventName: 'learn-more',
 };
 

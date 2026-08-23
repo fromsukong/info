@@ -102,8 +102,9 @@ body {
   min-height: 100lvh;
 }
 
-/* Back link on non-landing pages — legacy sticky bar (the floating glass dot
-   in components/BackLink.astro wins via cascade) */
+/* Back button on non-landing pages — legacy rules kept only as a fallback;
+   the shared floating glass dot lives in components/BackLink.astro and wins
+   via cascade (its <style is:global> loads after this stylesheet). */
 .back-link {
   position: fixed;
   top: 16px;
@@ -220,7 +221,9 @@ body {
   background: transparent !important;
 }
 
-.link-card-contact-icon {
+/* Shared glyph tile for SVG-icon cards (Contact, Learn-more): soft zinc tile
+   + ink lucide glyph — identical treatment across all such cards. */
+.link-card-glyph {
   width: 48px;
   height: 48px;
   padding: 8px;

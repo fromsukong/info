@@ -1,9 +1,13 @@
+import type {ReactNode} from 'react';
 import {ClickableCard} from '@astryxdesign/core/ClickableCard';
 import {Text} from '@astryxdesign/core/Text';
 import {Thumbnail} from '@astryxdesign/core/Thumbnail';
 
 interface LinkCardProps {
-  icon: string;
+  /** Raster icon from /assets — omit when iconNode is used */
+  icon?: string;
+  /** Inline SVG node (lucide icon) — used instead of `icon` */
+  iconNode?: ReactNode;
   iconAlt?: string;
   label: string;
   sub?: string | null;
@@ -13,7 +17,7 @@ interface LinkCardProps {
   eventName?: string;
 }
 
-export default function LinkCard({icon, iconAlt, label, sub, href, target = '_blank', highlight = false, eventName}: LinkCardProps) {
+export default function LinkCard({icon, iconNode, iconAlt, label, sub, href, target = '_blank', highlight = false, eventName}: LinkCardProps) {
   return (
     <ClickableCard
       href={href}
@@ -24,7 +28,13 @@ export default function LinkCard({icon, iconAlt, label, sub, href, target = '_bl
       {...(eventName ? {'data-umami-event': eventName} : {})}
     >
       <div className="link-card-inner">
-        <Thumbnail src={icon} alt={iconAlt} className="link-card-icon" />
+        {iconNode ? (
+          <div className="link-card-icon">
+            {iconNode}
+          </div>
+        ) : (
+          <Thumbnail src={icon} alt={iconAlt} className="link-card-icon" />
+        )}
         <Text type="body" weight="medium" justify="center" display="block" className="link-card-label">
           {label}
         </Text>
