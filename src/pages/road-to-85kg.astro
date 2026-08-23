@@ -152,6 +152,28 @@ const START = 104.4;
         const STEPS_GOAL = 10000, PROTEIN_GOAL = 120;
         const SHEET = 'https://docs.google.com/spreadsheets/d/1X8HKW_cZI-luydidRbb_o98umaFYEP4_nRk6xdfTO0w/gviz/tq?tqx=out:json&sheet=Log';
 
+        // ===================== MOCK TEST DATA =====================
+        // TEMPORARY (testing the trend chart & multi-day logs).
+        // To remove: set SHOW_MOCK_DATA = false (or delete this block) and redeploy.
+        const SHOW_MOCK_DATA = true;
+        const MOCK_ROWS = [
+          { date:'2026-08-23', day:2, weight:104.0, delta:'-0.4', am:102.2, steps:9400,  protein:132, water:2.8, sleep:7.5,
+            workout:'Bench 50×28 · Row 50×24 · Lat pulldown 45×30', food:'Chicken rice · 3 egg omelette · Protein shake' },
+          { date:'2026-08-24', day:3, weight:103.8, delta:'-0.2', am:102.1, steps:11300, protein:141, water:3.1, sleep:8.0,
+            workout:'BW squat ×45 · Curl 12×38 · Lat raise 12×32', food:'Grilled pork salad · Yogurt + granola' },
+          { date:'2026-08-25', day:4, weight:104.1, delta:'+0.3', am:102.6, steps:7800,  protein:118, water:2.6, sleep:6.5,
+            workout:'Rest day walk · Stretching 20min', food:'Pad krapow gai · 1 soda (cheat)' },
+          { date:'2026-08-26', day:5, weight:103.4, delta:'-0.7', am:102.0, steps:12100, protein:138, water:3.2, sleep:8.2,
+            workout:'Bench 52.5×25 · Row 52.5×22 · BW squat ×48 · Curl 12×40', food:'Salmon teriyaki · Egg bites · Casein shake' },
+          { date:'2026-08-27', day:6, weight:103.2, delta:'-0.2', am:101.9, steps:10200, protein:126, water:3.0, sleep:7.8,
+            workout:'Lat raise 12×35 · Cable fly 20×30 · Plank ×3', food:'Tuna wrap · Chicken breast + rice' },
+          { date:'2026-08-28', day:7, weight:103.5, delta:'+0.3', am:102.3, steps:8600,  protein:115, water:2.7, sleep:7.0,
+            workout:'Row 50×26 · Deadlift 80×15 · BW squat ×42', food:'Sukiyaki (no noodle) · Protein bar' },
+          { date:'2026-08-29', day:8, weight:103.0, delta:'-0.5', am:101.7, steps:11700, protein:144, water:3.3, sleep:8.1,
+            workout:'Bench 52.5×26 · Row 50×28 · Squat jump ×40 · Curl 12×42', food:'Chicken breast salad · 11 pork skewers · Whey' },
+        ];
+        // =================== END MOCK TEST DATA ===================
+
         function parseGviz(text) {
           const m = text.match(/setResponse\(([\s\S]*)\);?\s*$/);
           if (!m) throw new Error('bad gviz payload');
@@ -339,7 +361,7 @@ const START = 104.4;
             dot.setAttribute('cx', p.x); dot.setAttribute('cy', p.y);
           }
 
-          document.getElementById('updated').textContent = last ? ('last update ' + niceDate(last.date)) : '';
+          document.getElementById('updated').textContent = last ? ('last update ' + niceDate(last.date) + (SHOW_MOCK_DATA ? ' · TEST DATA' : '')) : '';
         }
 
         function fail(msg) {
@@ -348,7 +370,8 @@ const START = 104.4;
         }
 
         fetch(SHEET).then(r => r.text()).then(text => {
-          const rows = parseGviz(text);
+          let rows = parseGviz(text);
+          if (SHOW_MOCK_DATA) rows = rows.concat(MOCK_ROWS);
           if (!rows.length) throw new Error('No data yet');
           build(rows);
         }).catch(e => fail(e.message));
