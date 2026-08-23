@@ -153,7 +153,7 @@ const START = 104.4;
         const SHEET = 'https://docs.google.com/spreadsheets/d/1X8HKW_cZI-luydidRbb_o98umaFYEP4_nRk6xdfTO0w/gviz/tq?tqx=out:json&sheet=Log';
 
         function parseGviz(text) {
-          const m = text.match(/setResponse\([\s\S]*\);?\s*$/) || text.match(/setResponse\(([\s\S]*)\)/);
+          const m = text.match(/setResponse\(([\s\S]*)\);?\s*$/);
           if (!m) throw new Error('bad gviz payload');
           const j = JSON.parse(m[1]);
           const rows = (j.table.rows || []).map(r => {
