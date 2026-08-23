@@ -21,6 +21,7 @@ export default function LinkBioPage() {
             sub="365-day weight-loss challenge · live tracker"
             href={ROAD85.href}
             target="_self"
+            highlight
             eventName={ROAD85.eventName}
           />
           <ContactCard />
