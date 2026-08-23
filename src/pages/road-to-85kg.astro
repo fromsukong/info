@@ -243,7 +243,7 @@ const START = 104.4;
         function totalVolume(list) {
           let v = 0;
           list.forEach(it => {
-            const m = it.match(/(\d+(?:\.\d+)?)\s*[xX×]\s*(\d+(?:\.\d+)?)/);
+            const m = it.match(/(\d+(?:\.\d+)?)\s*(?:kg|lb|lbs)?\s*[xX×]\s*(\d+(?:\.\d+)?)/);
             if (m) v += parseFloat(m[1]) * parseFloat(m[2]);
           });
           return v;
@@ -334,20 +334,19 @@ const START = 104.4;
             const fItems = items(r.food);
             const vol = totalVolume(wItems);
 
-            // summary trio
+            // workout — always renders: "N lifts" with mark BELOW the number;
+            // 0 lifts + ✗ when nothing logged
             let trio = '<div class="tri">';
-            if (wItems.length) {
-              trio += '<div class="t"><div class="tnum">' + wItems.length + '<span class="tunit">lifts</span><span class="mark ok"> ✓</span></div>'
-                + (vol > 0 ? '<div class="tsum">~' + Math.round(vol).toLocaleString() + ' kg total volume</div>' : '') + '</div>';
-            } else {
-              trio += '<div class="t"><div class="tnum"><span class="mark no">✗</span></div></div>';
-            }
+            trio += '<div class="t"><div class="tnum">' + wItems.length + '<span class="tunit">lifts</span></div>'
+              + '<div class="tsum">' + (wItems.length ? '<span class="mark ok">✓</span>' : '<span class="mark no">✗</span>') + '</div>'
+              + (wItems.length && vol > 0 ? '<div class="tsum">~' + Math.round(vol).toLocaleString() + ' kg total volume</div>' : '')
+              + '</div>';
             if (fItems.length) {
               let pSum = '';
               if (r.calories != null && !isNaN(r.calories)) {
                 pSum = r.calories < CAL_TARGET
-                  ? '<span class="mark ok">✓ ' + Math.round(r.calories) + ' kcal · under ' + CAL_TARGET + '</span>'
-                  : '<span class="mark no">✗ ' + Math.round(r.calories) + ' kcal · over ' + CAL_TARGET + '</span>';
+                  ? '<span class="mark ok">✓ UNDER 2K</span>'
+                  : '<span class="mark no">✗ OVER 2K</span>';
               } else if (r.protein != null && !isNaN(r.protein)) {
                 pSum = r.protein >= PROTEIN_GOAL ? 'High protein ✓' : 'Protein ' + Math.round(r.protein) + 'g';
               }
