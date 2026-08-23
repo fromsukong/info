@@ -62,6 +62,10 @@ const START = 104.4;
         background: rgba(255,117,31,.12); border: 1px solid rgba(255,117,31,.35);
         padding: 6px 16px; border-radius: 999px; font-size: 14px; }
       .daypill b { font-size: 20px; color: #ff751f; }
+      .daypill .amchip { display: inline-flex; align-items: baseline; gap: 4px; margin-left: 10px;
+        padding-left: 12px; border-left: 1px solid rgba(255,117,31,.3);
+        font-size: 12px; color: #9a9a9a; }
+      .daypill .amchip b { font-size: 14px; }
 
       /* stat cards */
       .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 24px; }
@@ -134,7 +138,7 @@ const START = 104.4;
           <span class="badge">365-day challenge</span>
           <h1>Road to 85kg</h1>
           <p class="sub">{START} kg → {GOAL} kg · logged daily</p>
-          <div class="daypill">Day <b id="day">–</b> <span>/ 365</span></div>
+          <div class="daypill">Day <b id="day">–</b> <span>/ 365</span><span class="amchip" id="morning-chip" hidden>Morning <b>–</b> kg</span></div>
         </div>
         <div id="content"><div class="loading">Loading latest weight…</div></div>
       </div>
@@ -165,10 +169,11 @@ const START = 104.4;
               delta: fmt(3),
               workout: cell(4) && cell(4).v != null ? String(cell(4).v) : '',
               food: cell(5) && cell(5).v != null ? String(cell(5).v) : '',
-              steps: cell(6) && cell(6).v != null ? Number(cell(6).v) : null,
-              sleep: cell(7) && cell(7).v != null ? Number(cell(7).v) : null,
+              am: cell(6) && cell(6).v != null ? Number(cell(6).v) : null,
+              steps: cell(7) && cell(7).v != null ? Number(cell(7).v) : null,
               protein: cell(8) && cell(8).v != null ? Number(cell(8).v) : null,
               water: cell(9) && cell(9).v != null ? Number(cell(9).v) : null,
+              sleep: cell(10) && cell(10).v != null ? Number(cell(10).v) : null,
             };
             return o;
           }).filter(r => r.date && /^\d{4}/.test(String(r.date)));
@@ -196,6 +201,13 @@ const START = 104.4;
 
           // Update hero pill
           document.getElementById('day').textContent = String(day);
+
+          // Morning weight chip (bonus metric; PM is the official number)
+          const mc = document.getElementById('morning-chip');
+          if (mc && last && last.am != null && !isNaN(last.am)) {
+            mc.hidden = false;
+            mc.querySelector('b').textContent = String(last.am);
+          }
 
           const loss = isNaN(cur) ? 0 : Math.max(0, START - cur);
           const pct = isNaN(cur) ? 0 : Math.min(100, ((START - cur) / (START - GOAL)) * 100);
