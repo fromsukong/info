@@ -5,13 +5,14 @@ export const PROFILE = {
   hero: '/assets/avatar.png',
 };
 
-export const FASTWORK = {
-  title: 'Hire me via Fastwork',
-  subtitle: '★ Recommended',
-  href: 'https://fastwork.co/byob/5rBVa61qjC?openExternalBrowser=1&source=byob',
-  image: '/assets/fastwork-banner.png',
-  imageAlt: 'Fastwork logo',
-  eventName: 'hire-fastwork',
+export const ROAD85 = {
+  title: 'Follow my Road to 85kg',
+  subtitle: '104.4 → 85 kg · live tracker',
+  href: '/road-to-85kg',
+  target: '_self',
+  image: '/assets/road85-banner.png',
+  imageAlt: 'Road to 85kg challenge',
+  eventName: 'road-to-85kg',
 };
 
 export const CONTACT_CARDS = [

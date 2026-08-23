@@ -3,11 +3,10 @@ import {VStack} from '@astryxdesign/core/Layout';
 import {fromsukongTheme} from '../themes/fromsukong';
 import ProfileHeader from './ProfileHeader';
 import LinkSection from './LinkSection';
-import FeaturedCard from './FeaturedCard';
 import LinkCard from './LinkCard';
 import ContactCard from './ContactCard';
 import SocialLinks from './SocialLinks';
-import {FASTWORK, CONTACT_CARDS, LEARN_MORE} from './data';
+import {ROAD85} from './data';
 
 export default function LinkBioPage() {
   return (
@@ -15,24 +14,16 @@ export default function LinkBioPage() {
       <ProfileHeader />
       <VStack className="page">
         <VStack className="section-gap">
-          <LinkSection title="Hire me">
-            <FeaturedCard {...FASTWORK} />
-          </LinkSection>
-          <LinkSection title="Contact me">
-            {CONTACT_CARDS.map(({icon, iconAlt, label, sub, href, eventName, target}) => (
-              <LinkCard key={label} icon={icon} iconAlt={iconAlt} label={label} sub={sub} href={href} eventName={eventName} target={target} />
-            ))}
-            <LinkCard
-              label={LEARN_MORE.label}
-              sub={LEARN_MORE.sub}
-              href={LEARN_MORE.href}
-              icon={LEARN_MORE.icon}
-              iconAlt={LEARN_MORE.iconAlt}
-              target="_self"
-              eventName={LEARN_MORE.eventName}
-            />
-            <ContactCard />
-          </LinkSection>
+          <LinkCard
+            icon="/assets/road85-icon.png"
+            iconAlt="Road to 85kg"
+            label={ROAD85.title}
+            sub="365-day weight-loss challenge · live tracker"
+            href={ROAD85.href}
+            target="_self"
+            eventName={ROAD85.eventName}
+          />
+          <ContactCard />
           <SocialLinks />
         </VStack>
       </VStack>

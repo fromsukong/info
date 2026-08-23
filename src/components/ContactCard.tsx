@@ -31,13 +31,13 @@ export default function ContactCard() {
 
   return (
     <>
-      <ClickableCard label="Other Preferd Method" padding={0} className="link-card" onClick={() => setOpen(true)} data-umami-event="contact-open">
+      <ClickableCard label="Contact me via" padding={0} className="link-card" onClick={() => setOpen(true)} data-umami-event="contact-open">
         <div className="link-card-inner">
           <div className="link-card-icon">
             <ContactRound size={48} className="link-card-contact-icon" />
           </div>
           <Text type="body" weight="medium" justify="center" display="block" className="link-card-label">
-            Other Preferd Method
+            Contact me via
           </Text>
         </div>
       </ClickableCard>
