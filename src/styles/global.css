@@ -268,10 +268,10 @@ body {
   opacity: 1;
 }
 
-/* About page: breathing room above the first section (the floating back
-   dot overlaps the page column, so the content starts a bit lower). */
+/* About page: breathing room above the first section — matches the floating
+   back dot's full height (16px offset + 32px button) like a navbar row. */
 .about-page .section-gap {
-  padding-top: 28px;
+  padding-top: 48px;
 }
 
 /* About page: info items */
