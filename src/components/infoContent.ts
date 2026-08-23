@@ -5,7 +5,7 @@ export const INFO_SECTIONS = [
       'Software Engineer at **Agoda** (since Apr 2026), building a strong frontend foundation.',
       'Born 2002 in Phrae, Thailand, with a twin. Graduated Computer Engineering from Chulalongkorn University in 2025.',
       'Worked at Thai startups (Genomic Analysis Platform, Api Plus Tech Co., Ltd.) and did Work & Travel in the USA in 2025.',
-      'Building **Ously** — my own app for financial independence.',
+      'Building **FromSukong** — an attention business, and **excited.live** — clothing brand for exciting people.',
     ],
   },
   {
@@ -19,21 +19,21 @@ export const INFO_SECTIONS = [
   {
     title: 'Current Focus',
     items: [
-      '1. **Health**: Discipline, fitness, nutrition, and weight loss.',
-      '2. **Ously**: Launch the app and gain real users.',
-      '3. **Content / Personal Brand**: Improve speaking and communication.',
-      '4. **Agoda (Maintenance)**: Work within designated hours only.',
-      '5. **High-Ticket Services**: Side income when opportunity permits.',
+      '1. **FromSukong**: Post at least 1 authentic, funny video a day and grow distribution.',
+      '2. **excited.live**: Build the clothing brand people feel hopeful about their life in.',
+      '3. **Road to 85kg**: 365-day public weight-loss challenge, from 104.4 kg to 85 kg.',
+      '4. **Health**: Discipline, fitness, nutrition — gym daily.',
+      '5. **Agoda (Money job)**: Work within designated hours only.',
     ],
   },
   {
     title: 'Wisdom',
     items: [
+      '(I am) excited to live.',
       'Always do the hard thing smartly.',
       'Discipline gives you freedom.',
       'Be so good that they can\'t ignore you.',
       'Relationship is the most important thing in life.',
-      'Thailand should focus on Deep Tech and High-Tech.',
     ],
   },
 ];

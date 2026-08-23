@@ -6,7 +6,7 @@ import LinkSection from './LinkSection';
 import LinkCard from './LinkCard';
 import ContactCard from './ContactCard';
 import SocialLinks from './SocialLinks';
-import {ROAD85} from './data';
+import {ROAD85, LEARN_MORE} from './data';
 
 export default function LinkBioPage() {
   return (
@@ -25,6 +25,7 @@ export default function LinkBioPage() {
             eventName={ROAD85.eventName}
           />
           <ContactCard />
+          <LinkCard {...LEARN_MORE} target="_self" />
           <SocialLinks />
         </VStack>
       </VStack>
