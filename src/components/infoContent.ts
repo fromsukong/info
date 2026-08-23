@@ -2,7 +2,6 @@ export const INFO_SECTIONS = [
   {
     title: 'About',
     items: [
-      'Software Engineer at **Agoda**, building fast, friendly web experiences.',
       'Born in 2002 in Phrae, Thailand, with a twin. Graduated Computer Engineering from Chulalongkorn University in 2025.',
       'Learned the craft at Thai startups (Genomic Analysis Platform, Api Plus Tech) and spent a summer on Work & Travel in the USA in 2025.',
       'Building **FromSukong** and **excited.live** in public: daily videos, real projects, and a clothing brand for people who feel excited to live.',
@@ -23,7 +22,6 @@ export const INFO_SECTIONS = [
       '2. **excited.live**: build a clothing brand that makes people feel excited about life.',
       '3. [Road to 85kg](/road-to-85kg/): lose 19.4 kg in 365 days, in public, starting from 104.4 kg.',
       '4. **Health**: gym daily, eat well, protect sleep.',
-      '5. **Agoda**: grow as a frontend engineer, one project at a time.',
     ],
   },
   {
