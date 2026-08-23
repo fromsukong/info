@@ -341,18 +341,21 @@ const START = 104.4;
               + '<div class="tsum">' + (wItems.length ? '<span class="mark ok">✓</span>' : '<span class="mark no">✗</span>') + '</div>'
               + (wItems.length && vol > 0 ? '<div class="tsum">~' + Math.round(vol).toLocaleString() + ' kg total volume</div>' : '')
               + '</div>';
-            if (fItems.length) {
-              let pSum = '';
-              if (r.calories != null && !isNaN(r.calories)) {
-                pSum = r.calories < CAL_TARGET
-                  ? '<span class="mark ok">✓ UNDER 2K</span>'
-                  : '<span class="mark no">✗ OVER 2K</span>';
-              } else if (r.protein != null && !isNaN(r.protein)) {
-                pSum = r.protein >= PROTEIN_GOAL ? 'High protein ✓' : 'Protein ' + Math.round(r.protein) + 'g';
-              }
-              trio += '<div class="t"><div class="tnum">' + fItems.length + '<span class="tunit">meals</span></div>'
-                + (pSum ? '<div class="tsum">' + pSum + '</div>' : '') + '</div>';
+            // meals — mirrors workout: "N meals" with mark BELOW (calories vs <2000);
+            // 0 meals + ✗ when nothing logged; kcal shown compact-chip style
+            const calOk = r.calories != null && !isNaN(r.calories) && r.calories < CAL_TARGET;
+            let mMark = '', mInfo = '';
+            if (!fItems.length) {
+              mMark = '<span class="mark no">✗</span>';
+            } else if (r.calories != null && !isNaN(r.calories)) {
+              mMark = '<span class="mark ' + (calOk ? 'ok' : 'no') + '">' + (calOk ? '✓' : '✗') + '</span>';
+              mInfo = '<span class="mark ' + (calOk ? 'ok' : 'no') + '">' + (r.calories / 1000).toFixed(1) + 'K KCAL · ' + (calOk ? 'UNDER' : 'OVER') + ' 2K</span>';
+            } else if (r.protein != null && !isNaN(r.protein)) {
+              mInfo = r.protein >= PROTEIN_GOAL ? 'High protein ✓' : 'Protein ' + Math.round(r.protein) + 'g';
             }
+            trio += '<div class="t"><div class="tnum">' + fItems.length + '<span class="tunit">meals</span></div>'
+              + '<div class="tsum">' + mMark + '</div>'
+              + (mInfo ? '<div class="tsum">' + mInfo + '</div>' : '') + '</div>';
             if (r.steps != null && !isNaN(r.steps) && r.steps > 0) {
               const sp = Math.min(100, (r.steps / STEPS_GOAL) * 100);
               trio += '<div class="t"><div class="tnum">' + (r.steps / 1000).toFixed(1) + '<span class="tunit">k steps</span></div>'
