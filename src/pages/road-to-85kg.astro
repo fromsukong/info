@@ -1,5 +1,7 @@
 ---
 // Road to 85kg — Prame's public 365-day weight-loss challenge tracker.
+import BackLink from '../components/BackLink.astro';
+
 // Minimal athletic design (Strava-inspired): orange hero, hairline stats,
 // route progress, scannable daily logs. Reads LIVE data from the published
 // Google Sheet (gviz/tq JSON endpoint).
@@ -130,33 +132,15 @@ const START = 104.4;
       footer { text-align: center; font-weight: 700; font-size: 12px; color: #c4c4c8; padding: 18px 0 46px; }
       footer b { color: #fc5200; }
 
-      /* back button: floating round glass dot over the orange hero */
-      .back-link {
-        position: fixed; top: 16px; left: 16px; z-index: 50;
-      }
-      .back-btn {
-        display: flex; align-items: center; justify-content: center;
-        width: 40px; height: 40px; border-radius: 999px;
-        background: rgba(30,12,4,.22);
-        backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-        color: #fff;
-        box-shadow: inset 0 0 0 1px rgba(255,255,255,.28);
-      }
-      .back-chevron { width: 18px; height: 18px; }
-      .back-link:hover .back-btn { background: rgba(30,12,4,.32); }
+      /* back button: shared floating glass dot (BackLink.astro) */
+      .back-link { position: fixed; top: 16px; left: 16px; z-index: 50; }
     </style>
   </head>
   <body>
-    <a href="/" class="back-link" aria-label="Back to home">
-      <span class="back-btn">
-        <svg class="back-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <polyline points="15 18 9 12 15 6" />
-        </svg>
-      </span>
-    </a>
+    <BackLink />
     <div class="hero">
       <div class="hero-inner">
-        <div class="kicker">365-Day Challenge · Logged daily</div>
+        <div class="kicker">365-Day Challenge · Ongoing</div>
         <h1>Road<br />to <em>85kg</em></h1>
         <p class="sub" id="subline">{START} kg start · Day – of 365</p>
       </div>

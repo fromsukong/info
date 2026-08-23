@@ -95,19 +95,13 @@ body {
   min-height: 100lvh;
 }
 
-/* Back link on non-landing pages — sticky top bar with iOS-style back button */
+/* Back link on non-landing pages — legacy sticky bar (dark pages only; the
+   floating glass dot lives in components/BackLink.astro and wins via cascade) */
 .back-link {
-  position: sticky;
-  top: 0;
+  position: fixed;
+  top: 16px;
+  left: 16px;
   z-index: 50;
-  display: flex;
-  align-items: center;
-  padding: 10px var(--link-gap);
-  text-decoration: none;
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .back-btn {

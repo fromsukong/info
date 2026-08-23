@@ -1,7 +1,9 @@
 ---
-// Small back button shown on non-landing pages (iOS-style chevron only).
-// Goes BACK in history when possible (Prame 2026-08-13: "make it actually go back,
-// no always go to home"), falls back to home on a fresh tab.
+// Small back button shown on non-landing pages — floating round glass dot,
+// fixed top-left. Goes BACK in history when the previous page is on this
+// domain; otherwise (social-app webview, external referrer, fresh tab) it
+// falls back to the landing page.
+// Reused by: about page, blog layout, road-to-85kg.
 ---
 
 <a href="/" class="back-link" aria-label="Back to home" data-umami-event="back-home">
@@ -12,14 +14,53 @@
   </span>
 </a>
 
-<script is:inline>
-  const backEl = document.querySelector('a.back-link');
-  if (backEl) {
-    backEl.addEventListener('click', (e) => {
-      if (window.history.length > 1) {
-        e.preventDefault();
-        window.history.back();
-      }
-    });
+<style is:global>
+  /* Floating round back button — sits over whatever is at the top of the page */
+  .back-link {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    z-index: 50;
+    text-decoration: none;
   }
+  .back-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    background: rgba(30, 12, 4, 0.22);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: #fff;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.28);
+    transition: background 0.15s ease;
+  }
+  .back-chevron {
+    width: 18px;
+    height: 18px;
+  }
+  .back-link:hover .back-btn {
+    background: rgba(30, 12, 4, 0.32);
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    var backEl = document.querySelector('a.back-link');
+    if (!backEl) return;
+    var sameDomain = false;
+    try {
+      if (document.referrer) {
+        sameDomain = new URL(document.referrer).hostname === location.hostname;
+      }
+    } catch (e) { /* malformed referrer -> treat as external */ }
+    if (!(sameDomain && window.history.length > 1)) {
+      backEl.addEventListener('click', function (e) {
+        e.preventDefault();
+        window.location.href = '/';
+      });
+    }
+  })();
 </script>
