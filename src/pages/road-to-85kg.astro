@@ -144,6 +144,9 @@ const START = 104.4;
       .stepbar { height: 3px; background: #f0f0f2; border-radius: 99px; margin-top: 9px; overflow: hidden; }
       .stepbar i { display: block; height: 100%; background: #fc5200; border-radius: 99px; }
       .steppct { font-size: 10px; font-weight: 700; color: #fc5200; letter-spacing: 1px; margin-top: 5px; }
+      .tri .mark { font-weight: 700; }
+      .tri .mark.ok { color: #059669; }
+      .tri .mark.no { color: #dc2626; }
 
       .detail { display: flex; margin-top: 20px; padding-top: 16px; border-top: 1px solid #f7f7f9; }
       .detail .d { flex: 1; padding: 0 14px; border-left: 1px solid #f0f0f2; }
@@ -189,7 +192,7 @@ const START = 104.4;
       // Data fetch/render below. The back button needs NO local script:
       // BackLink.astro ships its own same-domain history logic.
       (function () {
-        const GOAL = 85, START = 104.4;
+        const GOAL = 85, START = 104.4, CAL_TARGET = 2000;
         const STEPS_GOAL = 10000, PROTEIN_GOAL = 120;
         const SHEET = 'https://docs.google.com/spreadsheets/d/1X8HKW_cZI-luydidRbb_o98umaFYEP4_nRk6xdfTO0w/gviz/tq?tqx=out:json&sheet=Log';
 
@@ -212,6 +215,7 @@ const START = 104.4;
               protein: cell(8) && cell(8).v != null ? Number(cell(8).v) : null,
               water: cell(9) && cell(9).v != null ? Number(cell(9).v) : null,
               sleep: cell(10) && cell(10).v != null ? Number(cell(10).v) : null,
+              calories: cell(11) && cell(11).v != null ? Number(cell(11).v) : null,
             };
           }).filter(r => r.date && /^\d{4}/.test(String(r.date)));
           return rows;
@@ -333,13 +337,20 @@ const START = 104.4;
             // summary trio
             let trio = '<div class="tri">';
             if (wItems.length) {
-              trio += '<div class="t"><div class="tnum">' + wItems.length + '<span class="tunit">lifts</span></div>'
+              trio += '<div class="t"><div class="tnum">' + wItems.length + '<span class="tunit">lifts</span><span class="mark ok"> ✓</span></div>'
                 + (vol > 0 ? '<div class="tsum">~' + Math.round(vol).toLocaleString() + ' kg total volume</div>' : '') + '</div>';
+            } else {
+              trio += '<div class="t"><div class="tnum"><span class="mark no">✗</span></div></div>';
             }
             if (fItems.length) {
-              const pSum = (r.protein != null && !isNaN(r.protein))
-                ? (r.protein >= PROTEIN_GOAL ? 'High protein ✓' : 'Protein ' + Math.round(r.protein) + 'g')
-                : '';
+              let pSum = '';
+              if (r.calories != null && !isNaN(r.calories)) {
+                pSum = r.calories < CAL_TARGET
+                  ? '<span class="mark ok">✓ ' + Math.round(r.calories) + ' kcal · under ' + CAL_TARGET + '</span>'
+                  : '<span class="mark no">✗ ' + Math.round(r.calories) + ' kcal · over ' + CAL_TARGET + '</span>';
+              } else if (r.protein != null && !isNaN(r.protein)) {
+                pSum = r.protein >= PROTEIN_GOAL ? 'High protein ✓' : 'Protein ' + Math.round(r.protein) + 'g';
+              }
               trio += '<div class="t"><div class="tnum">' + fItems.length + '<span class="tunit">meals</span></div>'
                 + (pSum ? '<div class="tsum">' + pSum + '</div>' : '') + '</div>';
             }
