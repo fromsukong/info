@@ -5,7 +5,7 @@ import InfoSection from './InfoSection';
 
 export default function AboutPage() {
   return (
-    <Theme theme={fromsukongTheme} mode="dark">
+    <Theme theme={fromsukongTheme} mode="light">
       <VStack className="page">
         <VStack className="section-gap">
           <InfoSection />

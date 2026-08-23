@@ -2,12 +2,19 @@
 @import '@astryxdesign/core/astryx.css';
 @import '@astryxdesign/theme-gothic/theme.css';
 @import '../themes/fromsukong.css';
+@import './light-overrides.css';
 
 :root {
   --link-gap: 14px;
+  /* Road-to-85kg visual language (light) */
+  --ink: #18181b;
+  --muted: #a1a1aa;
+  --faint: #c4c4c8;
+  --hairline: #ececee;
+  --accent: #fc5200;
 }
 
-/* Cookie consent banner — fixed bottom, matches brand (black + orange) */
+/* Cookie consent banner — fixed bottom, white card + orange CTA */
 .consent-banner {
   position: fixed;
   bottom: 16px;
@@ -19,10 +26,10 @@
   flex-direction: column;
   gap: 12px;
   padding: 14px 16px;
-  background: #141414;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #fff;
+  border: 1px solid var(--hairline);
   border-radius: 12px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.55);
+  box-shadow: 0 8px 30px rgba(24, 24, 27, 0.12);
 }
 
 .consent-banner[hidden] {
@@ -33,7 +40,7 @@
   margin: 0;
   font-size: 13px;
   line-height: 1.5;
-  color: rgba(245, 246, 247, 0.8);
+  color: #52525b;
 }
 
 .consent-banner-actions {
@@ -55,32 +62,32 @@
 }
 
 .consent-accept {
-  background: #c04000;
+  background: var(--accent);
   color: #fff;
 }
 
 .consent-accept:hover {
-  background: #d44800;
+  background: #e84800;
 }
 
 .consent-decline {
   background: transparent;
-  color: rgba(245, 246, 247, 0.7);
-  border-color: rgba(255, 255, 255, 0.15);
+  color: #71717a;
+  border-color: #e4e4e7;
 }
 
 .consent-decline:hover {
-  color: #fff;
-  border-color: rgba(255, 255, 255, 0.35);
+  color: var(--ink);
+  border-color: var(--muted);
 }
 
 html,
 body {
-  background-color: #000;
+  background-color: #fff;
 }
 
 body {
-  color: var(--color-text-primary);
+  color: var(--ink);
   font-family: var(--font-family-body);
   min-height: 100lvh;
   -webkit-font-smoothing: antialiased;
@@ -95,8 +102,8 @@ body {
   min-height: 100lvh;
 }
 
-/* Back link on non-landing pages — legacy sticky bar (dark pages only; the
-   floating glass dot lives in components/BackLink.astro and wins via cascade) */
+/* Back link on non-landing pages — legacy sticky bar (the floating glass dot
+   in components/BackLink.astro wins via cascade) */
 .back-link {
   position: fixed;
   top: 16px;
@@ -111,8 +118,9 @@ body {
   width: 32px;
   height: 32px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
-  color: #ff8a3d;
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--accent);
+  box-shadow: 0 2px 10px rgba(24, 24, 27, 0.18);
   transition: background 0.15s ease;
 }
 
@@ -122,10 +130,10 @@ body {
 }
 
 .back-link:hover .back-btn {
-  background: rgba(255, 255, 255, 0.14);
+  background: #fff;
 }
 
-/* Header — full-bleed hero banner with overlay text (example structure) */
+/* Header — full-bleed hero banner with overlay text */
 .profile-header {
   margin-bottom: 24px;
 }
@@ -151,7 +159,7 @@ body {
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2) 40%, transparent);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.2) 40%, transparent);
   pointer-events: none;
 }
 
@@ -161,12 +169,13 @@ body {
   right: 20px;
   bottom: 16px;
   text-align: left;
+  color: #fff;
 }
 
 .hero-tagline {
   margin: 2px 0 0;
   font-size: 14px;
-  color: rgba(245, 246, 247, 0.72);
+  color: rgba(255, 255, 255, 0.82);
 }
 
 .profile-title {
@@ -215,9 +224,9 @@ body {
   width: 48px;
   height: 48px;
   padding: 8px;
-  color: var(--color-icon-primary);
+  color: var(--ink);
   border-radius: 8px;
-  background: rgba(245, 246, 247, 0.1);
+  background: #f4f4f5;
 }
 
 /* Strip Astryx Thumbnail placeholder chrome (bg tint, border, shadow) */
@@ -243,16 +252,16 @@ body {
   opacity: 0.6;
 }
 
-/* Highlighted card (primary CTA — Fastwork): minimal — hairline accent border
-   + small 'Last used'-style recommended tag. Subtle but still stands out. */
+/* Highlighted card (primary CTA — Road to 85kg): hairline accent border +
+   orange sub, quiet like the roadmap page's accents. */
 .link-card-highlight {
-  border: 1px solid rgba(255, 138, 61, 0.35) !important;
+  border: 1px solid rgba(252, 82, 0, 0.45) !important;
 }
 
 .link-card-highlight .link-card-sub {
   font-size: 11px;
   letter-spacing: 0.3px;
-  color: rgba(255, 170, 102, 0.8);
+  color: var(--accent);
   opacity: 1;
 }
 
@@ -260,11 +269,11 @@ body {
 .info-item {
   font-size: 14px;
   line-height: 1.6;
-  opacity: 0.85;
+  opacity: 0.9;
 }
 
 .info-link {
-  color: var(--color-accent);
+  color: var(--accent);
   text-decoration: none;
 }
 
@@ -276,7 +285,7 @@ body {
 .featured-thumb {
   border-radius: 16px 16px 0 0;
   overflow: hidden;
-  box-shadow: 0 0 0 0.5px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 0 0.5px rgba(24, 24, 27, 0.15);
 }
 
 .featured-thumb img {
@@ -290,14 +299,13 @@ body {
   padding: 12px 32px;
 }
 
-/* Fastwork featured card: orange accent — border + glow + orange sub */
+/* Featured card accent: orange border + orange sub (no glow) */
 .featured-highlight {
-  border: 1px solid rgba(255, 138, 61, 0.55) !important;
-  box-shadow: 0 0 26px rgba(255, 138, 61, 0.22), 0 0 0 1px rgba(255, 138, 61, 0.12) inset;
+  border: 1px solid rgba(252, 82, 0, 0.55) !important;
 }
 
 .featured-highlight .link-card-sub {
-  color: #ff8a3d;
+  color: var(--accent);
   opacity: 1;
 }
 
@@ -313,7 +321,7 @@ body {
   justify-content: center;
   padding: 8px;
   border-radius: 8px;
-  color: var(--color-icon-primary);
+  color: var(--ink);
   text-decoration: none;
   transition: transform 0.15s ease;
 }
@@ -337,7 +345,7 @@ body {
   padding: 0;
   border: none;
   border-radius: 24px 24px 0 0;
-  background: #141414;
+  background: #fff;
 }
 
 .contact-sheet-body {
@@ -366,11 +374,12 @@ body {
 .contact-sheet-name {
   font-size: 18px;
   font-weight: 600;
+  color: var(--ink);
 }
 
 .contact-sheet-work {
   font-size: 14px;
-  color: var(--color-text-secondary);
+  color: #52525b;
 }
 
 .contact-sheet-cards {
@@ -384,11 +393,12 @@ body {
   gap: 12px;
   padding: 16px;
   border-radius: 12px;
-  background: #1a1a1a;
+  background: #fafafa;
+  border: 1px solid var(--hairline);
 }
 
 .contact-sheet-row a {
-  color: var(--color-text-primary);
+  color: var(--ink);
   font-size: 15px;
   font-weight: 500;
   text-decoration: none;
@@ -404,15 +414,15 @@ body {
   justify-content: space-between;
   gap: 12px;
   padding-top: 16px;
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--hairline);
 }
 
 .contact-sheet-save {
   padding: 12px 24px;
   border: none;
   border-radius: 24px;
-  background: #f5f6f7;
-  color: #000;
+  background: var(--ink);
+  color: #fff;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
@@ -428,7 +438,7 @@ body {
   gap: 8px;
 }
 
-/* Desktop: keep the black background, only bump font sizes */
+/* Desktop: only bump font sizes */
 @media (min-width: 576px) {
   .section-header,
   .link-card-label {

@@ -10,7 +10,7 @@ import {ROAD85, LEARN_MORE} from './data';
 
 export default function LinkBioPage() {
   return (
-    <Theme theme={fromsukongTheme} mode="dark">
+    <Theme theme={fromsukongTheme} mode="light">
       <ProfileHeader />
       <VStack className="page">
         <VStack className="section-gap">

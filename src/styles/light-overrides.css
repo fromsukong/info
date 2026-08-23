@@ -1,0 +1,57 @@
+/* Light-mode overrides for Astryx React components (landing + about).
+   The Theme component keeps its internal dark tokens, so we pin the visible
+   surfaces to the road-to-85kg light language: white bg, ink text, orange. */
+
+/* Page background stays white even under the theme's dark canvas */
+[data-astryx-theme] {
+  --color-background-body: #fff;
+  --color-text-primary: #18181b;
+  --color-text-secondary: #52525b;
+  --color-icon-primary: #18181b;
+  --color-border: #ececee;
+  background: #fff;
+  color: #18181b;
+}
+
+/* Link cards: dark surface -> white card with hairline border.
+   ClickableCard renders a div.astryx-card (role=button) with an inner overlay
+   anchor — style the card root, not the anchor. */
+.astryx-card.link-card {
+  background: #fff !important;
+  color: #18181b !important;
+  border: 1px solid #ececee !important;
+}
+
+.astryx-card.link-card:hover {
+  border-color: rgba(252, 82, 0, 0.45) !important;
+}
+
+.link-card-label {
+  color: #18181b !important;
+}
+
+.link-card-sub {
+  color: #71717a !important;
+}
+
+/* Highlighted CTA card */
+.link-card-highlight .link-card-sub {
+  color: #fc5200 !important;
+}
+
+/* Contact sheet rows */
+.contact-sheet-row a {
+  color: #18181b;
+}
+
+/* Hero text sits ON the photo — always white regardless of theme tokens */
+.hero-text,
+.hero-text .profile-title,
+.hero-text .hero-tagline {
+  color: #fff !important;
+}
+
+/* Section headers (e.g. "About") — muted uppercase feel like roadmap labels */
+.section-header {
+  color: #a1a1aa;
+}
