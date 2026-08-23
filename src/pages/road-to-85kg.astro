@@ -55,7 +55,7 @@ const START = 104.4;
       /* hero */
       .hero {
         background: linear-gradient(115deg, #fc5200 0%, #e84800 55%, #c93b00 100%);
-        color: #fff; padding: 52px 26px 44px;
+        color: #fff; padding: 78px 26px 44px;
         clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
       }
       .hero-inner { max-width: 480px; margin: 0 auto; }
@@ -130,22 +130,20 @@ const START = 104.4;
       footer { text-align: center; font-weight: 700; font-size: 12px; color: #c4c4c8; padding: 18px 0 46px; }
       footer b { color: #fc5200; }
 
-      /* back button (matches global .back-link style, adapted for light bg) */
+      /* back button: floating round glass dot over the orange hero */
       .back-link {
-        position: sticky; top: 0; z-index: 50;
-        display: flex; align-items: center;
-        padding: 10px 18px;
-        background: rgba(255,255,255,.85); backdrop-filter: blur(8px);
-        border-bottom: 1px solid rgba(0,0,0,.06);
+        position: fixed; top: 16px; left: 16px; z-index: 50;
       }
       .back-btn {
-        display: inline-flex; align-items: center; gap: 3px;
-        padding: 6px 14px 6px 8px; border-radius: 999px;
-        background: rgba(0,0,0,.05); color: #fc5200;
-        font-size: 13px; font-weight: 600;
+        display: flex; align-items: center; justify-content: center;
+        width: 40px; height: 40px; border-radius: 999px;
+        background: rgba(30,12,4,.22);
+        backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+        color: #fff;
+        box-shadow: inset 0 0 0 1px rgba(255,255,255,.28);
       }
-      .back-chevron { width: 16px; height: 16px; }
-      .back-link:hover .back-btn { background: rgba(0,0,0,.09); }
+      .back-chevron { width: 18px; height: 18px; }
+      .back-link:hover .back-btn { background: rgba(30,12,4,.32); }
     </style>
   </head>
   <body>
