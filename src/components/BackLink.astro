@@ -30,11 +30,13 @@
     width: 40px;
     height: 40px;
     border-radius: 999px;
-    background: rgba(30, 12, 4, 0.22);
+    background: rgba(30, 12, 4, 0.34);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     color: #fff;
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.28);
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.28),
+      0 1px 6px rgba(24, 24, 27, 0.16);
     transition: background 0.15s ease;
   }
   .back-chevron {
@@ -56,11 +58,19 @@
         sameDomain = new URL(document.referrer).hostname === location.hostname;
       }
     } catch (e) { /* malformed referrer -> treat as external */ }
-    if (!(sameDomain && window.history.length > 1)) {
-      backEl.addEventListener('click', function (e) {
-        e.preventDefault();
-        window.location.href = '/';
-      });
-    }
+    backEl.addEventListener('click', function (e) {
+      e.preventDefault();
+      if (sameDomain && window.history.length > 1) {
+        // Previous entry belongs to this site -> really go BACK in history.
+        // Never pushes a new entry, so the browser-back button afterwards
+        // keeps exiting the site instead of bouncing into the page we left.
+        window.history.back();
+      } else {
+        // Arrived here directly (social webview, shared link, fresh tab):
+        // REPLACE this subpage with the landing page so the history stack
+        // behaves as if the visitor had been on "/" all along.
+        window.location.replace('/');
+      }
+    });
   })();
 </script>

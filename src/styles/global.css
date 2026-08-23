@@ -102,37 +102,9 @@ body {
   min-height: 100lvh;
 }
 
-/* Back button on non-landing pages — legacy rules kept only as a fallback;
-   the shared floating glass dot lives in components/BackLink.astro and wins
-   via cascade (its <style is:global> loads after this stylesheet). */
-.back-link {
-  position: fixed;
-  top: 16px;
-  left: 16px;
-  z-index: 50;
-}
-
-.back-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.85);
-  color: var(--accent);
-  box-shadow: 0 2px 10px rgba(24, 24, 27, 0.18);
-  transition: background 0.15s ease;
-}
-
-.back-chevron {
-  width: 18px;
-  height: 18px;
-}
-
-.back-link:hover .back-btn {
-  background: #fff;
-}
+/* Back button on non-landing pages lives ENTIRELY in components/BackLink.astro
+   (floating glass dot + history logic). No fallback styles here on purpose —
+   the old white mini-pill fallback caused page-dependent designs. */
 
 /* Header — full-bleed hero banner with overlay text */
 .profile-header {
