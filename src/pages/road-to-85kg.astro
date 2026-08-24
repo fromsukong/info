@@ -346,17 +346,19 @@ const START = 104.4;
             // meals — mirrors workout: "N meals" with mark BELOW; small "2k"
             // beside the mark so viewers know the daily kcal aim
             const calOk = r.calories != null && !isNaN(r.calories) && r.calories < CAL_TARGET;
-            let mMark = '', mInfo = '';
+            let mMark = '', mInfo = '', mCal = '';
             if (!fItems.length) {
               mMark = '<span class="mark no">✗</span>';
             } else if (r.calories != null && !isNaN(r.calories)) {
               mMark = '<span class="mark ' + (calOk ? 'ok' : 'no') + '">' + (calOk ? '✓' : '✗') + '</span><span class="tgoal">2k</span>';
+              mCal = '<div class="tsum">~' + Math.round(r.calories).toLocaleString() + ' kcal</div>';
             } else if (r.protein != null && !isNaN(r.protein)) {
               mInfo = r.protein >= PROTEIN_GOAL ? 'High protein ✓' : 'Protein ' + Math.round(r.protein) + 'g';
             }
             trio += '<div class="t"><div class="tnum">' + fItems.length + '<span class="tunit">meals</span></div>'
               + '<div class="tsum">' + mMark + '</div>'
-              + (mInfo ? '<div class="tsum">' + mInfo + '</div>' : '') + '</div>';
+              + (mInfo ? '<div class="tsum">' + mInfo + '</div>' : '')
+              + (mCal || '') + '</div>';
             if (r.steps != null && !isNaN(r.steps) && r.steps > 0) {
               const sp = Math.min(100, (r.steps / STEPS_GOAL) * 100);
               trio += '<div class="t"><div class="tnum">' + (r.steps / 1000).toFixed(1) + '<span class="tunit">k steps</span></div>'
