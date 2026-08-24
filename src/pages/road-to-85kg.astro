@@ -217,6 +217,7 @@ const START = 104.4;
               water: cell(9) && cell(9).v != null ? Number(cell(9).v) : null,
               sleep: cell(10) && cell(10).v != null ? Number(cell(10).v) : null,
               calories: cell(11) && cell(11).v != null ? Number(cell(11).v) : null,
+              updated: fmt(13),
             };
           }).filter(r => r.date && /^\d{4}/.test(String(r.date)));
           return rows;
@@ -392,7 +393,18 @@ const START = 104.4;
             dot.setAttribute('cx', p.x); dot.setAttribute('cy', p.y);
           }
 
-          document.getElementById('updated').textContent = last ? ('last update ' + niceDate(last.date)) : '';
+          // footer: prefer the sheet's own "Last updated" datetime (col N),
+          // fall back to the newest log date when empty
+          let upd = '';
+          const lastUpd = sorted.slice().reverse().find(r => r.updated && String(r.updated).trim() !== '');
+          if (lastUpd) {
+            const m = String(lastUpd.updated).match(/^(\d{4}-\d{2}-\d{2})(?:\s+(\d{1,2}:\d{2}))?/);
+            if (m) upd = 'last update ' + niceDate(m[1]) + (m[2] ? ' · ' + m[2] : '');
+            else upd = 'last update ' + esc(String(lastUpd.updated));
+          } else if (last) {
+            upd = 'last update ' + niceDate(last.date);
+          }
+          document.getElementById('updated').textContent = upd;
         }
 
         function fail(msg) {
