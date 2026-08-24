@@ -147,6 +147,7 @@ const START = 104.4;
       .tri .mark { font-weight: 700; }
       .tri .mark.ok { color: #059669; }
       .tri .mark.no { color: #dc2626; }
+      .tgoal { font-size: 11px; font-weight: 700; color: #a1a1aa; margin-left: 5px; }
 
       .detail { display: flex; margin-top: 20px; padding-top: 16px; border-top: 1px solid #f7f7f9; }
       .detail .d { flex: 1; padding: 0 14px; border-left: 1px solid #f0f0f2; }
@@ -341,15 +342,14 @@ const START = 104.4;
               + '<div class="tsum">' + (wItems.length ? '<span class="mark ok">✓</span>' : '<span class="mark no">✗</span>') + '</div>'
               + (wItems.length && vol > 0 ? '<div class="tsum">~' + Math.round(vol).toLocaleString() + ' kg total volume</div>' : '')
               + '</div>';
-            // meals — mirrors workout: "N meals" with mark BELOW (calories vs <2000);
-            // 0 meals + ✗ when nothing logged; kcal shown compact-chip style
+            // meals — mirrors workout: "N meals" with mark BELOW; small "2k"
+            // beside the mark so viewers know the daily kcal aim
             const calOk = r.calories != null && !isNaN(r.calories) && r.calories < CAL_TARGET;
             let mMark = '', mInfo = '';
             if (!fItems.length) {
               mMark = '<span class="mark no">✗</span>';
             } else if (r.calories != null && !isNaN(r.calories)) {
-              mMark = '<span class="mark ' + (calOk ? 'ok' : 'no') + '">' + (calOk ? '✓' : '✗') + '</span>';
-              mInfo = '<span class="mark ' + (calOk ? 'ok' : 'no') + '">' + (r.calories / 1000).toFixed(1) + 'K KCAL · ' + (calOk ? 'UNDER' : 'OVER') + ' 2K</span>';
+              mMark = '<span class="mark ' + (calOk ? 'ok' : 'no') + '">' + (calOk ? '✓' : '✗') + '</span><span class="tgoal">2k</span>';
             } else if (r.protein != null && !isNaN(r.protein)) {
               mInfo = r.protein >= PROTEIN_GOAL ? 'High protein ✓' : 'Protein ' + Math.round(r.protein) + 'g';
             }
