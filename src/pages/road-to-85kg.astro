@@ -127,6 +127,8 @@ const START = 104.4;
       /* daily log entries */
       .entry { padding: 22px 0; border-bottom: 1px solid #f3f3f5; }
       .entry:last-of-type { border-bottom: none; }
+      .entry.skipped .top { margin-bottom: 0; }
+      .skipbadge { margin-left: auto; font-size: 10px; font-weight: 700; letter-spacing: 2px; color: #c4c4c8; text-transform: uppercase; }
       .entry .top { display: flex; align-items: baseline; gap: 10px; margin-bottom: 20px; }
       .entry .day { font-weight: 700; font-size: 19px; letter-spacing: -.4px; }
       .entry .date { font-size: 12.5px; font-weight: 600; color: #a1a1aa; }
@@ -322,15 +324,37 @@ const START = 104.4;
             }
           }
 
-          // daily log — most recent 14 days (newest first)
+          // daily log — most recent 14 days (newest first), with SKIPPED
+          // placeholders for calendar days that have no log row
           const recent = sorted.slice(-14).reverse();
           html += '<div class="divider"></div><div class="loghead"><h2>Daily log</h2><span>LATEST</span></div>';
-          html += recent.map(r => {
+          const DAY_MS = 86400000;
+          const isoOf = (r) => String(r.date).slice(0, 10);
+          const withSkips = [];
+          recent.forEach((r, idx) => {
+            if (idx > 0) {
+              const cur = new Date(isoOf(r) + 'T00:00:00Z').getTime();
+              const prev = new Date(isoOf(recent[idx - 1]) + 'T00:00:00Z').getTime();
+              const prevRow = recent[idx - 1];
+              const prevDay = prevRow.day != null && !isNaN(Number(prevRow.day)) ? Number(prevRow.day) : null;
+              for (let t = prev - DAY_MS; t > cur; t -= DAY_MS) {
+                const d = new Date(t);
+                withSkips.push({ skipped: true, date: d.toISOString().slice(0, 10),
+                  day: prevDay != null ? prevDay - Math.round((prev - t) / DAY_MS) : null });
+              }
+            }
+            withSkips.push(r);
+          });
+          html += withSkips.map(r => {
+            if (r.skipped) {
+              const sd = r.day != null ? 'Day ' + r.day : '';
+              return '<div class="entry skipped"><div class="top"><span class="day">' + (sd ? sd + ' · ' : '') + esc(niceDate(r.date)) + '</span><span class="skipbadge">Skipped</span></div></div>';
+            }
             const d = r.day != null ? r.day : '–';
             const wt = r.weight != null ? r.weight : '–';
             const dlNum = parseFloat(r.delta);
-            const dlHtml = (r.delta !== '' && !isNaN(dlNum))
-              ? '<span class="delta ' + (dlNum < 0 ? 'down' : dlNum > 0 ? 'up' : '') + '">' + (dlNum > 0 ? '▲' : dlNum < 0 ? '▼' : '') + esc(r.delta) + '</span>'
+            const dlHtml = (r.delta !== '' && !isNaN(dlNum) && dlNum !== 0)
+              ? '<span class="delta ' + (dlNum < 0 ? 'down' : 'up') + '">' + (dlNum > 0 ? '▲' : '▼') + esc(r.delta) + '</span>'
               : '';
             const wItems = items(r.workout);
             const fItems = items(r.food);
