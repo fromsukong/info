@@ -182,8 +182,8 @@ Purpose: single funnel to Fastwork — every CTA uses the `FASTWORK` const
   Radii 20px buttons / 36px panels / 999px pills; soft "halo" shadows.
 - Type: **Sofia Sans** via Google Fonts; `theme-color` `#F3F0EE`.
 - Structure: pill nav (avatar brand + Blog/About + "Hire me") → centered hero
-  (akkari.io-style: label, big title, "(I am) an AI enthusiast", copy, Hire
-  button with arrow, built-by trust line) → hero demo panel below, centered →
+  (akkari.io-style: label, big title, copy, Hire button with arrow — motto
+  and trust line were removed 2026-09-26) → hero demo panel below, centered →
   dark rounded footer ("Let's automate your busywork" + Hire me / Save my
   contact + Explore/Follow columns).
 - Hero demo (`.demo-panel[data-anim]`, inline script in `index.astro`): ~10s
