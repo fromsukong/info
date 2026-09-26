@@ -4,6 +4,11 @@ The single source of truth for how every page on fromsukong.com looks and is
 built. If a new page or component deviates from this document, either fix the
 page or update this document — never let them drift.
 
+> **2026-09-25:** the landing page (`/`) follows the **excited.live language** —
+> see "Landing page (2026-09-25 redesign)" at the bottom. Everything below
+> describes the OTHER pages (about, blog, road-to-85kg), which keep the
+> 2026-08 strava-style language until they're migrated.
+
 ## Design language
 
 Light, minimal, athletic (Strava-inspired). One accent color, lots of white,
@@ -121,8 +126,10 @@ Current pages: `/` (landing), `/about`, `/blog` + posts (BlogLayout),
 `/road-to-85kg` (standalone tracker, own styles but same tokens/fonts/back
 button).
 
-Landing card order (2026-08-23): Road to 85kg (highlighted) → Learn more
-about me → Contact me → social icons.
+Landing card order (2026-09-25 redesign — current): Road to 85kg (highlighted)
+→ excited.live → Blog → About me / Contact me (two-up) → social icons.
+(The 2026-08-23 order — Road to 85kg → Learn more about me → Contact me →
+social icons — is historical; the landing no longer uses `LinkCard`.)
 
 ## Accent usage
 
@@ -130,6 +137,8 @@ One orange: `#FC5200` everywhere (buttons, links, tags, chart strokes, step
 bars, footer b). In blog post scoped styles use `var(--accent)` from
 global.css, not Astryx's `var(--color-accent)` (which resolves dark-theme).
 Exception: hero gradient shades (`#e84800`, `#c93b00`) on road-to-85kg only.
+(The landing is exempt — it uses excited.live orange `#CF4500` — see the
+landing section below.)
 
 ## Don'ts (learned the hard way)
 
@@ -147,13 +156,37 @@ Exception: hero gradient shades (`#e84800`, `#c93b00`) on road-to-85kg only.
 
 ```sh
 npm run build
-grep -o 'Follow my Road to 85kg' dist/index.html   # content renders
-grep -c 'back-link' dist/about/index.html          # BackLink present off-landing
+grep -o 'Everything in one place' dist/index.html    # landing content renders
+grep -c 'back-link' dist/about/index.html            # BackLink present off-landing
 ```
 
-Then preview + screenshot (`scripts/screenshot_preview.js`,
-puppeteer-core + Playwright headless shell — see skill `fromsukong-website`),
-check computed border colors of `.link-card` (#d4d4d8) vs
-`.link-card-highlight` (rgba(252,82,0,.55)), send screenshots to Prame before
-pushing. Deploy = push to main → GitHub Actions → Cloudflare Pages; verify
-live with a cache-busted curl.
+Then preview + screenshot — landing: `bash /opt/data/cache/shot/shot.sh` env
+`URL/OUT/NAME/W/H/FULL` (puppeteer-core + Hermes chromium; see skill
+`fromsukong-website`), or `/opt/data/cache/shot/verify-landing.mjs` for
+structure/dialog/vCard/console checks against a local server. Send screenshots
+to Prame before pushing. Deploy = push to main → GitHub Actions → Cloudflare
+Pages; verify live with a cache-busted curl.
+
+## Landing page (2026-09-25 redesign — excited.live language)
+
+**Scope:** `/` only — `src/pages/index.astro` + `src/styles/landing.css`.
+The landing no longer imports `global.css` or Astryx; other pages are untouched.
+
+- Tokens (`:root` in `landing.css`): canvas `#F3F0EE`, lifted `#FCFBFA`,
+  white, ink `#141413`, charcoal `#262627`, slate `#696969`, dust `#D1CDC7`,
+  orange `#CF4500`, orange-light `#F37338`, clay `#9A3A0A`, ghost `#E8E2DA`.
+  Radii 20px buttons / 40px panels / 999px pills; soft "halo" shadows.
+- Type: **Sofia Sans** (400/450/500/600/700) via Google Fonts; `theme-color`
+  `#F3F0EE`.
+- Structure: pill nav (avatar brand + Road to 85kg/Blog/About + Say hi) →
+  hero (photo card left; name, "(I am) excited to live", sub, 2 buttons
+  right) → "Everything in one place" stack (Road 85 highlighted: 1.5px orange
+  border) + About/Contact two-up → 5 social circles → dark rounded footer
+  (`#say-hi`).
+- Contact: native `<dialog id="contact-sheet">` + inline JS (open/close +
+  vCard download on `.js-save-contact`). No React on the landing.
+- Assets: `avatar.png`, `road85-icon.png`, `blog.png`, `exl-logo-mark.png`
+  (downscaled from excited.live's mark).
+- Unused after the redesign (kept; don't reuse for the landing): `index.tsx`,
+  `ProfileHeader`, `SocialLinks` — `LinkCard`/`LinkSection` still serve About.
+- Deferred: new-style OG image; migrating about/blog/road-to-85kg.
