@@ -186,13 +186,17 @@ Purpose: single funnel to Fastwork — every CTA uses the `FASTWORK` const
   and trust line were removed 2026-09-26) → hero demo panel below, centered →
   dark rounded footer ("Let's automate your busywork" + Hire me / Save my
   contact + Explore/Follow columns).
-- Hero demo (`.demo-panel[data-anim]`, inline script in `index.astro`): ~10s
-  loop — 3 n8n-style nodes pop in (LINE message → AI agent → Auto-reply) with
-  drawn connectors + traveling dots, then the LINE chat plays: customer bubble
-  → typing dots → auto-reply + 2 quick-reply chips + "auto-replied in 0.9s"
-  tag; fade-out and replay. `prefers-reduced-motion` gets `.anim-end` (static
-  final state; typing hidden, chips shown). All accents brand orange/ink —
-  never third-party brand colors.
+- Hero demo (`.demo-panel[data-anim]`, inline script in `index.astro`): tabbed
+  via a pill switcher ("Customer chat" / "Email → LINE"). Each tab runs its own
+  ~10s loop sharing the n8n-style node intro (chat: LINE message → AI agent →
+  Auto-reply; email: New email → AI agent → LINE alert) with drawn connectors
+  + traveling dots. Chat tab: customer bubble → typing dots → auto-reply +
+  2 quick-reply chips + "auto-replied in 0.9s" tag. Email tab: inbox card
+  (Acme Co) → auto-label chips ("Label: Billing", "High priority") → "Sent to
+  LINE" alert + "Labeled and routed in 1.2s" tag. Switching tabs restarts that
+  tab's loop; `prefers-reduced-motion` gets `.anim-end` (static final state;
+  typing hidden, chips shown). All accents brand orange/ink — never
+  third-party brand colors.
 - Contact: vCard download only (`.js-save-contact`); old contact dialog gone.
 - Removed in this update: card stack, blog/about/contact cards, socials strip
   (socials now footer-only), all Road-85/excited.live links. The
