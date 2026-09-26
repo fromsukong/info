@@ -4,8 +4,9 @@ The single source of truth for how every page on fromsukong.com looks and is
 built. If a new page or component deviates from this document, either fix the
 page or update this document — never let them drift.
 
-> **2026-09-25:** the landing page (`/`) follows the **excited.live language** —
-> see "Landing page (2026-09-25 redesign)" at the bottom. Everything below
+> **2026-09-26:** the landing page (`/`) is the **Fastwork funnel** —
+> akkari-style centered hero + animated demo (see "Landing page (2026-09-26 —
+> Fastwork funnel + akkari-style hero)" at the bottom). Everything below
 > describes the OTHER pages (about, blog, road-to-85kg), which keep the
 > 2026-08 strava-style language until they're migrated.
 
@@ -162,31 +163,40 @@ grep -c 'back-link' dist/about/index.html            # BackLink present off-land
 
 Then preview + screenshot — landing: `bash /opt/data/cache/shot/shot.sh` env
 `URL/OUT/NAME/W/H/FULL` (puppeteer-core + Hermes chromium; see skill
-`fromsukong-website`), or `/opt/data/cache/shot/verify-landing.mjs` for
-structure/dialog/vCard/console checks against a local server. Send screenshots
+`fromsukong-website`), or `/opt/data/cache/shot/shoot-hero3.mjs` for
+layout/animation/console checks against a local server (`verify-landing.mjs`
+is pre-v4, outdated). Send screenshots
 to Prame before pushing. Deploy = push to main → GitHub Actions → Cloudflare
 Pages; verify live with a cache-busted curl.
 
-## Landing page (2026-09-25 redesign — excited.live language)
+## Landing page (2026-09-26 — Fastwork funnel + akkari-style hero)
 
 **Scope:** `/` only — `src/pages/index.astro` + `src/styles/landing.css`.
 The landing no longer imports `global.css` or Astryx; other pages are untouched.
+Purpose: single funnel to Fastwork — every CTA uses the `FASTWORK` const
+(fastwork.co/byob profile URL) defined in `index.astro`.
 
 - Tokens (`:root` in `landing.css`): canvas `#F3F0EE`, lifted `#FCFBFA`,
   white, ink `#141413`, charcoal `#262627`, slate `#696969`, dust `#D1CDC7`,
   orange `#CF4500`, orange-light `#F37338`, clay `#9A3A0A`, ghost `#E8E2DA`.
-  Radii 20px buttons / 40px panels / 999px pills; soft "halo" shadows.
-- Type: **Sofia Sans** (400/450/500/600/700) via Google Fonts; `theme-color`
-  `#F3F0EE`.
-- Structure: pill nav (avatar brand + Road to 85kg/Blog/About + Say hi) →
-  hero (photo card left; name, "(I am) excited to live", sub, 2 buttons
-  right) → "Everything in one place" stack (Road 85 highlighted: 1.5px orange
-  border) + About/Contact two-up → 5 social circles → dark rounded footer
-  (`#say-hi`).
-- Contact: native `<dialog id="contact-sheet">` + inline JS (open/close +
-  vCard download on `.js-save-contact`). No React on the landing.
-- Assets: `avatar.png`, `road85-icon.png`, `blog.png`, `exl-logo-mark.png`
-  (downscaled from excited.live's mark).
-- Unused after the redesign (kept; don't reuse for the landing): `index.tsx`,
-  `ProfileHeader`, `SocialLinks` — `LinkCard`/`LinkSection` still serve About.
-- Deferred: new-style OG image; migrating about/blog/road-to-85kg.
+  Radii 20px buttons / 36px panels / 999px pills; soft "halo" shadows.
+- Type: **Sofia Sans** via Google Fonts; `theme-color` `#F3F0EE`.
+- Structure: pill nav (avatar brand + Blog/About + "Hire me") → centered hero
+  (akkari.io-style: label, big title, "(I am) an AI enthusiast", copy, Hire
+  button with arrow, built-by trust line) → hero demo panel below, centered →
+  dark rounded footer ("Let's automate your busywork" + Hire me / Save my
+  contact + Explore/Follow columns).
+- Hero demo (`.demo-panel[data-anim]`, inline script in `index.astro`): ~10s
+  loop — 3 n8n-style nodes pop in (LINE message → AI agent → Auto-reply) with
+  drawn connectors + traveling dots, then the LINE chat plays: customer bubble
+  → typing dots → auto-reply + 2 quick-reply chips + "auto-replied in 0.9s"
+  tag; fade-out and replay. `prefers-reduced-motion` gets `.anim-end` (static
+  final state; typing hidden, chips shown). All accents brand orange/ink —
+  never third-party brand colors.
+- Contact: vCard download only (`.js-save-contact`); old contact dialog gone.
+- Removed in this update: card stack, blog/about/contact cards, socials strip
+  (socials now footer-only), all Road-85/excited.live links. The
+  `/road-to-85kg` page still exists, unlinked from the landing.
+- Assets in use: `avatar.png`, `fastwork.jpeg`. Now unused (kept):
+  `exl-logo-mark.png`, `road85-icon.png`, `blog.png`.
+- Deferred: new-style OG image; migrating about/blog pages.
