@@ -247,15 +247,11 @@ button.card { width: 100%; font: inherit; color: inherit; text-align: left; bord
   color: var(--ink);
   max-width: 700px;
 }
-.hero-motto { margin: 20px 0 0; font-size: 17px; line-height: 1.5; color: var(--slate); }
-.hero-motto .accent { color: var(--orange); font-weight: 600; }
 .hero-copy-text { margin: 18px 0 0; font-size: clamp(16.5px, 1.5vw, 19px); line-height: 1.6; color: var(--charcoal); max-width: 560px; }
 .hero-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
 .hero-actions .btn-ink { display: inline-flex; align-items: center; gap: 10px; padding: 16px 30px; font-size: 16px; }
 .hero-actions .btn-ink svg { width: 13px; height: 13px; transition: transform 140ms ease; }
 .hero-actions .btn-ink:hover svg { transform: translateX(2px); }
-.hero-trust { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 26px; font-size: 13.5px; color: var(--slate); }
-.hero-trust img { width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--ghost); }
 
 /* Demo panel */
 .hero-demo { width: 100%; max-width: 780px; margin-top: 58px; }
