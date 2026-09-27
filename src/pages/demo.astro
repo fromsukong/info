@@ -1,0 +1,72 @@
+---
+// /demo — showcase page for demo builds (initialised 2026-09-27, no content
+// yet). Uses the landing language (landing.css) + shared SiteNav so the mobile
+// drawer works here too. Linked from the sidebar drawer only, for now.
+import ConsentBanner from '../components/ConsentBanner.astro';
+import SiteNav from '../components/SiteNav.astro';
+import '../styles/landing.css';
+
+const SITE = 'https://fromsukong.com';
+const TITLE = 'Demo — FromSukong';
+const DESCRIPTION = 'Demos of the AI automations I build, in action. Coming soon.';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#F3F0EE" />
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', {
+        'ad_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied',
+        'analytics_storage': 'denied',
+        'wait_for_update': 500,
+      });
+      try {
+        if (localStorage.getItem('fs-consent') === 'accepted') {
+          gtag('consent', 'update', {'analytics_storage': 'granted'});
+        }
+      } catch (e) {}
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4R5CYWR2M4"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-4R5CYWR2M4');
+    </script>
+    <title>{TITLE}</title>
+    <meta name="description" content={DESCRIPTION} />
+    <link rel="canonical" href={SITE + '/demo/'} />
+
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@400;450;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <SiteNav />
+
+    <main class="hero">
+      <div class="hero-copy-block">
+        <span class="hero-label"><span class="dot"></span>Demo</span>
+        <h1 class="hero-title">Live demos, coming soon</h1>
+        <p class="hero-copy-text">This page will showcase the automations I build, in action.</p>
+      </div>
+    </main>
+
+    <ConsentBanner />
+  </body>
+</html>

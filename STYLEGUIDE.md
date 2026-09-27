@@ -181,7 +181,9 @@ Purpose: single funnel to Fastwork — every CTA uses the `FASTWORK` const
   orange `#CF4500`, orange-light `#F37338`, clay `#9A3A0A`, ghost `#E8E2DA`.
   Radii 20px buttons / 36px panels / 999px pills; soft "halo" shadows.
 - Type: **Sofia Sans** via Google Fonts; `theme-color` `#F3F0EE`.
-- Structure: pill nav (avatar brand + Blog/About + "Hire me") → centered hero
+- Structure: pill nav (avatar brand + Blog/About + "Hire me"; ≤860px the
+  avatar becomes a menu button that opens the sidebar drawer — see "Mobile
+  nav drawer + /demo (2026-09-27)" below) → centered hero
   (akkari.io-style: label, big title, copy, Hire button with arrow — motto
   and trust line were removed 2026-09-26) → hero demo panel below, centered →
   dark rounded footer ("Let's automate your busywork" + Hire me / Save my
@@ -204,3 +206,23 @@ Purpose: single funnel to Fastwork — every CTA uses the `FASTWORK` const
 - Assets in use: `avatar.png`, `fastwork.jpeg`. Now unused (kept):
   `exl-logo-mark.png`, `road85-icon.png`, `blog.png`.
 - Deferred: new-style OG image; migrating about/blog pages.
+
+## Mobile nav drawer + /demo (2026-09-27)
+
+- Nav + drawer live in `src/components/SiteNav.astro` (own `FASTWORK` const),
+  imported by `/` (`index.astro`) and `/demo` (`demo.astro`). Styles in
+  `landing.css` (`.nav-left`, `.nav-menu-btn`, `.nav-backdrop`, `.nav-drawer`).
+- ≤860px: `.nav-links` hidden; the avatar is replaced by a round menu button
+  (`.nav-menu-btn`, 38px, hamburger). ≤480px the whole brand hides (drawer
+  keeps it). >860px: drawer + backdrop `display: none`, desktop nav unchanged.
+- Drawer: white, `min(320px, 85vw)`, slides from the left (260ms), rounded
+  right edge 28px, backdrop `rgba(20,20,19,0.45)`. Header = avatar + wordmark +
+  round X; links Blog / About / Demo (current page → orange `is-current`);
+  bottom = full-width "Hire me on Fastwork" CTA.
+- Behaviour: opens from the menu button; closes on X / backdrop / Esc / link
+  click / viewport >860px. Closed drawer is `inert` + `aria-hidden`; opening
+  removes both and focuses the X; closing restores focus to the button.
+  `html.nav-open` locks scroll; `aria-expanded` tracks state on the button.
+- `/demo` (`src/pages/demo.astro`): stub initialised 2026-09-27 — `SiteNav` +
+  centered `.hero` copy ("Live demos, coming soon"), no content yet, linked
+  from the drawer only. Add to `sitemap.xml` when it gets real content.
