@@ -1,0 +1,59 @@
+# Pages CMS configuration — fromsukong.com blog (repo: fromsukong/info)
+# Docs: https://pagescms.org/docs
+# Scope: ONLY the blog posts collection (src/content/blog) and the blog image
+# folder (public/images/blog). Everything else in the repo stays out of the editor.
+
+media:
+  input: public/images/blog
+  output: /images/blog
+  rename: safe
+
+settings:
+  content:
+    merge: true
+
+content:
+  - name: posts
+    label: Blog posts
+    type: collection
+    path: src/content/blog
+    filename:
+      template: "{primary}.md"
+      field: create
+    view:
+      fields: [title, pubDate, draft]
+      primary: title
+      sort: [pubDate, title]
+      default:
+        sort: pubDate
+        order: desc
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: description
+        label: Description
+        type: text
+        required: true
+        description: "Shown in the blog list, search results and social previews."
+      - name: pubDate
+        label: Publish date
+        type: date
+        required: true
+        options:
+          format: "yyyy-MM-dd"
+        description: "Future dates: the post stays hidden until then (goes live ~7:30am Bangkok that day)."
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+      - name: draft
+        label: Draft
+        type: boolean
+        description: "Turn on to hide the post from the site."
+      - name: body
+        label: Post content
+        type: rich-text
+        options:
+          format: markdown
