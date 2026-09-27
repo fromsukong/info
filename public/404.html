@@ -3,14 +3,21 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#F3F0EE" />
   <title>Page not found — FromSukong</title>
   <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
+    /* Static 404 (served by Cloudflare Pages as-is) — styled with the
+       fromsukong.com design tokens (cream canvas, ink, one orange accent). */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      background: #101314;
-      color: #E8F1F6;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f3f0ee;
+      color: #141413;
+      font-family: 'Sofia Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      -webkit-font-smoothing: antialiased;
       min-height: 100vh;
       display: flex;
       align-items: center;
@@ -18,31 +25,30 @@
       padding: 24px;
       text-align: center;
     }
-    .wrap { max-width: 480px; }
+    .wrap { max-width: 460px; }
     .code {
-      font-size: 72px;
+      font-size: 88px;
       font-weight: 700;
       line-height: 1;
-      background: linear-gradient(135deg, #f97316, #d3c490);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      letter-spacing: -0.02em;
+      color: #cf4500;
     }
-    h1 { font-size: 20px; margin: 16px 0 8px; font-weight: 600; }
-    p { font-size: 14px; opacity: 0.7; margin-bottom: 24px; line-height: 1.6; }
+    h1 { font-size: 22px; margin: 18px 0 8px; font-weight: 600; letter-spacing: -0.01em; }
+    p { font-size: 15px; color: #696969; margin-bottom: 28px; line-height: 1.6; }
     .links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
     a {
-      color: #101314;
-      background: #f5f6f7;
       text-decoration: none;
       font-size: 14px;
       font-weight: 600;
-      padding: 10px 20px;
-      border-radius: 24px;
-      transition: transform 0.15s ease, opacity 0.15s ease;
+      padding: 12px 22px;
+      border-radius: 20px;
+      transition: transform 0.15s ease, background 0.15s ease;
     }
-    a:hover { transform: scale(0.97); opacity: 0.9; }
-    a.ghost { background: transparent; color: #E8F1F6; border: 1px solid rgba(232, 241, 246, 0.3); }
+    a:hover { transform: scale(0.97); }
+    a.primary { color: #ffffff; background: #141413; }
+    a.primary:active { background: #262627; }
+    a.ghost { color: #141413; border: 1px solid #d1cdc7; }
+    a.ghost:hover { background: rgba(0, 0, 0, 0.03); }
   </style>
 </head>
 <body>
@@ -51,7 +57,7 @@
     <h1>Page not found</h1>
     <p>This page doesn't exist (or moved). Let's get you back on track.</p>
     <div class="links">
-      <a href="/">← Back home</a>
+      <a class="primary" href="/">← Back home</a>
       <a class="ghost" href="/about/">About</a>
       <a class="ghost" href="/blog/">Blog</a>
     </div>

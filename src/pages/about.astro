@@ -1,119 +1,84 @@
 ---
-import Page from '../components/about';
-import BackLink from '../components/BackLink.astro';
-import ConsentBanner from '../components/ConsentBanner.astro';
-import '../styles/global.css';
+// About — who Prame is, in the landing language: page head + white
+// info cards. Shell (nav/footer/head) comes from SiteLayout.
+// Section copy supports simple inline HTML: <strong>, <a href>.
+import SiteLayout from '../layouts/SiteLayout.astro';
+import { SITE } from '../config';
 
-const SITE = 'https://fromsukong.com';
-const PAGE_URL = SITE + '/about/';
 const TITLE = 'About — FromSukong | Supakone Kongprapan';
 const DESCRIPTION =
-  'About Supakone Kongprapan (@fromsukong): building in public, the excited.live clothing brand, and the Road to 85kg challenge.';
-const OG_IMAGE = 'https://fromsukong.com/assets/og-image.png';
+  'About Supakone Kongprapan (@fromsukong) — software developer building AI automations, sharing the journey in public.';
+const PAGE_URL = SITE + '/about/';
+
+const SECTIONS = [
+  {
+    title: 'About',
+    items: [
+      'Born in 2002 in Phrae, Thailand, with a twin. Graduated Computer Engineering from Chulalongkorn University in 2025.',
+      'Learned the craft at Thai startups (Genomic Analysis Platform, Api Plus Tech) and spent a summer on Work &amp; Travel in the USA in 2025.',
+      'Building <strong>FromSukong</strong> and <strong>excited.live</strong> in public: daily videos, real projects, and AI automation for small businesses.',
+    ],
+  },
+  {
+    title: 'Missions & Goals',
+    items: [
+      'Become a great person: honest, strong, disciplined, wise, dedicated, articulate.',
+      'Build or join a real technology company for Thailand.',
+      'Support my family in every way by the time I am 30.',
+    ],
+  },
+  {
+    title: 'Current Focus',
+    items: [
+      '1. <strong>FromSukong</strong>: post at least one authentic, funny video every single day.',
+      '2. <strong>excited.live</strong>: build it into a product people love.',
+      '3. <a href="/road-to-85kg/">Road to 85kg</a>: lose 19.4 kg in 365 days, in public, starting from 104.4 kg.',
+      '4. <strong>AI automation</strong>: build systems that remove the busywork for small businesses.',
+      '5. <strong>Health</strong>: gym daily, eat well, protect sleep.',
+    ],
+  },
+  {
+    title: 'Wisdom',
+    items: [
+      '(I am) excited to live.',
+      'Always do the hard thing smartly.',
+      'Discipline gives you freedom.',
+      "Be so good that they can't ignore you.",
+      'Relationship is the most important thing in life.',
+    ],
+  },
+];
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#FC5200" />
-    <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('consent', 'default', {
-        'ad_storage': 'denied',
-        'ad_user_data': 'denied',
-        'ad_personalization': 'denied',
-        'analytics_storage': 'denied',
-        'wait_for_update': 500,
-      });
-      try {
-        if (localStorage.getItem('fs-consent') === 'accepted') {
-          gtag('consent', 'update', {'analytics_storage': 'granted'});
-        }
-      } catch (e) {}
-    </script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4R5CYWR2M4"></script>
-    <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+<SiteLayout
+  title={TITLE}
+  description={DESCRIPTION}
+  canonical={PAGE_URL}
+  ogType="profile"
+  jsonLd={[
+    { '@type': 'ProfilePage', '@id': PAGE_URL + '#page', url: PAGE_URL, mainEntity: { '@id': SITE + '/#person' } },
+  ]}
+>
+  <main>
+    <header class="page-head">
+      <span class="eyebrow"><span class="dot"></span>About</span>
+      <h1 class="page-title">Supakone Kongprapan</h1>
+      <p class="page-sub">(I am) an AI enthusiast.</p>
+    </header>
 
-      gtag('config', 'G-4R5CYWR2M4');
-    </script>
-    <title>{TITLE}</title>
-    <meta name="description" content={DESCRIPTION} />
-    <link rel="canonical" href={PAGE_URL} />
-
-    <meta property="og:type" content="profile" />
-    <meta property="og:title" content={TITLE} />
-    <meta property="og:description" content={DESCRIPTION} />
-    <meta property="og:url" content={PAGE_URL} />
-    <meta property="og:site_name" content="FromSukong" />
-    <meta property="og:image" content={OG_IMAGE} />
-    <meta property="profile:username" content="fromsukong" />
-
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content={TITLE} />
-    <meta name="twitter:description" content={DESCRIPTION} />
-    <meta name="twitter:image" content={OG_IMAGE} />
-
-    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192.png" />
-    <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png" />
-    <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png" />
-    <link rel="icon" href="/favicon.ico" sizes="32x32" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Fustat:wght@300;400;500;600;700&family=JetBrains+Mono&display=swap"
-      rel="stylesheet"
-    />
-
-    <script type="application/ld+json" set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@graph': [
-        {
-          '@type': 'Person',
-          '@id': SITE + '/#person',
-          name: 'Supakone Kongprapan',
-          alternateName: 'FromSukong',
-          url: SITE + '/',
-          image: OG_IMAGE,
-          jobTitle: 'Software Engineer & Creator',
-          description: 'Posting daily, building excited.live, and running the Road to 85kg challenge.',
-          knowsAbout: ['building in public', 'content creation', 'web development', 'AI automation', 'React', 'Astro'],
-          email: 'mailto:supakone.kongprapan@gmail.com',
-          telephone: '+66622645246',
-          sameAs: [
-            'https://instagram.com/fromsukong',
-            'https://www.youtube.com/channel/UC12xsWSeHKOZHff8W6xPx6g',
-            'https://www.threads.com/@fromsukong',
-            'https://tiktok.com/@prem_sukong',
-            'https://www.facebook.com/fromsukong/',
-          ],
-        },
-        {
-          '@type': 'WebSite',
-          '@id': SITE + '/#website',
-          url: SITE + '/',
-          name: 'FromSukong',
-          description: 'Posting daily, building excited.live, and running the Road to 85kg challenge.',
-          publisher: { '@id': SITE + '/#person' },
-        },
-        {
-          '@type': 'ProfilePage',
-          '@id': PAGE_URL + '#page',
-          url: PAGE_URL,
-          mainEntity: { '@id': SITE + '/#person' },
-        },
-      ],
-    })} />
-  </head>
-  <body>
-    <BackLink />
-    <Page client:load />
-    <ConsentBanner />
-  </body>
-</html>
+    <div class="about-stack">
+      {
+        SECTIONS.map((section) => (
+          <section class="info-card">
+            <h2>{section.title}</h2>
+            <ul class="info-list">
+              {section.items.map((item) => (
+                <li set:html={item} />
+              ))}
+            </ul>
+          </section>
+        ))
+      }
+    </div>
+  </main>
+</SiteLayout>

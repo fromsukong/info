@@ -1,0 +1,40 @@
+/* ============================================================
+   fromsukong.com — design tokens
+   Single source of truth for colors, radii, shadows and layout
+   metrics. Change values HERE; never hardcode hex values in
+   components (use var(--token)).
+   Language: excited.live — cream canvas, ink text, one orange.
+   ============================================================ */
+
+:root {
+  color-scheme: light;
+
+  /* Surfaces */
+  --canvas: #f3f0ee;        /* page background */
+  --lifted: #fcfbfa;        /* slightly lifted surface */
+  --white: #ffffff;         /* cards, panels */
+  --ghost: #e8e2da;         /* borders, chips, hairlines on cream */
+
+  /* Text */
+  --ink: #141413;           /* primary text, dark footer bg */
+  --charcoal: #262627;      /* body text slightly softer than ink */
+  --slate: #696969;         /* secondary text */
+  --dust: #d1cdc7;          /* connectors, disabled, faint marks */
+
+  /* Accent (one orange) */
+  --orange: #cf4500;        /* CTAs, links, highlights */
+  --orange-light: #f37338;  /* hover accents on dark surfaces */
+  --clay: #9a3a0a;          /* deep accent */
+
+  /* Shape */
+  --panel-radius: 40px;     /* footer / big panels */
+  --btn-radius: 20px;       /* buttons */
+  --shadow-halo: rgba(0, 0, 0, 0.08) 0 24px 48px;
+  --shadow-card: rgba(0, 0, 0, 0.06) 0 12px 28px;
+  --shadow-nav: rgba(0, 0, 0, 0.04) 0 4px 24px 0;
+
+  /* Layout metrics */
+  --content-max: 1200px;    /* nav + footer content width */
+  --page-max: 720px;        /* subpage content column (about, blog) */
+  --gutter: 24px;           /* horizontal page padding */
+}

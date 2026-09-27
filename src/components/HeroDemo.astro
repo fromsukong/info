@@ -1,0 +1,188 @@
+---
+// Landing hero — centered copy + animated automation demo panel.
+// Home page only (markup classes live in landing.css; the tab/loop
+// script is inline so it stays a plain global IIFE).
+import { FASTWORK_URL } from '../config';
+---
+
+<header class="hero">
+  <div class="hero-copy-block">
+      <span class="eyebrow"><span class="dot"></span>AI automation for your business</span>
+      <h1 class="hero-title">Automate the busywork with AI</h1>
+      <p class="hero-copy-text">I build AI automations that answer your customers on LINE, follow up with leads, and handle the repetitive work, so you can focus on your business.</p>
+      <div class="hero-actions">
+        <a class="btn-ink" href={FASTWORK_URL} target="_blank" rel="noopener">Hire me on Fastwork <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7 H11"></path><path d="M8 4 L11 7 L8 10"></path></svg></a>
+      </div>
+  </div>
+
+  <div class="hero-demo">
+      <div class="demo-panel" data-anim aria-label="AI automation demo: customer message answered automatically">
+        <div class="demo-head">
+          <span>Your automation</span>
+          <span class="dh-live"><span class="chat-dot"></span>live</span>
+        </div>
+
+        <div class="demo-tabs" role="tablist" aria-label="Automation examples">
+          <button class="demo-tab is-active" type="button" role="tab" aria-selected="true" data-tab="chat">Customer chat</button>
+          <button class="demo-tab" type="button" role="tab" aria-selected="false" data-tab="email">Email → LINE</button>
+        </div>
+
+        <div class="demo-tabpane is-active" data-pane="chat">
+
+        <div class="wf">
+          <div class="wf-node" data-a="n1">
+            <span class="box">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5.5h16v10.5H9.5L4 19.5z" stroke="#141413" stroke-width="1.8" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="nm">LINE message</span>
+          </div>
+          <span class="wf-link" data-a="l1"><i></i></span>
+          <div class="wf-node" data-a="n2">
+            <span class="box">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3.5l1.8 5.2 5.2 1.8-5.2 1.8L12 17.5l-1.8-5.2L5 10.5l5.2-1.8z" stroke="#CF4500" stroke-width="1.7" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="nm">AI agent</span>
+          </div>
+          <span class="wf-link" data-a="l2"><i></i></span>
+          <div class="wf-node" data-a="n3">
+            <span class="box">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4.5 12L20 4.5l-4 15.5-4.2-6.1z" stroke="#141413" stroke-width="1.8" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="nm">Auto-reply</span>
+          </div>
+        </div>
+
+        <div class="chat">
+          <div class="chat-head"><span class="chat-dot"></span>LINE · customer chat</div>
+          <div class="chat-body">
+            <div class="bubble user" data-a="msg">Hi! Do you have the black one in stock?</div>
+            <div class="bubble typing" data-a="typing" aria-hidden="true"><i></i><i></i><i></i></div>
+            <div class="bubble bot" data-a="reply">Yes! 2 left. Want me to reserve one for you?</div>
+            <div class="quick" data-a="quick"><span>Reserve one</span><span>How much?</span></div>
+          </div>
+        </div>
+
+        <div class="exec-tag" data-a="tag">
+          <svg viewBox="0 0 12 12" fill="none" stroke="#CF4500" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 6.2 L5 8.5 L9.5 4"></path></svg>
+          <span>Auto-replied in 0.9s · no human needed</span>
+        </div>
+        </div>
+
+        <div class="demo-tabpane" data-pane="email">
+          <div class="wf">
+            <div class="wf-node" data-a="n1">
+              <span class="box">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.5 6.5h17v11h-17z" stroke="#141413" stroke-width="1.8" stroke-linejoin="round"/><path d="M3.5 7l8.5 6 8.5-6" stroke="#141413" stroke-width="1.8" stroke-linejoin="round"/></svg>
+              </span>
+              <span class="nm">New email</span>
+            </div>
+            <span class="wf-link" data-a="l1"><i></i></span>
+            <div class="wf-node" data-a="n2">
+              <span class="box">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3.5l1.8 5.2 5.2 1.8-5.2 1.8L12 17.5l-1.8-5.2L5 10.5l5.2-1.8z" stroke="#CF4500" stroke-width="1.7" stroke-linejoin="round"/></svg>
+              </span>
+              <span class="nm">AI agent</span>
+            </div>
+            <span class="wf-link" data-a="l2"><i></i></span>
+            <div class="wf-node" data-a="n3">
+              <span class="box">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4.5a5 5 0 0 1 5 5v3.5l1.6 3.2H5.4L7 13v-3.5a5 5 0 0 1 5-5z" stroke="#141413" stroke-width="1.8" stroke-linejoin="round"/><path d="M10 19.4a2 2 0 0 0 4 0" stroke="#141413" stroke-width="1.8" stroke-linecap="round"/></svg>
+              </span>
+              <span class="nm">LINE alert</span>
+            </div>
+          </div>
+
+          <div class="mail">
+            <div class="chat-head"><span class="chat-dot"></span>Inbox · 1 new email</div>
+            <div class="mail-body">
+              <div class="mail-item" data-a="em1">
+                <span class="mi-avatar">A</span>
+                <div class="mi-txt">
+                  <div class="mi-top"><span class="mi-from">Acme Co</span><span class="mi-time">11:38</span></div>
+                  <div class="mi-subj">Invoice #204 · payment question</div>
+                  <div class="mi-chips">
+                    <span class="mchip" data-a="lab">Label: Billing</span>
+                    <span class="mchip mchip-prio" data-a="prio">High priority</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="line-alert" data-a="notif">
+            <span class="chat-dot"></span>
+            <div>
+              <div class="la-title">Sent to LINE</div>
+              <div class="la-text">Acme Co · invoice question · high priority</div>
+            </div>
+          </div>
+
+          <div class="exec-tag" data-a="tag2">
+            <svg viewBox="0 0 12 12" fill="none" stroke="#CF4500" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 6.2 L5 8.5 L9.5 4"></path></svg>
+            <span>Labeled and routed in 1.2s · no human needed</span>
+          </div>
+        </div>
+      </div>
+      <p class="demo-cap">Chats answered, important emails straight to LINE.</p>
+  </div>
+</header>
+
+<script is:inline>
+  // Hero demo: tabbed automations (chat auto-reply / email to LINE).
+  // Each tab runs its own ~10s loop; switching restarts it.
+  (function () {
+    var panel = document.querySelector('[data-anim]');
+    if (!panel) return;
+    var all = function (sel) { return panel.querySelectorAll(sel); };
+    var add = function (sel) { all(sel).forEach(function (el) { el.classList.add('on'); }); };
+    var cut = function (sel) { all(sel).forEach(function (el) { el.classList.remove('on'); el.classList.remove('pulse'); }); };
+    var pulse = function (sel, on) { all(sel).forEach(function (el) { el.classList.toggle('pulse', on); }); };
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var timers = [];
+    var current = 'chat';
+    var at = function (ms, fn) { timers.push(setTimeout(fn, ms)); };
+    var clearAll = function () { timers.forEach(clearTimeout); timers = []; cut('[data-a]'); };
+    var intro = function () {
+      at(300, function () { add('[data-a="n1"]'); });
+      at(1000, function () { add('[data-a="l1"]'); });
+      at(1250, function () { add('[data-a="n2"]'); });
+      at(1950, function () { add('[data-a="l2"]'); });
+      at(2200, function () { add('[data-a="n3"]'); });
+    };
+    var playChat = function () {
+      intro();
+      at(2850, function () { add('[data-a="msg"]'); });
+      at(4600, function () { add('[data-a="typing"]'); pulse('[data-a="n2"]', true); });
+      at(6100, function () { cut('[data-a="typing"]'); pulse('[data-a="n2"]', false); });
+      at(6300, function () { add('[data-a="reply"]'); add('[data-a="quick"]'); add('[data-a="tag"]'); pulse('[data-a="n3"]', true); });
+      at(7500, function () { pulse('[data-a="n3"]', false); });
+      at(9500, function () { if (current === 'chat') { clearAll(); playChat(); } });
+    };
+    var playEmail = function () {
+      intro();
+      at(2850, function () { add('[data-a="em1"]'); });
+      at(4300, function () { add('[data-a="lab"]'); pulse('[data-a="n2"]', true); });
+      at(5300, function () { add('[data-a="prio"]'); pulse('[data-a="n2"]', false); });
+      at(6400, function () { add('[data-a="notif"]'); add('[data-a="tag2"]'); pulse('[data-a="n3"]', true); });
+      at(7600, function () { pulse('[data-a="n3"]', false); });
+      at(9700, function () { if (current === 'email') { clearAll(); playEmail(); } });
+    };
+    var play = function () { if (current === 'chat') { playChat(); } else { playEmail(); } };
+    var activate = function (name, restart) {
+      current = name;
+      panel.querySelectorAll('.demo-tab').forEach(function (b) {
+        var on = b.getAttribute('data-tab') === name;
+        b.classList.toggle('is-active', on);
+        b.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      panel.querySelectorAll('.demo-tabpane').forEach(function (p) {
+        p.classList.toggle('is-active', p.getAttribute('data-pane') === name);
+      });
+      if (restart && !reduce) { clearAll(); play(); }
+    };
+    panel.querySelectorAll('.demo-tab').forEach(function (b) {
+      b.addEventListener('click', function () { activate(b.getAttribute('data-tab'), true); });
+    });
+    if (reduce) { panel.classList.add('anim-end'); } else { play(); }
+  })();
+</script>

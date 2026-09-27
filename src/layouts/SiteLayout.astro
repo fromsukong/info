@@ -1,0 +1,138 @@
+---
+// ============================================================
+// SiteLayout — THE shared shell for every page on fromsukong.com.
+// Provides: <head> (SEO meta, GA4 consent mode, fonts, favicons),
+// the pill nav, the dark footer, and the consent banner.
+//
+// Usage:
+//   <SiteLayout title={...} description={...} canonical={...} ogType="article"
+//               jsonLd={[{ '@type': 'BlogPosting', ... }]}>
+//     ...page content...
+//   </SiteLayout>
+//
+// `jsonLd` entries are appended to the shared Person + WebSite
+// graph (both nodes are declared HERE, once, for the whole site).
+// Road to 85kg is standalone and does NOT use this layout.
+// ============================================================
+import SiteNav from '../components/SiteNav.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import ConsentBanner from '../components/ConsentBanner.astro';
+import { SITE, SOCIALS } from '../config';
+import '../styles/tokens.css';
+import '../styles/site.css';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical: string;
+  /** og:type — 'website' (default), 'profile', 'article', ... */
+  ogType?: string;
+  /** Extra schema.org nodes appended to the shared graph. */
+  jsonLd?: Record<string, unknown>[];
+}
+
+const { title, description, canonical, ogType = 'website', jsonLd = [] } = Astro.props;
+const OG_IMAGE = SITE + '/assets/og-image.png';
+
+const graph = [
+  {
+    '@type': 'Person',
+    '@id': SITE + '/#person',
+    name: 'Supakone Kongprapan',
+    alternateName: 'FromSukong',
+    url: SITE + '/',
+    image: OG_IMAGE,
+    jobTitle: 'Software Developer — AI Automation',
+    description: 'Software developer building AI automations. Hire me on Fastwork.',
+    knowsAbout: ['AI automation', 'LLM integrations', 'software development', 'web development', 'content creation', 'React', 'Astro'],
+    email: 'mailto:supakone.kongprapan@gmail.com',
+    telephone: '+66622645246',
+    sameAs: [
+      SOCIALS.instagram,
+      SOCIALS.youtube,
+      SOCIALS.threads,
+      SOCIALS.tiktok,
+      SOCIALS.facebook,
+      'https://fastwork.co/byob/5rBVa61qjC',
+    ],
+  },
+  {
+    '@type': 'WebSite',
+    '@id': SITE + '/#website',
+    url: SITE + '/',
+    name: 'FromSukong',
+    description: 'AI automation and software development by Supakone Kongprapan.',
+    publisher: { '@id': SITE + '/#person' },
+  },
+  ...jsonLd,
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#F3F0EE" />
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', {
+        'ad_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied',
+        'analytics_storage': 'denied',
+        'wait_for_update': 500,
+      });
+      try {
+        if (localStorage.getItem('fs-consent') === 'accepted') {
+          gtag('consent', 'update', {'analytics_storage': 'granted'});
+        }
+      } catch (e) {}
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4R5CYWR2M4"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-4R5CYWR2M4');
+    </script>
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="FromSukong" />
+    <meta property="og:image" content={OG_IMAGE} />
+    {ogType === 'profile' && <meta property="profile:username" content="fromsukong" />}
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={OG_IMAGE} />
+
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@400;450;500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', '@graph': graph })} />
+  </head>
+  <body>
+    <SiteNav />
+    <slot />
+    <SiteFooter />
+    <ConsentBanner />
+  </body>
+</html>

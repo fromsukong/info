@@ -1,0 +1,66 @@
+---
+// Dark rounded footer — shared by every page via SiteLayout.
+// Carries the primary CTA (Fastwork) + the vCard "Save my contact" download.
+import { FASTWORK_URL, SOCIALS } from '../config';
+---
+
+<footer class="footer" id="say-hi">
+  <div class="footer-inner">
+    <div class="footer-main">
+      <h2>Let's automate your busywork</h2>
+      <p>Tell me what's eating your time. I'll build the automation.</p>
+      <div class="footer-actions">
+        <a class="btn-white" href={FASTWORK_URL} target="_blank" rel="noopener">Hire me on Fastwork</a>
+        <button class="btn-ghost js-save-contact" type="button">Save my contact</button>
+      </div>
+    </div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <a href={FASTWORK_URL} target="_blank" rel="noopener">Fastwork</a>
+        <a href="/blog">Blog</a>
+        <a href="/about">About</a>
+      </div>
+      <div class="footer-col">
+        <h4>Follow</h4>
+        <a href={SOCIALS.instagram} target="_blank" rel="noopener">Instagram</a>
+        <a href={SOCIALS.tiktok} target="_blank" rel="noopener">TikTok</a>
+        <a href={SOCIALS.youtube} target="_blank" rel="noopener">YouTube</a>
+        <a href={SOCIALS.threads} target="_blank" rel="noopener">Threads</a>
+        <a href={SOCIALS.facebook} target="_blank" rel="noopener">Facebook</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Supakone Kongprapan</span>
+      <span>fromsukong.com · @fromsukong</span>
+    </div>
+  </div>
+</footer>
+
+<script is:inline>
+  // "Save my contact" → downloads a vCard.
+  (function () {
+    function saveContact() {
+      var vcard = [
+        'BEGIN:VCARD',
+        'VERSION:3.0',
+        'FN:Supakone Kongprapan',
+        'EMAIL;TYPE=INTERNET:supakone.kongprapan@gmail.com',
+        'TEL;TYPE=CELL:0622645246',
+        'END:VCARD',
+      ].join('\n');
+      var url = URL.createObjectURL(new Blob([vcard], { type: 'text/vcard' }));
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'Supakone_Kongprapan.vcf';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+    var savers = document.querySelectorAll('.js-save-contact');
+    for (var j = 0; j < savers.length; j++) {
+      savers[j].addEventListener('click', saveContact);
+    }
+  })();
+</script>

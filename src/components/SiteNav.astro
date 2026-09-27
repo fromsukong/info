@@ -2,9 +2,9 @@
 // Site nav pill + mobile sidebar drawer (2026-09-27).
 // Desktop: avatar brand + inline Blog/About links + "Hire me".
 // ≤860px: the avatar is replaced by a menu button; tapping it opens the
-// drawer (Blog / About / Demo + Fastwork CTA). Styles live in landing.css.
-// Used by / (index.astro) and /demo (demo.astro).
-const FASTWORK = 'https://fastwork.co/byob/5rBVa61qjC?openExternalBrowser=1&source=byob';
+// drawer (Blog / About / Demo + Fastwork CTA). Styles live in site.css.
+// Used by every page through SiteLayout.
+import { FASTWORK_URL } from '../config';
 const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
 const links = [
   { href: '/blog', label: 'Blog' },
@@ -36,7 +36,7 @@ const isCurrent = (href: string) => path === href || path.startsWith(href + '/')
       <a href="/about">About</a>
     </div>
     <div class="nav-actions">
-      <a class="btn-ink" href={FASTWORK} target="_blank" rel="noopener">Hire me</a>
+      <a class="btn-ink" href={FASTWORK_URL} target="_blank" rel="noopener">Hire me</a>
     </div>
   </div>
 </nav>
@@ -59,7 +59,7 @@ const isCurrent = (href: string) => path === href || path.startsWith(href + '/')
     ))}
   </nav>
   <div class="nav-drawer-foot">
-    <a class="btn-ink" href={FASTWORK} target="_blank" rel="noopener">Hire me on Fastwork</a>
+    <a class="btn-ink" href={FASTWORK_URL} target="_blank" rel="noopener">Hire me on Fastwork</a>
   </div>
 </aside>
 
