@@ -43,7 +43,7 @@ content:
         required: true
         options:
           format: "yyyy-MM-dd"
-        description: "Future dates: the post stays hidden until then (goes live ~7:30am Bangkok that day)."
+        description: "Future dates: the post stays hidden until then (goes live at 1:00am Bangkok that day)."
       - name: tags
         label: Tags
         type: string

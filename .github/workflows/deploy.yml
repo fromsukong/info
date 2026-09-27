@@ -4,8 +4,9 @@ on:
   push:
     branches: [main]
   schedule:
-    # Daily rebuild so future-dated posts go live on their date (00:30 UTC = 07:30 Bangkok).
-    - cron: '30 0 * * *'
+    # Daily publish clock: 18:00 UTC = 01:00 Bangkok. Scheduled posts go live
+    # on their date at 1am Bangkok.
+    - cron: '0 18 * * *'
   workflow_dispatch:
 
 jobs:
