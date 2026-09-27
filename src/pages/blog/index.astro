@@ -6,7 +6,7 @@ import SiteLayout from '../../layouts/SiteLayout.astro';
 import { SITE } from '../../config';
 
 const posts = (await getCollection('blog'))
-  .filter((post) => !post.data.draft)
+  .filter((post) => !post.data.draft && post.data.pubDate.valueOf() <= Date.now())
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const TITLE = 'Blog — FromSukong | Supakone Kongprapan';

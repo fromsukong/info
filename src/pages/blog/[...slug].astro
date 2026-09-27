@@ -6,7 +6,9 @@ import SiteLayout from '../../layouts/SiteLayout.astro';
 import { SITE } from '../../config';
 
 export async function getStaticPaths() {
-  const posts = (await getCollection('blog')).filter((post) => !post.data.draft);
+  const posts = (await getCollection('blog')).filter(
+    (post) => !post.data.draft && post.data.pubDate.valueOf() <= Date.now()
+  );
   return posts.map((post) => ({
     params: { slug: post.id },
     props: { post },
