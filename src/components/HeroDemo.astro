@@ -23,30 +23,30 @@ import { FASTWORK_URL } from '../config';
         </div>
 
         <div class="demo-tabs" role="tablist" aria-label="Automation examples">
-          <button class="demo-tab is-active" type="button" role="tab" aria-selected="true" data-tab="chat">Customer chat</button>
-          <button class="demo-tab" type="button" role="tab" aria-selected="false" data-tab="email">Email → LINE</button>
+          <button class="demo-tab is-active" type="button" role="tab" id="tab-chat" aria-selected="true" aria-controls="pane-chat" data-tab="chat">Customer chat</button>
+          <button class="demo-tab" type="button" role="tab" id="tab-email" aria-selected="false" aria-controls="pane-email" data-tab="email">Email → LINE</button>
         </div>
 
-        <div class="demo-tabpane is-active" data-pane="chat">
+        <div class="demo-tabpane is-active" id="pane-chat" role="tabpanel" aria-labelledby="tab-chat" data-pane="chat">
 
         <div class="wf">
           <div class="wf-node" data-a="n1">
             <span class="box">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5.5h16v10.5H9.5L4 19.5z" stroke="#141413" stroke-width="1.8" stroke-linejoin="round"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5.5h16v10.5H9.5L4 19.5z" stroke="var(--ink)" stroke-width="1.8" stroke-linejoin="round"/></svg>
             </span>
             <span class="nm">LINE message</span>
           </div>
           <span class="wf-link" data-a="l1"><i></i></span>
           <div class="wf-node" data-a="n2">
             <span class="box">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3.5l1.8 5.2 5.2 1.8-5.2 1.8L12 17.5l-1.8-5.2L5 10.5l5.2-1.8z" stroke="#CF4500" stroke-width="1.7" stroke-linejoin="round"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3.5l1.8 5.2 5.2 1.8-5.2 1.8L12 17.5l-1.8-5.2L5 10.5l5.2-1.8z" stroke="var(--orange)" stroke-width="1.7" stroke-linejoin="round"/></svg>
             </span>
             <span class="nm">AI agent</span>
           </div>
           <span class="wf-link" data-a="l2"><i></i></span>
           <div class="wf-node" data-a="n3">
             <span class="box">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4.5 12L20 4.5l-4 15.5-4.2-6.1z" stroke="#141413" stroke-width="1.8" stroke-linejoin="round"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4.5 12L20 4.5l-4 15.5-4.2-6.1z" stroke="var(--ink)" stroke-width="1.8" stroke-linejoin="round"/></svg>
             </span>
             <span class="nm">Auto-reply</span>
           </div>
@@ -63,30 +63,30 @@ import { FASTWORK_URL } from '../config';
         </div>
 
         <div class="exec-tag" data-a="tag">
-          <svg viewBox="0 0 12 12" fill="none" stroke="#CF4500" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 6.2 L5 8.5 L9.5 4"></path></svg>
+          <svg viewBox="0 0 12 12" fill="none" stroke="var(--orange)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 6.2 L5 8.5 L9.5 4"></path></svg>
           <span>Auto-replied in 0.9s · no human needed</span>
         </div>
         </div>
 
-        <div class="demo-tabpane" data-pane="email">
+        <div class="demo-tabpane" id="pane-email" role="tabpanel" aria-labelledby="tab-email" data-pane="email">
           <div class="wf">
             <div class="wf-node" data-a="n1">
               <span class="box">
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.5 6.5h17v11h-17z" stroke="#141413" stroke-width="1.8" stroke-linejoin="round"/><path d="M3.5 7l8.5 6 8.5-6" stroke="#141413" stroke-width="1.8" stroke-linejoin="round"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.5 6.5h17v11h-17z" stroke="var(--ink)" stroke-width="1.8" stroke-linejoin="round"/><path d="M3.5 7l8.5 6 8.5-6" stroke="var(--ink)" stroke-width="1.8" stroke-linejoin="round"/></svg>
               </span>
               <span class="nm">New email</span>
             </div>
             <span class="wf-link" data-a="l1"><i></i></span>
             <div class="wf-node" data-a="n2">
               <span class="box">
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3.5l1.8 5.2 5.2 1.8-5.2 1.8L12 17.5l-1.8-5.2L5 10.5l5.2-1.8z" stroke="#CF4500" stroke-width="1.7" stroke-linejoin="round"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3.5l1.8 5.2 5.2 1.8-5.2 1.8L12 17.5l-1.8-5.2L5 10.5l5.2-1.8z" stroke="var(--orange)" stroke-width="1.7" stroke-linejoin="round"/></svg>
               </span>
               <span class="nm">AI agent</span>
             </div>
             <span class="wf-link" data-a="l2"><i></i></span>
             <div class="wf-node" data-a="n3">
               <span class="box">
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4.5a5 5 0 0 1 5 5v3.5l1.6 3.2H5.4L7 13v-3.5a5 5 0 0 1 5-5z" stroke="#141413" stroke-width="1.8" stroke-linejoin="round"/><path d="M10 19.4a2 2 0 0 0 4 0" stroke="#141413" stroke-width="1.8" stroke-linecap="round"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4.5a5 5 0 0 1 5 5v3.5l1.6 3.2H5.4L7 13v-3.5a5 5 0 0 1 5-5z" stroke="var(--ink)" stroke-width="1.8" stroke-linejoin="round"/><path d="M10 19.4a2 2 0 0 0 4 0" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round"/></svg>
               </span>
               <span class="nm">LINE alert</span>
             </div>
@@ -118,7 +118,7 @@ import { FASTWORK_URL } from '../config';
           </div>
 
           <div class="exec-tag" data-a="tag2">
-            <svg viewBox="0 0 12 12" fill="none" stroke="#CF4500" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 6.2 L5 8.5 L9.5 4"></path></svg>
+            <svg viewBox="0 0 12 12" fill="none" stroke="var(--orange)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 6.2 L5 8.5 L9.5 4"></path></svg>
             <span>Labeled and routed in 1.2s · no human needed</span>
           </div>
         </div>
@@ -180,8 +180,22 @@ import { FASTWORK_URL } from '../config';
       });
       if (restart && !reduce) { clearAll(); play(); }
     };
-    panel.querySelectorAll('.demo-tab').forEach(function (b) {
+    var tabs = Array.prototype.slice.call(panel.querySelectorAll('.demo-tab'));
+    tabs.forEach(function (b, idx) {
       b.addEventListener('click', function () { activate(b.getAttribute('data-tab'), true); });
+      b.addEventListener('keydown', function (e) {
+        var targetIdx = -1;
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+          targetIdx = (idx + 1) % tabs.length;
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+          targetIdx = (idx - 1 + tabs.length) % tabs.length;
+        }
+        if (targetIdx !== -1) {
+          e.preventDefault();
+          tabs[targetIdx].focus();
+          activate(tabs[targetIdx].getAttribute('data-tab'), true);
+        }
+      });
     });
     if (reduce) { panel.classList.add('anim-end'); } else { play(); }
   })();

@@ -29,9 +29,11 @@ interface Props {
   ogType?: string;
   /** Extra schema.org nodes appended to the shared graph. */
   jsonLd?: Record<string, unknown>[];
+  /** When true, emits <meta name="robots" content="noindex, nofollow" />. */
+  noindex?: boolean;
 }
 
-const { title, description, canonical, ogType = 'website', jsonLd = [] } = Astro.props;
+const { title, description, canonical, ogType = 'website', jsonLd = [], noindex = false } = Astro.props;
 const OG_IMAGE = SITE + '/assets/og-image.png';
 
 const graph = [
@@ -101,6 +103,7 @@ const graph = [
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
 
     <meta property="og:type" content={ogType} />
     <meta property="og:title" content={title} />
@@ -110,7 +113,7 @@ const graph = [
     <meta property="og:image" content={OG_IMAGE} />
     {ogType === 'profile' && <meta property="profile:username" content="fromsukong" />}
 
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={OG_IMAGE} />

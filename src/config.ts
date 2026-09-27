@@ -13,6 +13,6 @@ export const SOCIALS = {
   instagram: 'https://instagram.com/fromsukong',
   tiktok: 'https://tiktok.com/@prem_sukong',
   youtube: 'https://www.youtube.com/channel/UC12xsWSeHKOZHff8W6xPx6g',
-  threads: 'https://www.threads.com/@fromsukong',
+  threads: 'https://www.threads.net/@fromsukong',
   facebook: 'https://www.facebook.com/fromsukong/',
 };

@@ -41,46 +41,48 @@ const formatDate = (d: Date) =>
     },
   ]}
 >
-  <header class="page-head">
-    <span class="eyebrow"><span class="dot"></span>Blog</span>
-    <h1 class="page-title">Notes from the build</h1>
-    <p class="page-sub">AI automation · web development · building in public</p>
-  </header>
+  <main>
+    <header class="page-head">
+      <span class="eyebrow"><span class="dot"></span>Blog</span>
+      <h1 class="page-title">Notes from the build</h1>
+      <p class="page-sub">AI automation · web development · building in public</p>
+    </header>
 
-  <div class="posts">
-    {
-      posts.length === 0 ? (
-        <p class="empty">No posts yet — coming soon.</p>
-      ) : (
-        <ul class="post-list">
-          {posts.map((post) => (
-            <li>
-              <a class="post-card" href={`/blog/${post.id}/`}>
-                <span class="pc-main">
-                  <span class="pc-title">{post.data.title}</span>
-                  <span class="pc-desc">{post.data.description}</span>
-                </span>
-                <span class="pc-meta">
-                  <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
-                  <svg
-                    class="pc-arrow"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.7"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    aria-hidden="true"
-                  >
-                    <path d="M3 8 H13" />
-                    <path d="M9 4 L13 8 L9 12" />
-                  </svg>
-                </span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      )
-    }
-  </div>
+    <div class="posts">
+      {
+        posts.length === 0 ? (
+          <p class="empty">No posts yet — coming soon.</p>
+        ) : (
+          <ul class="post-list">
+            {posts.map((post) => (
+              <li>
+                <a class="post-card" href={`/blog/${post.id}/`}>
+                  <span class="pc-main">
+                    <span class="pc-title">{post.data.title}</span>
+                    <span class="pc-desc">{post.data.description}</span>
+                  </span>
+                  <span class="pc-meta">
+                    <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
+                    <svg
+                      class="pc-arrow"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.7"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M3 8 H13" />
+                      <path d="M9 4 L13 8 L9 12" />
+                    </svg>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+  </main>
 </SiteLayout>

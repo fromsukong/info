@@ -9,10 +9,12 @@ const TITLE = 'Demo — FromSukong';
 const DESCRIPTION = 'Demos of the AI automations I build, in action. Coming soon.';
 ---
 
-<SiteLayout title={TITLE} description={DESCRIPTION} canonical={SITE + '/demo/'}>
-  <header class="page-head">
-    <span class="eyebrow"><span class="dot"></span>Demo</span>
-    <h1 class="page-title">Live demos, coming soon</h1>
-    <p class="page-sub">This page will showcase the automations I build, in action.</p>
-  </header>
+<SiteLayout title={TITLE} description={DESCRIPTION} canonical={SITE + '/demo/'} noindex={true}>
+  <main>
+    <header class="page-head">
+      <span class="eyebrow"><span class="dot"></span>Demo</span>
+      <h1 class="page-title">Live demos, coming soon</h1>
+      <p class="page-sub">This page will showcase the automations I build, in action.</p>
+    </header>
+  </main>
 </SiteLayout>

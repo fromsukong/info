@@ -11,7 +11,6 @@
 
   /* Surfaces */
   --canvas: #f3f0ee;        /* page background */
-  --lifted: #fcfbfa;        /* slightly lifted surface */
   --white: #ffffff;         /* cards, panels */
   --ghost: #e8e2da;         /* borders, chips, hairlines on cream */
 
@@ -24,7 +23,6 @@
   /* Accent (one orange) */
   --orange: #cf4500;        /* CTAs, links, highlights */
   --orange-light: #f37338;  /* hover accents on dark surfaces */
-  --clay: #9a3a0a;          /* deep accent */
 
   /* Shape */
   --panel-radius: 40px;     /* footer / big panels */

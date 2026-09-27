@@ -34,7 +34,7 @@ surfaces and "halo" shadows instead of borders. Friendly, not corporate.
 
 Radii: buttons/pills `20px`, cards `20-24px`, panels `36-40px`, chips `999px`.
 Shadows: `--shadow-halo` (hero panel), `--shadow-card` (cards), `--shadow-nav`.
-Layout: `--content-max: 1200px`, `--measure: 720px` (reading column),
+Layout: `--content-max: 1200px`, `--page-max: 720px` (reading column),
 `--gutter: 24px`.
 
 **Rule:** never hardcode a hex value in a page/component when a token exists.
@@ -56,10 +56,15 @@ Change the token, not the usage.
   → **dark rounded footer** → consent banner.
 - Subpage headers use `.page-head`: centered, `.eyebrow` (orange dot + 12px
   uppercase label) → `.page-title` → `.page-sub`.
-- Content widths: prose/reading `--measure` (720px), card lists 720px,
+- Content widths: prose/reading `--page-max` (720px), card lists 720px,
   footer/nav `--content-max` (1200px).
 - Cards: white, `20-24px` radius, `--shadow-card`, gap `14px`. Hover = lift
   + orange arrow/accent, no glow.
+- Nav responsive: >860px = avatar + wordmark + Blog/About + Hire; ≤860px the
+  avatar turns into the menu button (drawer: Blog/About/Demo + CTA); ≤480px
+  the avatar hides but the **wordmark stays** so the pill keeps its brand.
+  The current page is marked `aria-current="page"` + orange in both navs.
+
 ## Architecture — where everything lives
 
 ```

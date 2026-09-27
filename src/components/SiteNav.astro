@@ -5,13 +5,17 @@
 // drawer (Blog / About / Demo + Fastwork CTA). Styles live in site.css.
 // Used by every page through SiteLayout.
 import { FASTWORK_URL } from '../config';
-const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const normalize = (p: string) => p.replace(/\/+$/, '') || '/';
+const path = normalize(Astro.url.pathname);
 const links = [
-  { href: '/blog', label: 'Blog' },
-  { href: '/about', label: 'About' },
-  { href: '/demo', label: 'Demo' },
+  { href: '/blog/', label: 'Blog' },
+  { href: '/about/', label: 'About' },
+  { href: '/demo/', label: 'Demo' },
 ];
-const isCurrent = (href: string) => path === href || path.startsWith(href + '/');
+const isCurrent = (href: string) => {
+  const normHref = normalize(href);
+  return path === normHref || path.startsWith(normHref + '/');
+};
 ---
 
 <nav class="nav-wrap" aria-label="Main">
@@ -28,12 +32,13 @@ const isCurrent = (href: string) => path === href || path.startsWith(href + '/')
       </button>
       <a class="nav-brand" href="/">
         <img src="/assets/avatar.png" alt="" width="30" height="30" />
-        <span class="word">fromsukong<span class="brand-dot">.com</span></span>
+        <span>fromsukong<span class="brand-dot">.com</span></span>
       </a>
     </div>
     <div class="nav-links">
-      <a href="/blog">Blog</a>
-      <a href="/about">About</a>
+      {links.slice(0, 2).map((l) => (
+        <a href={l.href} class:list={{ 'is-current': isCurrent(l.href) }} aria-current={isCurrent(l.href) ? 'page' : undefined}>{l.label}</a>
+      ))}
     </div>
     <div class="nav-actions">
       <a class="btn-ink" href={FASTWORK_URL} target="_blank" rel="noopener">Hire me</a>
@@ -55,7 +60,7 @@ const isCurrent = (href: string) => path === href || path.startsWith(href + '/')
   </div>
   <nav class="nav-drawer-links" aria-label="Menu">
     {links.map((l) => (
-      <a href={l.href} class:list={{ 'is-current': isCurrent(l.href) }}>{l.label}</a>
+      <a href={l.href} class:list={{ 'is-current': isCurrent(l.href) }} aria-current={isCurrent(l.href) ? 'page' : undefined}>{l.label}</a>
     ))}
   </nav>
   <div class="nav-drawer-foot">
@@ -91,11 +96,32 @@ const isCurrent = (href: string) => path === href || path.startsWith(href + '/')
       }
     }
 
+    function getFocusables() {
+      return drawer.querySelectorAll('a, button, [tabindex]:not([tabindex="-1"])');
+    }
+
     btn.addEventListener('click', function () { setOpen(!isOpen); });
     if (closeBtn) closeBtn.addEventListener('click', function () { setOpen(false, true); });
     if (backdrop) backdrop.addEventListener('click', function () { setOpen(false, true); });
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && isOpen) setOpen(false, true);
+      if (!isOpen) return;
+      if (e.key === 'Escape') {
+        setOpen(false, true);
+        return;
+      }
+      if (e.key === 'Tab') {
+        var focusables = getFocusables();
+        if (!focusables.length) return;
+        var first = focusables[0];
+        var last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
     });
     drawer.querySelectorAll('a').forEach(function (a) {
       a.addEventListener('click', function () { setOpen(false); });
