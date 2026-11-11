@@ -309,7 +309,7 @@ button { font: inherit; color: inherit; }
 .nav-links a:hover, .nav-links a.is-current { color: var(--orange); }
 .nav-actions { display: flex; align-items: center; gap: 12px; }
 .nav-pill .btn-ink { padding: 9px 20px; font-size: 15px; }
-/* The single Fastwork CTA — stays black; pulsing ring + light sweep draw the eye */
+/* The single Fastwork CTA — stays black; orange pulsing ring + light sweep draw the eye */
 .nav-pill .nav-cta {
   position: relative; overflow: hidden; isolation: isolate;
   animation: cta-pulse 2.4s ease-out infinite;
@@ -325,14 +325,14 @@ button { font: inherit; color: inherit; }
 /* one-shot burst when the showcase's flying arrow lands on the button */
 .nav-pill .nav-cta.hit { animation: cta-hit 0.8s ease-out; }
 @keyframes cta-hit {
-  0%   { transform: scale(1); box-shadow: 0 0 0 0 rgba(20, 20, 19, 0.6); }
+  0%   { transform: scale(1); box-shadow: 0 0 0 0 rgba(207, 69, 0, 0.7); }
   30%  { transform: scale(1.14); }
-  100% { transform: scale(1); box-shadow: 0 0 0 22px rgba(20, 20, 19, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 22px rgba(207, 69, 0, 0); }
 }
 @keyframes cta-pulse {
-  0%   { box-shadow: 0 0 0 0 rgba(20, 20, 19, 0.45); }
-  70%  { box-shadow: 0 0 0 12px rgba(20, 20, 19, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(20, 20, 19, 0); }
+  0%   { box-shadow: 0 0 0 0 rgba(207, 69, 0, 0.55); }
+  70%  { box-shadow: 0 0 0 12px rgba(207, 69, 0, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(207, 69, 0, 0); }
 }
 @keyframes cta-sweep {
   0%, 55% { transform: translateX(-120%); }
@@ -356,7 +356,7 @@ button { font: inherit; color: inherit; }
 html.nav-open { overflow: hidden; }
 .nav-backdrop {
   position: fixed; inset: 0; z-index: 1190;
-  background: rgba(20, 20, 19, 0.45);
+  background: rgba(207, 69, 0, 0.55);
   opacity: 0; visibility: hidden; pointer-events: none;
   transition: opacity 0.24s ease, visibility 0s linear 0.24s;
 }

@@ -137,16 +137,38 @@ const PANES: { key: string; label: string; component?: any }[] = [
       arrow.innerHTML = '<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 11.5 V2.5"></path><path d="M3.5 6 L7 2.5 L10.5 6"></path></svg>';
       arrow.style.cssText = 'left:' + sx + 'px;top:' + sy + 'px;width:' + size + 'px;height:' + size + 'px';
       document.body.appendChild(arrow);
-      // Curve: bow sideways mid-flight, then home in. Icon points "up" (0deg);
-      // rotate so it faces the direction of travel.
-      var ang = Math.atan2(dy, dx) * 180 / Math.PI + 90;
-      var bow = Math.min(90, Math.abs(dy) * 0.25) * (dx >= 0 ? -1 : 1);
-      var anim = arrow.animate([
-        { transform: 'translate(0,0) scale(0.6) rotate(' + ang + 'deg)', opacity: 0 },
-        { transform: 'translate(' + (dx * 0.15) + 'px,' + (dy * 0.15) + 'px) scale(1.15) rotate(' + ang + 'deg)', opacity: 1, offset: 0.12 },
-        { transform: 'translate(' + (dx * 0.55 + bow) + 'px,' + (dy * 0.55) + 'px) scale(1.2) rotate(' + ang + 'deg)', opacity: 1, offset: 0.6 },
-        { transform: 'translate(' + dx + 'px,' + dy + 'px) scale(0.5) rotate(' + ang + 'deg)', opacity: 0.9 }
-      ], { duration: 1100, easing: 'cubic-bezier(0.5, 0, 0.3, 1)', fill: 'forwards' });
+      // Path: shoot DOWN from the pill, U-turn, then climb up into the button.
+      // Cubic bezier with both control points below the endpoints; we sample it
+      // into keyframes and rotate the arrow along the tangent (icon points up).
+      var maxY = window.innerHeight - size - 8;
+      var dip = Math.max(90, Math.min(220, maxY - sy));
+      var side = dx >= 0 ? 1 : -1;
+      var c1x = sx + side * 30, c1y = sy + dip * 2.8;
+      var c2x = ex - side * 70, c2y = ey + dip * 3.2 + Math.max(0, dy * -0.15);
+      var pt = function (t) {
+        var u = 1 - t;
+        return {
+          x: u*u*u*sx + 3*u*u*t*c1x + 3*u*t*t*c2x + t*t*t*ex,
+          y: u*u*u*sy + 3*u*u*t*c1y + 3*u*t*t*c2y + t*t*t*ey
+        };
+      };
+      var frames = [], N = 48, prevAng = 180;
+      for (var i = 0; i <= N; i++) {
+        var u = i / N;
+        var t = u < 0.5 ? 2*u*u : 1 - Math.pow(-2*u + 2, 2) / 2; // ease in-out → arrow lingers at the turn
+        var p0 = pt(Math.max(0, t - 0.01)), p1 = pt(Math.min(1, t + 0.01));
+        var ang = Math.atan2(p1.y - p0.y, p1.x - p0.x) * 180 / Math.PI + 90;
+        while (ang - prevAng > 180) ang -= 360;   // keep rotation continuous
+        while (ang - prevAng < -180) ang += 360;
+        prevAng = ang;
+        var pos = pt(t);
+        frames.push({
+          transform: 'translate(' + (pos.x - sx) + 'px,' + (pos.y - sy) + 'px) rotate(' + ang + 'deg) scale(' + (u > 0.9 ? 1 - (u - 0.9) * 5 : 1.15) + ')',
+          opacity: u < 0.04 ? u / 0.04 : 1,
+          offset: u
+        });
+      }
+      var anim = arrow.animate(frames, { duration: 1700, easing: 'linear', fill: 'forwards' });
       anim.onfinish = function () {
         arrow.remove();
         target.classList.remove('hit');
