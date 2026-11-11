@@ -57,7 +57,7 @@ button { font: inherit; color: inherit; }
 }
 .eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--orange); flex: none; }
 
-.btn-ink, .btn-white, .btn-ghost {
+.btn-ink {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -71,10 +71,6 @@ button { font: inherit; color: inherit; }
 }
 .btn-ink { background: var(--ink); color: var(--canvas); border: 1.5px solid var(--ink); font-weight: 500; }
 .btn-ink:hover { background: var(--charcoal); }
-.btn-white { background: var(--white); color: var(--ink); border: 1.5px solid var(--white); font-weight: 500; }
-.btn-white:hover { background: var(--canvas); border-color: var(--canvas); }
-.btn-ghost { background: transparent; color: var(--white); border: 1.5px solid rgba(255, 255, 255, 0.4); font-weight: 450; }
-.btn-ghost:hover { border-color: rgba(255, 255, 255, 0.8); }
 
 /* ---------- 3. page head (about / blog / demo) ---------- */
 .page-head {
@@ -446,7 +442,7 @@ main { flex: 1 0 auto; }
 :lang(th) .footer-main h2,
 :lang(th) .prose h2,
 :lang(th) .tl-card h2,
-:lang(th) .btn-ink, :lang(th) .btn-white, :lang(th) .btn-ghost,
+:lang(th) .btn-ink,
 :lang(th) .post-card .pc-title { letter-spacing: 0; }
 :lang(th) .page-title,
 :lang(th) .post-head h1 { line-height: 1.3; }

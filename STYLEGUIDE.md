@@ -8,8 +8,8 @@ page or update this document — never let them drift.
 > about, blog and post pages all render through `SiteLayout.astro` with the
 > same tokens, nav, footer and type scale (the landing v4 "excited.live"
 > language). The old Astryx/React stack and the Strava-style white pages are
-> gone. `/road-to-85kg` is the one intentional exception (standalone tracker,
-> own styles, no site nav).
+> gone. The old standalone `/road-to-85kg` tracker was deleted on
+> 2026-11-12 (recoverable from git history).
 
 > **2026-11-12 — Thai only.** All user-facing copy is Thai (`<html lang="th">`,
 > `og:locale th_TH`). Don't add English UI strings or a language switcher; new
@@ -18,7 +18,7 @@ page or update this document — never let them drift.
 > by the `TIMELINE` array in `pages/about.astro`; the footer no longer has a
 > "Save my contact" button. The About copy is professional-only (full-time
 > engineer, AI factory / agents memory, AI financial planning) — no personal
-> info (birthplace, family, weight, graduation); `/road-to-85kg` is no longer
+> info (birthplace, family, weight, graduation); the `/road-to-85kg` page is gone and not
 > linked from About/Home.
 
 ## Design language
@@ -98,7 +98,6 @@ src/
 │   │                            # (used on /about head)
 │   ├── AuroraBackground.astro   # home hero bg: Svelte Bits Aurora (OGL shader, lazy, reduced-motion → CSS gradient)
 │   ├── ConsentBanner.astro      # GA4 consent banner (localStorage: fs-consent)
-│   └── BackLink.astro           # floating back dot — used ONLY by /road-to-85kg
 ├── styles/
 │   ├── tokens.css               # design tokens (:root) — import FIRST
 │   ├── site.css                 # reset + shared atoms (eyebrow, buttons), nav, footer,
@@ -109,7 +108,6 @@ src/
 │   ├── about.astro              # /about — page head + info cards (content in frontmatter)
 │   ├── blog/index.astro         # /blog — post cards
 │   ├── blog/[...slug].astro     # /blog/<slug> — article + prose
-│   └── road-to-85kg.astro       # /road-to-85kg — STANDALONE (own head/styles; imports BackLink)
 └── content/blog/*.md            # blog posts (Astro content collection)
 ```
 
@@ -123,16 +121,15 @@ unused assets (`doink.png`, `blog.png`, `exl-logo-mark.png`, `fastwork*`,
 
 1. New page? Render through `SiteLayout` — never hand-write a `<head>`, nav,
    footer or consent block again.
-2. Styles: reuse `.eyebrow`, `.btn-ink`/`.btn-white`/`.btn-ghost` and the
+2. Styles: reuse `.eyebrow`, `.btn-ink` and the
    `.post-card` / `.info-card` patterns from `site.css`. New page-specific CSS
    should be small; put truly shared things in `site.css`, home-only in
    `landing.css`, and never add a 4th stylesheet.
 3. Page-specific JSON-LD: pass `jsonLd` prop to SiteLayout (extra graph nodes
    referencing `@id: https://fromsukong.com/#person`). The Person + WebSite
    nodes live in SiteLayout — edit them THERE, not per page.
-4. Theme-color is `#F3F0EE` on every unified page (matches the cream canvas);
-   road-to-85kg keeps `#FC5200`.
-5. `BackLink` is for road-to-85kg only. Unified pages navigate via the nav
+4. Theme-color is `#F3F0EE` on every unified page (matches the cream canvas).
+5. Unified pages navigate via the nav
    pill (brand → home, links, drawer on mobile).
 6. Don't add React/Astryx back. Stack is Astro + static HTML/CSS, that's it.
 7. Don't hardcode the Fastwork URL — `import { FASTWORK_URL } from '../config'`
@@ -153,7 +150,6 @@ unused assets (`doink.png`, `blog.png`, `exl-logo-mark.png`, `fastwork*`,
 | `/about` | `pages/about.astro` | Page head + portrait + 3-step timeline (`TIMELINE`: now / behind the scenes / next) + one principles card; copy = inline HTML strings in frontmatter |
 | `/blog` | `pages/blog/index.astro` | Post cards (title, desc, date, arrow) |
 | `/blog/<slug>` | `pages/blog/[...slug].astro` | Article; `.prose` styles handle Thai + English; orange tag chips |
-| `/road-to-85kg` | `pages/road-to-85kg.astro` | **Standalone exception**: Fustat, dark/orange, live Google-Sheet data, BackLink, no site nav/footer |
 | `404` | `public/404.html` | Static cream page (no build step) |
 
 Nav: desktop = wordmark + Blog + About + "Hire me"; ≤860px = menu button →

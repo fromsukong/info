@@ -5,7 +5,6 @@ Source for **fromsukong.com** — the FromSukong site (Thai only):
 - `/` — AI-automation funnel (hero + animated demo; every CTA → Fastwork)
 - `/about` — Supakone Kongprapan, who he is and what he's building (timeline)
 - `/blog` + `/blog/<slug>` — writing (Thai)
-- `/road-to-85kg` — the standalone public fitness tracker (separate page, own styles; not in sitemap)
 - `/llms.txt` + `/llms-full.txt` — LLM-readable index / full text, generated at build from `src/pages/llms*.txt.ts` (+ `src/llms-profile.ts`); live blog posts are included automatically
 - `/robots.txt` allows all crawlers incl. major AI bots; `/sitemap.xml` is generated
 
@@ -32,9 +31,9 @@ npm run preview        # serve the production build
 src/
 ├── config.ts              # SITE url + FASTWORK_URL + SOCIALS — import, never re-declare
 ├── layouts/SiteLayout.astro   # the shell: <head>, SEO/JSON-LD, nav, footer, consent
-├── components/            # SiteNav, SiteFooter, HeroDemo, ConsentBanner, BackLink
+├── components/            # SiteNav, SiteFooter, HeroDemo, ConsentBanner
 ├── styles/                # tokens.css (tokens) · site.css (shared) · landing.css (home only)
-├── pages/                 # index, demo, about, blog/*, road-to-85kg
+├── pages/                 # index, about, blog/*
 └── content/blog/*.md      # blog posts (Astro content collection)
 public/                    # static assets, 404, redirects, sitemap, robots
 ```
@@ -51,7 +50,6 @@ public/                    # static assets, 404, redirects, sitemap, robots
 | edit About content                | `src/pages/about.astro` (SECTIONS in frontmatter) |
 | change the Fastwork link          | `src/config.ts`                                   |
 | page `<head>` / SEO / GA4         | `src/layouts/SiteLayout.astro`                    |
-| the 85kg tracker                  | `src/pages/road-to-85kg.astro` (standalone)       |
 
 Full design rules and the verification checklist: **STYLEGUIDE.md**.
 
