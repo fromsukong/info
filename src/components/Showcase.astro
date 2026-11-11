@@ -136,7 +136,6 @@ const PANES: { key: string; label: string; component?: any }[] = [
       arrow.setAttribute('aria-hidden', 'true');
       arrow.innerHTML = '<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 11.5 V2.5"></path><path d="M3.5 6 L7 2.5 L10.5 6"></path></svg>';
       arrow.style.cssText = 'left:' + sx + 'px;top:' + sy + 'px;width:' + size + 'px;height:' + size + 'px';
-      document.body.appendChild(arrow);
       // Path: shoot DOWN from the pill, U-turn, then climb up into the button.
       // Cubic bezier with both control points below the endpoints; we sample it
       // into keyframes and rotate the arrow along the tangent (icon points up).
@@ -152,25 +151,41 @@ const PANES: { key: string; label: string; component?: any }[] = [
           y: u*u*u*sy + 3*u*u*t*c1y + 3*u*t*t*c2y + t*t*t*ey
         };
       };
-      var frames = [], N = 48, prevAng = 180;
+      var ss = function (e0, e1, x) { var k = Math.max(0, Math.min(1, (x - e0) / (e1 - e0))); return k * k * (3 - 2 * k); };
+      var tang = function (t) {
+        var p0 = pt(Math.max(0, t - 0.01)), p1 = pt(Math.min(1, t + 0.01));
+        return Math.atan2(p1.y - p0.y, p1.x - p0.x) * 180 / Math.PI + 90;
+      };
+      var frames = [], N = 64, prevAng = 180;
       for (var i = 0; i <= N; i++) {
         var u = i / N;
-        var t = u < 0.5 ? 2*u*u : 1 - Math.pow(-2*u + 2, 2) / 2; // ease in-out → arrow lingers at the turn
-        var p0 = pt(Math.max(0, t - 0.01)), p1 = pt(Math.min(1, t + 0.01));
-        var ang = Math.atan2(p1.y - p0.y, p1.x - p0.x) * 180 / Math.PI + 90;
+        // ease in-out cubic: gentle lift-off, slow "rocket landing" at the end
+        var t = u < 0.5 ? 4*u*u*u : 1 - Math.pow(-2*u + 2, 3) / 2;
+        var ang = tang(t);
         while (ang - prevAng > 180) ang -= 360;   // keep rotation continuous
         while (ang - prevAng < -180) ang += 360;
         prevAng = ang;
-        var pos = pt(t);
-        // start at the icon's size (14/26) and grow into flight; shrink into the button at the end
-        var sc = u < 0.2 ? 0.54 + 0.61 * (u / 0.2) : (u > 0.9 ? 1.15 - (u - 0.9) * 6.5 : 1.15);
-        frames.push({
-          transform: 'translate(' + (pos.x - sx) + 'px,' + (pos.y - sy) + 'px) rotate(' + ang + 'deg) scale(' + sc + ')',
-          opacity: 1,
-          offset: u
-        });
+        frames.push({ u: u, t: t, ang: ang });
       }
-      var anim = arrow.animate(frames, { duration: 1700, easing: 'linear', fill: 'forwards' });
+      // Head-down at lift-off (exactly 180deg), tangent in flight, then settle
+      // upright (nearest multiple of 360) for the landing.
+      var upAng = Math.round(frames[N].ang / 360) * 360;
+      frames = frames.map(function (f) {
+        var ang = 180 + (f.ang - 180) * ss(0, 0.14, f.u);
+        ang = ang + (upAng - ang) * ss(0.72, 1, f.u);
+        var pos = pt(f.t);
+        // start at the icon's size (14/26), grow into flight, ease to 0.8 on touchdown
+        var sc = f.u < 0.2 ? 0.54 + 0.61 * (f.u / 0.2) : (f.u > 0.85 ? 1.15 - (f.u - 0.85) * 2.3 : 1.15);
+        return {
+          transform: 'translate(' + (pos.x - sx) + 'px,' + (pos.y - sy) + 'px) rotate(' + ang + 'deg) scale(' + sc + ')',
+          opacity: f.u > 0.96 ? 1 - (f.u - 0.96) / 0.04 : 1,
+          offset: f.u
+        };
+      });
+      // first frame inline so the arrow is never painted head-up before the animation kicks in
+      arrow.style.transform = frames[0].transform;
+      document.body.appendChild(arrow);
+      var anim = arrow.animate(frames, { duration: 2000, easing: 'linear', fill: 'both' });
       anim.onfinish = function () {
         arrow.remove();
         target.classList.remove('hit');
