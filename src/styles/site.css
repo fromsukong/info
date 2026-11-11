@@ -309,14 +309,13 @@ button { font: inherit; color: inherit; }
 .nav-links a:hover, .nav-links a.is-current { color: var(--orange); }
 .nav-actions { display: flex; align-items: center; gap: 12px; }
 .nav-pill .btn-ink { padding: 9px 20px; font-size: 15px; }
-/* The single Fastwork CTA — orange, pulsing ring + light sweep to draw the eye */
+/* The single Fastwork CTA — stays black; pulsing ring + light sweep draw the eye */
 .nav-pill .nav-cta {
   position: relative; overflow: hidden; isolation: isolate;
-  background: var(--orange); border-color: var(--orange); color: #fff;
   animation: cta-pulse 2.4s ease-out infinite;
   transition: transform 160ms ease, background 160ms ease;
 }
-.nav-pill .nav-cta:hover { background: var(--orange-light); border-color: var(--orange-light); transform: scale(1.06); }
+.nav-pill .nav-cta:hover { transform: scale(1.06); }
 .nav-pill .nav-cta::after {
   content: ''; position: absolute; inset: 0; z-index: -1;
   background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.45) 50%, transparent 65%);
@@ -324,9 +323,9 @@ button { font: inherit; color: inherit; }
   animation: cta-sweep 4.8s ease-in-out infinite;
 }
 @keyframes cta-pulse {
-  0%   { box-shadow: 0 0 0 0 rgba(207, 69, 0, 0.5); }
-  70%  { box-shadow: 0 0 0 12px rgba(207, 69, 0, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(207, 69, 0, 0); }
+  0%   { box-shadow: 0 0 0 0 rgba(20, 20, 19, 0.45); }
+  70%  { box-shadow: 0 0 0 12px rgba(20, 20, 19, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(20, 20, 19, 0); }
 }
 @keyframes cta-sweep {
   0%, 55% { transform: translateX(-120%); }
