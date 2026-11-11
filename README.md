@@ -1,11 +1,15 @@
 # fromsukong.com
 
-Source for **fromsukong.com** — the FromSukong site:
+Source for **fromsukong.com** — the FromSukong site (Thai only):
 
 - `/` — AI-automation funnel (hero + animated demo; every CTA → Fastwork)
-- `/about` — Supakone Kongprapan, who he is and what he's building
-- `/blog` + `/blog/<slug>` — writing (Thai + English)
-- `/road-to-85kg` — the standalone public fitness tracker (separate page, own styles)
+- `/about` — Supakone Kongprapan, who he is and what he's building (timeline)
+- `/blog` + `/blog/<slug>` — writing (Thai)
+- `/road-to-85kg` — the standalone public fitness tracker (separate page, own styles; not in sitemap)
+- `/llms.txt` + `/llms-full.txt` — LLM-readable index / full text, generated at build from `src/pages/llms*.txt.ts` (+ `src/llms-profile.ts`); live blog posts are included automatically
+- `/robots.txt` allows all crawlers incl. major AI bots; `/sitemap.xml` is generated
+
+Privacy rule: no phone number or email on the site (JSON-LD, footer, copy).
 
 ## Stack
 

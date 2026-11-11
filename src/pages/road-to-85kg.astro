@@ -7,15 +7,15 @@ import BackLink from '../components/BackLink.astro';
 // Google Sheet (gviz/tq JSON endpoint).
 // Sheets ID: 1X8HKW_cZI-luydidRbb_o98umaFYEP4_nRk6xdfTO0w
 const SITE = 'https://fromsukong.com';
-const TITLE = 'Road to 85kg — FromSukong Challenge Tracker';
+const TITLE = 'Road to 85kg — ติดตามความท้าทายของ FromSukong';
 const DESCRIPTION =
-  "Prame's 365-day weight-loss challenge: 104.4 kg → 85 kg. Live daily weight, workouts and food log. Follow the journey on Instagram @fromsukong.";
+  'ความท้าทายลดน้ำหนัก 365 วันของ Prame: 104.4 กก. → 85 กก. ติดตามน้ำหนักรายวัน การออกกำลังกาย และบันทึกอาหารแบบสด ๆ และตามเส้นทางนี้ได้ที่ Instagram @fromsukong';
 const GOAL = 85;
 const START = 104.4;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="th">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -43,14 +43,14 @@ const START = 104.4;
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Fustat:wght@300;400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Fustat:wght@300;400;500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet" />
 
     <style is:global>
       :root { color-scheme: light; }
       * { box-sizing: border-box; margin: 0; padding: 0; }
       html { background: #fff; }
       body {
-        font-family: 'Fustat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        font-family: 'Fustat', 'Noto Sans Thai', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         background: #fff; color: #18181b; line-height: 1.5;
         -webkit-font-smoothing: antialiased;
       }
@@ -96,6 +96,7 @@ const START = 104.4;
         .hero::before, .hero::after { animation: none; }
       }
       .hero-inner { max-width: 480px; margin: 0 auto; }
+      :lang(th) .kicker, :lang(th) .lbl, :lang(th) .loghead h2, :lang(th) .sectitle, :lang(th) .loghead span, :lang(th) .skipbadge, :lang(th) .dl { letter-spacing: 0; text-transform: none; }
       .kicker { font-weight: 700; font-size: 11px; letter-spacing: 2.5px; opacity: .8; text-transform: uppercase; }
       .hero h1 { font-weight: 700; font-size: 54px; line-height: .95; letter-spacing: -2px; margin: 14px 0 10px; }
       .hero h1 em { font-style: normal; color: #ffd9c7; }
@@ -165,7 +166,7 @@ const START = 104.4;
       .chartsec { margin-top: 34px; }
       .chartsec .cap { font-size: 11.5px; font-weight: 600; color: #c4c4c8; margin-top: 10px; }
       .chartsec svg { width: 100%; height: auto; display: block; margin-top: 14px; }
-      .chartsec svg text { fill: #a1a1aa; font-family: 'Fustat', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: .5px; }
+      .chartsec svg text { fill: #a1a1aa; font-family: 'Fustat', 'Noto Sans Thai', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: .5px; }
 
       .loading, .error { text-align: center; color: #a1a1aa; padding: 48px 0; font-size: 15px; font-weight: 600; }
       .error { color: #dc2626; }
@@ -181,16 +182,16 @@ const START = 104.4;
     <BackLink />
     <div class="hero">
       <div class="hero-inner">
-        <div class="kicker">365-Day Challenge · Ongoing</div>
+        <div class="kicker">ท้าทาย 365 วัน · กำลังดำเนินอยู่</div>
         <h1>Road<br />to <em>85kg</em></h1>
-        <p class="sub" id="subline">{START} kg start · Day – of 365</p>
+        <p class="sub" id="subline">{START} กก. ตอนเริ่ม · วันที่ – จาก 365</p>
       </div>
     </div>
 
     <div class="wrap">
-      <div id="content"><div class="loading">Loading latest weight…</div></div>
+      <div id="content"><div class="loading">กำลังโหลดน้ำหนักล่าสุด…</div></div>
 
-      <footer>tracked by <b><a href="https://instagram.com/fromsukong" target="_blank" rel="noopener">@fromsukong</a></b> · <span id="updated"></span></footer>
+      <footer>บันทึกโดย <b><a href="https://instagram.com/fromsukong" target="_blank" rel="noopener">@fromsukong</a></b> · <span id="updated"></span></footer>
     </div>
 
     <script is:inline>
@@ -256,7 +257,7 @@ const START = 104.4;
         }
 
         function niceDate(iso) {
-          const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+          const months = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
           const m = String(iso).match(/^(\d{4})-(\d{2})-(\d{2})/);
           return m ? months[Number(m[2]) - 1] + ' ' + Number(m[3]) : String(iso);
         }
@@ -271,16 +272,16 @@ const START = 104.4;
           const pct = isNaN(cur) ? 0 : Math.min(100, ((START - cur) / (START - GOAL)) * 100);
 
           // hero sub line
-          let sub = START + ' kg start · Day ' + day + ' of 365';
+          let sub = START + ' กก. ตอนเริ่ม · วันที่ ' + day + ' จาก 365';
           document.getElementById('subline').textContent = sub;
 
           let html = '';
 
           // stat columns
           html += '<div class="stats">'
-            + '<div class="cell"><div class="lbl">Current</div><div class="val">' + (isNaN(cur) ? '–' : cur) + '<small> kg</small></div></div>'
-            + '<div class="cell"><div class="lbl">Lost</div><div class="val accent">' + loss.toFixed(1) + '<small> kg</small></div></div>'
-            + '<div class="cell"><div class="lbl">Left</div><div class="val">' + (isNaN(left) ? '–' : left.toFixed(1)) + '<small> kg</small></div></div>'
+            + '<div class="cell"><div class="lbl">ตอนนี้</div><div class="val">' + (isNaN(cur) ? '–' : cur) + '<small> กก.</small></div></div>'
+            + '<div class="cell"><div class="lbl">ลดไปแล้ว</div><div class="val accent">' + loss.toFixed(1) + '<small> กก.</small></div></div>'
+            + '<div class="cell"><div class="lbl">เหลืออีก</div><div class="val">' + (isNaN(left) ? '–' : left.toFixed(1)) + '<small> กก.</small></div></div>'
             + '</div>';
 
           // route progress (decorative path, orange share = completion)
@@ -291,9 +292,9 @@ const START = 104.4;
             + '<path d="M4 46 C40 42 52 20 84 24 S130 50 160 40 190 8 224 14 260 42 292 32 330 6 360 12 392 26 396 23" stroke="#FC5200" stroke-width="4" stroke-linecap="round" pathLength="1" stroke-dasharray="' + frac.toFixed(3) + ' 1"/>'
             + '<circle id="route-dot" r="6" fill="#FC5200"/>'
             + '</svg>'
-            + '<div class="routemeta"><span>START<b>' + START + '</b></span>'
-            + '<span class="mid">' + pct.toFixed(0) + '% · DAY ' + day + '/365</span>'
-            + '<span style="text-align:right">GOAL<b>' + GOAL.toFixed(1) + '</b></span></div>'
+            + '<div class="routemeta"><span>เริ่ม<b>' + START + '</b></span>'
+            + '<span class="mid">' + pct.toFixed(0) + '% · วันที่ ' + day + '/365</span>'
+            + '<span style="text-align:right">เป้าหมาย<b>' + GOAL.toFixed(1) + '</b></span></div>'
             + '</div>';
 
           // weight trend (only with 2+ points)
@@ -314,11 +315,11 @@ const START = 104.4;
                   labels += '<text x="' + x(i).toFixed(1) + '" y="' + (H - 6) + '" text-anchor="' + (i ? 'end' : 'start') + '">' + esc(niceDate(r.date)) + '</text>';
                 }
               });
-              html += '<div class="chartsec"><h2 class="sectitle">Weight trend</h2>'
-                + '<div class="cap">' + weights[weights.length - 1].toFixed(1) + ' kg today · goal line ' + GOAL + ' kg</div>'
+              html += '<div class="chartsec"><h2 class="sectitle">แนวโน้มน้ำหนัก</h2>'
+                + '<div class="cap">' + weights[weights.length - 1].toFixed(1) + ' กก. วันนี้ · เส้นเป้าหมาย ' + GOAL + ' กก.</div>'
                 + '<svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none">'
                 + '<line x1="' + PAD + '" y1="' + gy + '" x2="' + (W - PAD) + '" y2="' + gy + '" stroke="#D9F2E5" stroke-width="1.5" stroke-dasharray="4 4"/>'
-                + '<text x="' + (W - PAD) + '" y="' + (gy - 5) + '" text-anchor="end">GOAL ' + GOAL + '</text>'
+                + '<text x="' + (W - PAD) + '" y="' + (gy - 5) + '" text-anchor="end">เป้าหมาย ' + GOAL + '</text>'
                 + '<path d="' + path + '" fill="none" stroke="#FC5200" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>'
                 + pts.map((r, i) => '<circle cx="' + x(i).toFixed(1) + '" cy="' + y(parseFloat(r.weight)).toFixed(1) + '" r="4" fill="#FC5200"/>').join('')
                 + labels
@@ -329,7 +330,7 @@ const START = 104.4;
           // daily log — most recent 14 days (newest first), with SKIPPED
           // placeholders for calendar days that have no log row
           const recent = sorted.slice(-14).reverse();
-          html += '<div class="divider"></div><div class="loghead"><h2>Daily log</h2><span>LATEST</span></div>';
+          html += '<div class="divider"></div><div class="loghead"><h2>บันทึกรายวัน</h2><span>ล่าสุด</span></div>';
           const DAY_MS = 86400000;
           const isoOf = (r) => String(r.date).slice(0, 10);
           const withSkips = [];
@@ -349,8 +350,8 @@ const START = 104.4;
           });
           html += withSkips.map(r => {
             if (r.skipped) {
-              const sd = r.day != null ? 'Day ' + r.day : '';
-              return '<div class="entry skipped"><div class="top"><span class="day">' + (sd ? sd + ' · ' : '') + esc(niceDate(r.date)) + '</span><span class="skipbadge">Skipped</span></div></div>';
+              const sd = r.day != null ? 'วันที่ ' + r.day : '';
+              return '<div class="entry skipped"><div class="top"><span class="day">' + (sd ? sd + ' · ' : '') + esc(niceDate(r.date)) + '</span><span class="skipbadge">ข้าม</span></div></div>';
             }
             const d = r.day != null ? r.day : '–';
             const wt = r.weight != null ? r.weight : '–';
@@ -365,9 +366,9 @@ const START = 104.4;
             // workout — always renders: "N lifts" with mark BELOW the number;
             // 0 lifts + ✗ when nothing logged
             let trio = '<div class="tri">';
-            trio += '<div class="t"><div class="tnum">' + wItems.length + '<span class="tunit">lifts</span></div>'
+            trio += '<div class="t"><div class="tnum">' + wItems.length + '<span class="tunit">ท่าเวท</span></div>'
               + '<div class="tsum">' + (wItems.length ? '<span class="mark ok">✓</span>' : '<span class="mark no">✗</span>') + '</div>'
-              + (wItems.length && vol > 0 ? '<div class="tsum">~' + Math.round(vol).toLocaleString() + ' kg total volume</div>' : '')
+              + (wItems.length && vol > 0 ? '<div class="tsum">~' + Math.round(vol).toLocaleString() + ' กก. ปริมาณรวม</div>' : '')
               + '</div>';
             // meals — mirrors workout: "N meals" with mark BELOW; small "2k"
             // beside the mark so viewers know the daily kcal aim
@@ -377,19 +378,19 @@ const START = 104.4;
               mMark = '<span class="mark no">✗</span>';
             } else if (r.calories != null && !isNaN(r.calories)) {
               mMark = '<span class="mark ' + (calOk ? 'ok' : 'no') + '">' + (calOk ? '✓' : '✗') + '</span><span class="tgoal">2k</span>';
-              mCal = '<div class="tsum">~' + Math.round(r.calories).toLocaleString() + ' kcal</div>';
+              mCal = '<div class="tsum">~' + Math.round(r.calories).toLocaleString() + ' กิโลแคล</div>';
             } else if (r.protein != null && !isNaN(r.protein)) {
-              mInfo = r.protein >= PROTEIN_GOAL ? 'High protein ✓' : 'Protein ' + Math.round(r.protein) + 'g';
+              mInfo = r.protein >= PROTEIN_GOAL ? 'โปรตีนสูง ✓' : 'โปรตีน ' + Math.round(r.protein) + ' ก.';
             }
-            trio += '<div class="t"><div class="tnum">' + fItems.length + '<span class="tunit">meals</span></div>'
+            trio += '<div class="t"><div class="tnum">' + fItems.length + '<span class="tunit">มื้อ</span></div>'
               + '<div class="tsum">' + mMark + '</div>'
               + (mInfo ? '<div class="tsum">' + mInfo + '</div>' : '')
               + (mCal || '') + '</div>';
             if (r.steps != null && !isNaN(r.steps) && r.steps > 0) {
               const sp = Math.min(100, (r.steps / STEPS_GOAL) * 100);
-              trio += '<div class="t"><div class="tnum">' + (r.steps / 1000).toFixed(1) + '<span class="tunit">k steps</span></div>'
+              trio += '<div class="t"><div class="tnum">' + (r.steps / 1000).toFixed(1) + '<span class="tunit">พันก้าว</span></div>'
                 + '<div class="stepbar"><i style="width:' + sp.toFixed(0) + '%"></i></div>'
-                + '<div class="steppct">' + (sp >= 100 ? 'GOAL 10K · ' + Math.round(sp) + '% ✓' : Math.round(sp) + '% OF 10K') + '</div></div>';
+                + '<div class="steppct">' + (sp >= 100 ? 'เป้า 10K · ' + Math.round(sp) + '% ✓' : Math.round(sp) + '% ของ 10K') + '</div></div>';
             }
             trio += '</div>';
 
@@ -398,14 +399,14 @@ const START = 104.4;
             const wBul = bulleted(r.workout), fBul = bulleted(r.food);
             if (wBul || fBul) {
               detail = '<div class="detail">'
-                + (wBul ? '<div class="d"><div class="dl">Workout</div>' + wBul + '</div>' : '')
-                + (fBul ? '<div class="d"><div class="dl">Food</div>' + fBul + '</div>' : '')
+                + (wBul ? '<div class="d"><div class="dl">ออกกำลังกาย</div>' + wBul + '</div>' : '')
+                + (fBul ? '<div class="d"><div class="dl">อาหาร</div>' + fBul + '</div>' : '')
                 + '</div>';
             }
 
             return '<div class="entry">'
-              + '<div class="top"><span class="day">Day ' + esc(d) + '</span><span class="date">' + esc(niceDate(r.date)) + '</span>'
-              + '<span class="wt">' + esc(wt) + ' kg' + dlHtml + '</span></div>'
+              + '<div class="top"><span class="day">วันที่ ' + esc(d) + '</span><span class="date">' + esc(niceDate(r.date)) + '</span>'
+              + '<span class="wt">' + esc(wt) + ' กก.' + dlHtml + '</span></div>'
               + trio + detail
               + '</div>';
           }).join('');
@@ -427,22 +428,22 @@ const START = 104.4;
           const lastUpd = sorted.slice().reverse().find(r => r.updated && String(r.updated).trim() !== '');
           if (lastUpd) {
             const m = String(lastUpd.updated).match(/^(\d{4}-\d{2}-\d{2})(?:\s+(\d{1,2}:\d{2}))?/);
-            if (m) upd = 'last update ' + niceDate(m[1]) + (m[2] ? ' · ' + m[2] : '');
-            else upd = 'last update ' + esc(String(lastUpd.updated));
+            if (m) upd = 'อัปเดตล่าสุด ' + niceDate(m[1]) + (m[2] ? ' · ' + m[2] : '');
+            else upd = 'อัปเดตล่าสุด ' + esc(String(lastUpd.updated));
           } else if (last) {
-            upd = 'last update ' + niceDate(last.date);
+            upd = 'อัปเดตล่าสุด ' + niceDate(last.date);
           }
           document.getElementById('updated').textContent = upd;
         }
 
         function fail(msg) {
           document.getElementById('content').innerHTML =
-            '<div class="error">' + esc(msg || 'Couldn\'t load data.') + '</div>';
+            '<div class="error">' + esc(msg || 'โหลดข้อมูลไม่สำเร็จ') + '</div>';
         }
 
         fetch(SHEET).then(r => r.text()).then(text => {
           const rows = parseGviz(text);
-          if (!rows.length) throw new Error('No data yet');
+          if (!rows.length) throw new Error('ยังไม่มีข้อมูล');
           build(rows);
         }).catch(e => fail(e.message));
       })();

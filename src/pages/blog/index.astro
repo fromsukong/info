@@ -9,12 +9,12 @@ const posts = (await getCollection('blog'))
   .filter(isPostLive)
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-const TITLE = 'Blog — FromSukong | Supakone Kongprapan';
+const TITLE = 'บล็อก — FromSukong | Supakone Kongprapan';
 const DESCRIPTION =
-  'Articles on AI automation, web development and building in public by Supakone Kongprapan (@fromsukong).';
+  'บทความเรื่องระบบ AI อัตโนมัติ การพัฒนาเว็บ และการสร้างงานให้คนดูแบบสด ๆ โดย Supakone Kongprapan (@fromsukong)';
 
 const formatDate = (d: Date) =>
-  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+  d.toLocaleDateString('th-TH-u-ca-gregory', { year: 'numeric', month: 'short', day: 'numeric' });
 ---
 
 <SiteLayout
@@ -43,15 +43,14 @@ const formatDate = (d: Date) =>
 >
   <main>
     <header class="page-head">
-      <span class="eyebrow"><span class="dot"></span>Blog</span>
-      <h1 class="page-title">Notes from the build</h1>
-      <p class="page-sub">AI automation · web development · building in public</p>
+      <h1 class="page-title">บล็อก</h1>
+      <p class="page-sub">ระบบ AI อัตโนมัติ · พัฒนาเว็บ · สร้างให้ดูแบบสด ๆ</p>
     </header>
 
     <div class="posts">
       {
         posts.length === 0 ? (
-          <p class="empty">No posts yet — coming soon.</p>
+          <p class="empty">ยังไม่มีบทความ เร็ว ๆ นี้</p>
         ) : (
           <ul class="post-list">
             {posts.map((post) => (

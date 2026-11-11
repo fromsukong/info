@@ -1,16 +1,15 @@
 ---
 // Site nav pill + mobile sidebar drawer (2026-09-27).
-// Desktop: avatar brand + inline Blog/About links + "Hire me".
-// ≤860px: the avatar is replaced by a menu button; tapping it opens the
-// drawer (Blog / About / Demo + Fastwork CTA). Styles live in site.css.
+// Desktop: wordmark brand + inline Blog/About links + "Hire me".
+// ≤860px: a menu button appears left of the wordmark; tapping it opens the
+// drawer (Blog / About + Fastwork CTA). Styles live in site.css.
 // Used by every page through SiteLayout.
 import { FASTWORK_URL } from '../config';
 const normalize = (p: string) => p.replace(/\/+$/, '') || '/';
 const path = normalize(Astro.url.pathname);
 const links = [
-  { href: '/blog/', label: 'Blog' },
-  { href: '/about/', label: 'About' },
-  { href: '/demo/', label: 'Demo' },
+  { href: '/blog/', label: 'บล็อก' },
+  { href: '/about/', label: 'เกี่ยวกับผม' },
 ];
 const isCurrent = (href: string) => {
   const normHref = normalize(href);
@@ -18,20 +17,19 @@ const isCurrent = (href: string) => {
 };
 ---
 
-<nav class="nav-wrap" aria-label="Main">
+<nav class="nav-wrap" aria-label="เมนูหลัก">
   <div class="nav-pill">
     <div class="nav-left">
       <button
         class="nav-menu-btn"
         type="button"
-        aria-label="Open menu"
+        aria-label="เปิดเมนู"
         aria-expanded="false"
         aria-controls="nav-drawer"
       >
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16"></path><path d="M4 12h16"></path><path d="M4 17h16"></path></svg>
       </button>
       <a class="nav-brand" href="/">
-        <img src="/assets/avatar.png" alt="" width="30" height="30" />
         <span>fromsukong<span class="brand-dot">.com</span></span>
       </a>
     </div>
@@ -41,30 +39,29 @@ const isCurrent = (href: string) => {
       ))}
     </div>
     <div class="nav-actions">
-      <a class="btn-ink" href={FASTWORK_URL} target="_blank" rel="noopener">Hire me</a>
+      <a class="btn-ink" href={FASTWORK_URL} target="_blank" rel="noopener">จ้างผม</a>
     </div>
   </div>
 </nav>
 
 <div class="nav-backdrop" aria-hidden="true"></div>
 
-<aside class="nav-drawer" id="nav-drawer" aria-label="Site menu" aria-hidden="true" inert>
+<aside class="nav-drawer" id="nav-drawer" aria-label="เมนูเว็บไซต์" aria-hidden="true" inert>
   <div class="nav-drawer-head">
     <a class="drawer-brand" href="/">
-      <img src="/assets/avatar.png" alt="" width="34" height="34" />
       <span>fromsukong<span class="brand-dot">.com</span></span>
     </a>
-    <button class="nav-drawer-close" type="button" aria-label="Close menu">
+    <button class="nav-drawer-close" type="button" aria-label="ปิดเมนู">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12"></path><path d="M18 6L6 18"></path></svg>
     </button>
   </div>
-  <nav class="nav-drawer-links" aria-label="Menu">
+  <nav class="nav-drawer-links" aria-label="เมนู">
     {links.map((l) => (
       <a href={l.href} class:list={{ 'is-current': isCurrent(l.href) }} aria-current={isCurrent(l.href) ? 'page' : undefined}>{l.label}</a>
     ))}
   </nav>
   <div class="nav-drawer-foot">
-    <a class="btn-ink" href={FASTWORK_URL} target="_blank" rel="noopener">Hire me on Fastwork</a>
+    <a class="btn-ink" href={FASTWORK_URL} target="_blank" rel="noopener">จ้างผมบน Fastwork</a>
   </div>
 </aside>
 
