@@ -2,7 +2,6 @@
 // Landing hero (Thai) — centered headline + Fastwork CTA + the "about me" card.
 // Home page only (classes live in landing.css). The automation showcase is
 // its own section (Showcase.astro) placed after the hero in index.astro.
-import { FASTWORK_URL } from '../config';
 import HomeAbout from './HomeAbout.astro';
 ---
 
@@ -10,9 +9,6 @@ import HomeAbout from './HomeAbout.astro';
   <div class="hero-copy-block">
       <h1 class="hero-title">AI Automation โดย<br /><span class="hero-underline">มืออาชีพ</span></h1>
       <p class="hero-copy-text">คืนเวลาให้คุณไปโฟกัสกับสิ่งที่สำคัญจริง ๆ ส่วนหลังบ้านผมจัดการให้ด้วยระบบอัตโนมัติ</p>
-      <div class="hero-actions">
-        <a class="btn-ink" href={FASTWORK_URL} target="_blank" rel="noopener">จ้างผมบน Fastwork <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7 H11"></path><path d="M8 4 L11 7 L8 10"></path></svg></a>
-      </div>
   </div>
 
 
