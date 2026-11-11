@@ -1,50 +1,59 @@
 ---
-// About — who Prame is, in the landing language: page head + white
-// info cards. Shell (nav/footer/head) comes from SiteLayout.
-// Section copy supports simple inline HTML: <strong>, <a href>.
+// About — the core narrative: full-time engineer building a passion project
+// on the side. Page head + portrait + vertical timeline,
+// then one small info card (working principles). Thai only.
+// Shell (nav/footer/head) comes from SiteLayout.
+// Copy supports simple inline HTML: <strong>, <a href>.
+import { Image } from 'astro:assets';
 import SiteLayout from '../layouts/SiteLayout.astro';
-import { SITE } from '../config';
+import { SITE, FASTWORK_URL } from '../config';
+import portrait from '../assets/supakone.jpg';
 
-const TITLE = 'About — FromSukong | Supakone Kongprapan';
+const TITLE = 'เกี่ยวกับ Supakone Kongprapan — AI Factory และ AI Agents';
 const DESCRIPTION =
-  'About Supakone Kongprapan (@fromsukong) — software developer building AI automations, sharing the journey in public.';
+  'Supakone Kongprapan (@fromsukong) วิศวกรซอฟต์แวร์เต็มเวลา ผู้สร้าง AI factory และ agents memory และกำลังปั้นโปรเจกต์ AI วางแผนการเงินควบคู่ไปด้วย';
 const PAGE_URL = SITE + '/about/';
+
+// Timeline — read top to bottom. `when` is the label on the left rail.
+// `list: true` renders the body as bullets; `now: true` highlights the card.
+// Edit/add entries here; the page renders whatever is in this list.
+const TIMELINE = [
+  {
+    when: 'ตอนนี้',
+    title: 'ทำงานประจำอยู่ที่ บริษัทแอปจองโรงแรมนานาชาติ',
+    list: true,
+    body: [
+      'เป็น 1 ใน 5 <strong>software engineer ที่ส่งงานได้เยอะที่สุด</strong> ในองค์กร',
+      'ทำโปรเจกต์ <strong>Agents Memory</strong> และ <strong>AI Factory</strong> ช่วยให้ทีมทำงานร่วมกันและส่งงานได้เร็วขึ้น <strong>มากกว่า 20%</strong>',
+    ],
+  },
+  {
+    when: 'โปรเจกต์ส่วนตัว',
+    title: 'ทำ opensource สำหรับวางแผนการเงิน',
+    list: true,
+    body: [
+      'ออกแบบ <strong>แอปพลิเคชัน</strong>ที่สร้างมาเพื่อให้ <strong>agents</strong> ใช้งานโดยเฉพาะ',
+      'สร้าง <strong>AI Factory</strong> ควบคุมคุณภาพของงาน AI ส่งผลให้ทำงานได้ <strong>มากกว่า 30 ชิ้น</strong> ในตอนที่หลับ',
+    ],
+  },
+  {
+    when: 'ต่อไป',
+    title: 'สิ่งที่กำลังโฟกัส',
+    now: true,
+    list: true,
+    body: [
+      '<strong>ระยะสั้น:</strong> หางานฟรีแลนซ์ นำประสบการณ์จาก software engineer และความรู้เรื่อง AI มาช่วยธุรกิจจัดการหลังบ้าน (รับงานทาง <a href="' + FASTWORK_URL + '">Fastwork</a>)',
+      '<strong>ระยะกลาง:</strong> ออกจากงานประจำเต็มตัว มาทุ่มกับโปรเจกต์ opensource',
+    ],
+  },
+];
 
 const SECTIONS = [
   {
-    title: 'About',
+    title: 'หลักที่ใช้ทำงาน',
     items: [
-      'Born in 2002 in Phrae, Thailand, with a twin. Graduated Computer Engineering from Chulalongkorn University in 2025.',
-      'Learned the craft at Thai startups (Genomic Analysis Platform, Api Plus Tech) and spent a summer on Work &amp; Travel in the USA in 2025.',
-      'Building <strong>FromSukong</strong> and <strong>excited.live</strong> in public: daily videos, real projects, and AI automation for small businesses.',
-    ],
-  },
-  {
-    title: 'Missions & Goals',
-    items: [
-      'Become a great person: honest, strong, disciplined, wise, dedicated, articulate.',
-      'Build or join a real technology company for Thailand.',
-      'Support my family in every way by the time I am 30.',
-    ],
-  },
-  {
-    title: 'Current Focus',
-    items: [
-      '1. <strong>FromSukong</strong>: post at least one authentic, funny video every single day.',
-      '2. <strong>excited.live</strong>: build it into a product people love.',
-      '3. <a href="/road-to-85kg/">Road to 85kg</a>: lose 19.4 kg in 365 days, in public, starting from 104.4 kg.',
-      '4. <strong>AI automation</strong>: build systems that remove the busywork for small businesses.',
-      '5. <strong>Health</strong>: gym daily, eat well, protect sleep.',
-    ],
-  },
-  {
-    title: 'Wisdom',
-    items: [
-      '(I am) excited to live.',
-      'Always do the hard thing smartly.',
-      'Discipline gives you freedom.',
-      "Be so good that they can't ignore you.",
-      'Relationship is the most important thing in life.',
+      'We can have anything, but not everything. Focus!',
+      'เราไม่ได้ต้องการ AI ที่ฉลาดกว่านี้ แต่เราต้องการ AI ที่คุมได้และทำงานเป็นระบบ',
     ],
   },
 ];
@@ -61,10 +70,42 @@ const SECTIONS = [
 >
   <main>
     <header class="page-head">
-      <span class="eyebrow"><span class="dot"></span>About</span>
-      <h1 class="page-title">Supakone Kongprapan</h1>
-      <p class="page-sub">(I am) an AI enthusiast.</p>
+      <h1 class="page-title">ศุภกร คงประพันธ์</h1>
+      <p class="page-sub">วิศวกรซอฟต์แวร์มืออาชีพ หลงใหลใน AI และ Opensource</p>
+      <Image
+        class="about-photo"
+        src={portrait}
+        alt="Supakone Kongprapan"
+        widths={[200, 300, 440]}
+        sizes="(max-width: 480px) 160px, 200px"
+        format="webp"
+        quality={80}
+        loading="eager"
+      />
     </header>
+
+    <ol class="timeline" aria-label="เรื่องราวของผม">
+      {
+        TIMELINE.map((step) => (
+          <li class:list={['tl-item', { 'is-now': step.now }]}>
+            <span class="tl-when">{step.when}</span>
+            <span class="tl-dot" aria-hidden="true" />
+            <div class="tl-card">
+              <h2>{step.title}</h2>
+              {step.list ? (
+                <ul class="info-list">
+                  {step.body.map((line) => (
+                    <li set:html={line} />
+                  ))}
+                </ul>
+              ) : (
+                step.body.map((line) => <p set:html={line} />)
+              )}
+            </div>
+          </li>
+        ))
+      }
+    </ol>
 
     <div class="about-stack">
       {

@@ -1,15 +1,18 @@
 ---
-// Home — the Fastwork funnel: centered hero + animated automation demo.
-// Shell (nav/footer/head) comes from SiteLayout; hero markup + script
-// live in HeroDemo; landing-only styles in landing.css.
+// Home (Thai) — the Fastwork funnel: centered hero (headline + CTA + "about me"
+// card) followed by the animated automation showcase section.
+// Shell (nav/footer/head) comes from SiteLayout; hero = HeroDemo (+ HomeAbout),
+// showcase = Showcase (+ its engine script); landing-only styles in landing.css.
 import SiteLayout from '../layouts/SiteLayout.astro';
 import HeroDemo from '../components/HeroDemo.astro';
+import Showcase from '../components/Showcase.astro';
+import AuroraBackground from '../components/AuroraBackground.astro';
 import { SITE } from '../config';
 import '../styles/landing.css';
 
-const TITLE = 'FromSukong — AI Automation | Supakone Kongprapan';
+const TITLE = 'FromSukong — Software Engineer รับงาน AI Automation';
 const DESCRIPTION =
-  'AI automation by Supakone Kongprapan (@fromsukong) — I build systems that remove repetitive work. Hire me on Fastwork.';
+  'Supakone Kongprapan software engineer รับงาน AI automation เช่น แชตบอท LINE ระบบถามตอบความรู้ในทีม และการเชื่อมต่อ API สั่งงานผ่าน Fastwork';
 ---
 
 <SiteLayout
@@ -21,7 +24,10 @@ const DESCRIPTION =
     { '@type': 'ProfilePage', '@id': SITE + '/#page', url: SITE + '/', mainEntity: { '@id': SITE + '/#person' } },
   ]}
 >
-  <main>
+  <main class="home-main">
+    <AuroraBackground />
     <HeroDemo />
+
+    <Showcase />
   </main>
 </SiteLayout>

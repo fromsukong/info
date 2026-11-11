@@ -18,7 +18,7 @@ const { Content } = await render(post);
 const PAGE_URL = `${SITE}/blog/${post.id}/`;
 
 const formatDate = (d: Date) =>
-  d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  d.toLocaleDateString('th-TH-u-ca-gregory', { year: 'numeric', month: 'long', day: 'numeric' });
 ---
 
 <SiteLayout
@@ -42,7 +42,7 @@ const formatDate = (d: Date) =>
   <main class="post-page">
     <article>
       <header class="post-head">
-        <span class="eyebrow"><span class="dot"></span>Blog</span>
+        <span class="eyebrow"><span class="dot"></span>บล็อก</span>
         <h1>{post.data.title}</h1>
         <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
         {

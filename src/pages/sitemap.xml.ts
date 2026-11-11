@@ -14,10 +14,9 @@ export const GET: APIRoute = async () => {
     .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
   const urls = [
-    { loc: `${SITE}/`, lastmod: '2026-09-27', changefreq: 'weekly', priority: '1.0' },
-    { loc: `${SITE}/about/`, lastmod: '2026-09-27', changefreq: 'monthly', priority: '0.8' },
+    { loc: `${SITE}/`, lastmod: '2026-11-12', changefreq: 'weekly', priority: '1.0' },
+    { loc: `${SITE}/about/`, lastmod: '2026-11-12', changefreq: 'monthly', priority: '0.8' },
     { loc: `${SITE}/blog/`, lastmod: posts[0] ? iso(posts[0].data.pubDate) : '2026-09-27', changefreq: 'weekly', priority: '0.7' },
-    { loc: `${SITE}/road-to-85kg/`, lastmod: '2026-08-22', changefreq: 'daily', priority: '0.7' },
     ...posts.map((post) => ({
       loc: `${SITE}/blog/${post.id}/`,
       lastmod: iso(post.data.pubDate),

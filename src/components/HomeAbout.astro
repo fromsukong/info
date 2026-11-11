@@ -1,0 +1,39 @@
+---
+// Home "about me" card (Thai): portrait left on laptop / top on phone,
+// short bio + current focus, link to /about. Rendered inside the hero.
+// Styles: .home-about / .ha-* in landing.css.
+import { Image } from 'astro:assets';
+import portrait from '../assets/supakone.jpg';
+---
+
+<section class="home-about" aria-labelledby="home-about-title">
+  <div class="ha-card">
+    <div class="ha-photo">
+      <Image
+        class="ha-photo-fg"
+        src={portrait}
+        alt="ศุภกร คงประพันธ์"
+        widths={[360, 540, 780]}
+        sizes="(max-width: 640px) 100vw, 390px"
+        format="webp"
+        quality={80}
+        loading="lazy"
+      />
+    </div>
+    <div class="ha-body">
+      <h2 class="ha-name" id="home-about-title">ศุภกร คงประพันธ์</h2>
+      <p class="ha-role">วิศวกรซอฟต์แวร์มืออาชีพ หลงใหลใน AI และ Opensource</p>
+      <div class="ha-focus">
+        <span class="ha-focus-label">โฟกัสตอนนี้</span>
+        <ul class="ha-focus-list">
+          <li><strong>ระยะสั้น:</strong> หางานฟรีแลนซ์ นำประสบการณ์จาก software engineer และความรู้เรื่อง AI มาช่วยธุรกิจจัดการหลังบ้าน</li>
+          <li><strong>ระยะกลาง:</strong> ออกจากงานประจำเต็มตัว มาทุ่มกับโปรเจกต์ opensource วางแผนการเงิน (AI)</li>
+        </ul>
+      </div>
+      <a class="ha-link" href="/about/">
+        อ่านเรื่องราวของผม
+        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7 H11"></path><path d="M8 4 L11 7 L8 10"></path></svg>
+      </a>
+    </div>
+  </div>
+</section>

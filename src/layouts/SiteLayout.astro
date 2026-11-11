@@ -12,7 +12,6 @@
 //
 // `jsonLd` entries are appended to the shared Person + WebSite
 // graph (both nodes are declared HERE, once, for the whole site).
-// Road to 85kg is standalone and does NOT use this layout.
 // ============================================================
 import SiteNav from '../components/SiteNav.astro';
 import SiteFooter from '../components/SiteFooter.astro';
@@ -41,14 +40,13 @@ const graph = [
     '@type': 'Person',
     '@id': SITE + '/#person',
     name: 'Supakone Kongprapan',
-    alternateName: 'FromSukong',
+    alternateName: ['FromSukong', 'ศุภกร คงประพันธ์'],
     url: SITE + '/',
     image: OG_IMAGE,
-    jobTitle: 'Software Developer — AI Automation',
-    description: 'Software developer building AI automations. Hire me on Fastwork.',
-    knowsAbout: ['AI automation', 'LLM integrations', 'software development', 'web development', 'content creation', 'React', 'Astro'],
-    email: 'mailto:supakone.kongprapan@gmail.com',
-    telephone: '+66622645246',
+    jobTitle: 'Software Engineer',
+    description:
+      'Software engineer (1 ใน 5 นักพัฒนาที่มี contribution มากที่สุดในระดับองค์กร) สร้าง AI factory และระบบ AI agents รับงานฟรีแลนซ์ AI automation ผ่าน Fastwork',
+    knowsAbout: ['AI agents', 'agents memory', 'AI factory', 'AI automation', 'LINE chatbots', 'financial planning AI', 'LLM integrations', 'software engineering'],
     sameAs: [
       SOCIALS.instagram,
       SOCIALS.youtube,
@@ -63,7 +61,8 @@ const graph = [
     '@id': SITE + '/#website',
     url: SITE + '/',
     name: 'FromSukong',
-    description: 'AI automation and software development by Supakone Kongprapan.',
+    description: 'ระบบ AI อัตโนมัติและงานพัฒนาซอฟต์แวร์โดย Supakone Kongprapan',
+    inLanguage: 'th',
     publisher: { '@id': SITE + '/#person' },
   },
   ...jsonLd,
@@ -71,7 +70,7 @@ const graph = [
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="th">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -103,6 +102,7 @@ const graph = [
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt" />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
 
     <meta property="og:type" content={ogType} />
@@ -110,6 +110,7 @@ const graph = [
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content="FromSukong" />
+    <meta property="og:locale" content="th_TH" />
     <meta property="og:image" content={OG_IMAGE} />
     {ogType === 'profile' && <meta property="profile:username" content="fromsukong" />}
 

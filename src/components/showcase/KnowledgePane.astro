@@ -1,0 +1,173 @@
+---
+// Showcase pane: team/company knowledge assistant (asks about project status), drawn natively (HTML/CSS) in the
+// style of the open-source Onyx chat UI (sidebar of agents/recents, message,
+// "thought" row, answer with cited sources, input bar). No screenshot, no
+// third-party logo — layout inspired by https://github.com/onyx-dot-app/onyx (MIT).
+// Engine contract: data-steps drive [data-a] classes (.on / .pulse); see Showcase shell.
+const steps = [
+  [300, 'caret'], [300, 'typ'],
+  [2300, '-typ'], [2300, '-caret'], [2450, 'u'],
+  [3000, 'think'], [4500, '-think'],
+  [4600, 'ans'], [4800, 'l1'], [5300, 'l2'], [5800, 'l3'],
+  [6400, 's1'], [6700, 's2'], [7000, 's3'], [7300, 'acts'],
+];
+const agents = [
+  { i: 'ผ', t: 'ผู้ช่วยโปรเจกต์' },
+  { i: 'ส', t: 'สรุปสถานะทีม' },
+  { i: 'บ', t: 'ติดตามบั๊ก' },
+];
+const recents = ['สถานะโปรเจกต์ Atlas', 'งานค้างสัปดาห์นี้', 'สรุปประชุมทีมเมื่อวาน', 'บั๊กที่ยังเปิดอยู่'];
+---
+
+<div class="demo-tabpane kn" id="pane-knowledge" role="tabpanel" aria-labelledby="tab-knowledge" data-pane="knowledge" data-loop="10200" data-steps={JSON.stringify(steps)}>
+  <div class="kn-app">
+    <aside class="kn-side" aria-hidden="true">
+      <div class="kn-brand"><span class="kn-logo"></span>ผู้ช่วยความรู้</div>
+      <div class="kn-nav"><span class="kn-ico">＋</span>แชตใหม่</div>
+      <div class="kn-nav"><span class="kn-ico">⌕</span>ค้นหาแชต</div>
+      <div class="kn-sec">เอเจนต์</div>
+      {agents.map((a) => (
+        <div class="kn-nav"><span class="kn-av">{a.i}</span>{a.t}</div>
+      ))}
+      <div class="kn-sec">ล่าสุด</div>
+      {recents.map((r, i) => (
+        <div class:list={['kn-nav', 'kn-recent', { 'is-cur': i === 0 }]}>{r}</div>
+      ))}
+      <div class="kn-sync"><span class="kn-sync-dot"></span>ซิงก์ Jira · Slack · Notion</div>
+    </aside>
+
+    <section class="kn-main" aria-label="ตัวอย่างแชตถามสถานะโปรเจกต์จากความรู้ในทีม">
+      <div class="kn-thread">
+        <div class="kn-user" data-a="u"><span>โปรเจกต์ Atlas ตอนนี้ถึงไหนแล้ว?</span></div>
+
+        <div class="kn-think" data-a="think" data-transient>
+          <i></i><i></i><i></i><span>กำลังรวบรวมจาก Jira, Slack และ Notion…</span>
+        </div>
+
+        <div class="kn-ans" data-a="ans">
+          <div class="kn-ans-head"><span class="kn-logo kn-logo-sm"></span>คำตอบ</div>
+          <ul class="kn-lines">
+            <li data-a="l1">คืบหน้าแล้ว <strong>72%</strong> เป้าส่งมอบ <strong>30 พ.ย.</strong> <sup>1</sup></li>
+            <li data-a="l2">สัปดาห์นี้เสร็จแล้ว <strong>14 จาก 19</strong> งาน เหลือรีวิวโค้ดอีก 3 <sup>1</sup></li>
+            <li data-a="l3">ติดอยู่ 1 เรื่อง: <strong>รอ API ชำระเงินจากทีมภายนอก</strong> <sup>2</sup></li>
+          </ul>
+          <div class="kn-src">
+            <span class="kn-chip" data-a="s1"><b>1</b>Jira · Atlas Board</span>
+            <span class="kn-chip" data-a="s2"><b>2</b>Slack #atlas-dev</span>
+            <span class="kn-chip" data-a="s3"><b>3</b>Notion · แผนงาน</span>
+          </div>
+          <div class="kn-acts" data-a="acts" aria-hidden="true">
+            <span>⧉</span><span>👍</span><span>👎</span><span class="kn-acts-src">แหล่งที่มา</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="kn-input">
+        <div class="kn-field">
+          <span class="kn-ph">ถามอะไรก็ได้เกี่ยวกับงานของทีมคุณ…</span>
+          <span class="kn-typed" data-a="typ" data-transient><span class="kn-q">โปรเจกต์ Atlas ตอนนี้ถึงไหนแล้ว?</span></span>
+          <i class="kn-caret" data-a="caret" data-transient></i>
+        </div>
+        <span class="kn-send" aria-hidden="true">↑</span>
+      </div>
+    </section>
+  </div>
+  <p class="kn-credit">หน้าตาแรงบันดาลใจจาก <a href="https://github.com/onyx-dot-app/onyx" target="_blank" rel="noopener">Onyx (โอเพนซอร์ส)</a></p>
+</div>
+
+<style>
+  .kn { gap: 10px; }
+  .kn-app {
+    display: grid; grid-template-columns: 196px minmax(0, 1fr);
+    min-height: 372px; background: var(--white);
+    border: 1px solid var(--ghost); border-radius: 22px; overflow: hidden;
+    box-shadow: var(--shadow-card);
+  }
+  /* ---- sidebar ---- */
+  .kn-side {
+    display: flex; flex-direction: column; gap: 2px; padding: 14px 10px 10px;
+    background: #f7f5f2; border-right: 1px solid var(--ghost); font-size: 12.5px; color: var(--charcoal);
+  }
+  .kn-brand { display: flex; align-items: center; gap: 8px; padding: 2px 8px 12px; font-weight: 700; font-size: 13.5px; color: var(--ink); }
+  .kn-logo { width: 18px; height: 18px; border-radius: 6px; background: var(--ink); position: relative; flex: none; }
+  .kn-logo::after { content: ''; position: absolute; inset: 5px; border-radius: 50%; background: var(--orange); }
+  .kn-logo-sm { width: 16px; height: 16px; }
+  .kn-logo-sm::after { inset: 4px; }
+  .kn-nav { display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: 9px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .kn-ico { width: 16px; text-align: center; color: var(--slate); flex: none; }
+  .kn-av { width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid var(--dust); font-size: 10px; display: grid; place-items: center; color: var(--slate); flex: none; }
+  .kn-sec { margin: 12px 8px 4px; font-size: 11px; font-weight: 600; color: var(--slate); }
+  .kn-recent { color: var(--slate); }
+  .kn-recent.is-cur { background: var(--white); color: var(--ink); font-weight: 600; box-shadow: 0 1px 4px rgba(20, 20, 19, 0.08); }
+  .kn-sync { margin-top: auto; padding: 8px 8px 2px; font-size: 10.5px; color: var(--slate); display: flex; align-items: center; gap: 6px; line-height: 1.4; }
+  .kn-sync-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--orange); flex: none; }
+
+  /* ---- main chat ---- */
+  .kn-main { display: flex; flex-direction: column; min-width: 0; padding: 16px 18px 14px; gap: 12px; }
+  .kn-thread { flex: 1; display: flex; flex-direction: column; gap: 14px; min-height: 0; }
+  .kn-user { align-self: flex-end; max-width: 82%; opacity: 0; transform: translateY(8px); transition: opacity 0.4s ease, transform 0.4s ease; }
+  .kn-user.on { opacity: 1; transform: none; }
+  .kn-user span { display: inline-block; background: #efece8; color: var(--ink); font-size: 14px; line-height: 1.5; padding: 8px 14px; border-radius: 16px 16px 4px 16px; }
+
+  .kn-think { display: flex; align-items: center; gap: 4px; font-size: 12.5px; color: var(--slate); height: 0; opacity: 0; overflow: hidden; transition: opacity 0.3s ease; }
+  .kn-think.on { opacity: 1; height: auto; }
+  .kn-think i { width: 5px; height: 5px; border-radius: 50%; background: var(--orange); }
+  .kn-think span { margin-left: 6px; }
+
+  .kn-ans { display: flex; flex-direction: column; gap: 9px; opacity: 0; transform: translateY(8px); transition: opacity 0.4s ease, transform 0.4s ease; }
+  .kn-ans.on { opacity: 1; transform: none; }
+  .kn-ans-head { display: flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 600; color: var(--ink); }
+  .kn-lines { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; font-size: 14px; line-height: 1.6; color: var(--charcoal); }
+  .kn-lines li { opacity: 0; transform: translateY(6px); transition: opacity 0.4s ease, transform 0.4s ease; padding-left: 14px; position: relative; }
+  .kn-lines li::before { content: ''; position: absolute; left: 0; top: 0.78em; width: 5px; height: 5px; border-radius: 50%; background: var(--ink); }
+  .kn-lines li.on { opacity: 1; transform: none; }
+  .kn-lines strong { color: var(--ink); font-weight: 600; }
+  .kn-lines sup { font-size: 10px; font-weight: 700; color: var(--orange); }
+  .kn-src { display: flex; flex-wrap: wrap; gap: 6px; }
+  .kn-chip {
+    display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: var(--charcoal);
+    background: #f7f5f2; border: 1px solid var(--ghost); border-radius: 999px; padding: 4px 11px 4px 5px;
+    opacity: 0; transform: scale(0.88); transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .kn-chip.on { opacity: 1; transform: none; }
+  .kn-chip b { width: 16px; height: 16px; border-radius: 50%; background: var(--orange); color: var(--white); font-size: 10px; display: grid; place-items: center; }
+  .kn-acts { display: flex; align-items: center; gap: 12px; font-size: 13px; color: var(--dust); opacity: 0; transition: opacity 0.4s ease; }
+  .kn-acts.on { opacity: 1; }
+  .kn-acts-src { font-size: 12px; font-weight: 600; color: var(--orange); }
+
+  /* ---- input bar ---- */
+  .kn-input { display: flex; align-items: center; gap: 10px; border: 1.5px solid var(--ghost); border-radius: 16px; padding: 8px 8px 8px 16px; background: var(--white); transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+  .kn-field { flex: 1; min-width: 0; position: relative; display: flex; align-items: center; min-height: 24px; font-size: 14px; }
+  .kn-ph { color: var(--slate); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: opacity 0.15s ease; }
+  .kn-input:has(.kn-typed.on) { border-color: var(--orange); box-shadow: 0 0 0 4px rgba(207, 69, 0, 0.1); }
+  .kn-input:has(.kn-typed.on) .kn-ph { opacity: 0; }
+  .kn-typed { position: absolute; left: 0; top: 50%; transform: translateY(-50%); display: inline-grid; grid-template-columns: 0fr; transition: grid-template-columns 1.7s steps(30); min-width: 0; }
+  .kn-typed.on { grid-template-columns: 1fr; }
+  .kn-q { overflow: hidden; white-space: nowrap; color: var(--ink); font-weight: 500; min-width: 0; }
+  .kn-caret { position: absolute; left: 0; top: 50%; width: 2px; height: 17px; margin-top: -8px; background: var(--orange); opacity: 0; }
+  .kn-caret.on { opacity: 1; }
+  .kn-send { width: 32px; height: 32px; border-radius: 50%; background: var(--ink); color: var(--canvas); display: grid; place-items: center; font-size: 15px; flex: none; }
+
+  .kn-credit { margin: 0; font-size: 11.5px; color: var(--slate); text-align: right; }
+  .kn-credit a { color: var(--slate); text-decoration: underline; text-underline-offset: 2px; }
+  .kn-credit a:hover { color: var(--orange); }
+
+  @media (max-width: 640px) {
+    .kn-app { grid-template-columns: 1fr; min-height: 340px; }
+    .kn-side { display: none; }
+    .kn-main { padding: 14px 14px 12px; }
+    .kn-user { max-width: 92%; }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .kn-caret.on { animation: kn-blink 1s steps(1) infinite; }
+    .kn-think.on i { animation: kn-dot 1s ease-in-out infinite; }
+    .kn-think.on i:nth-child(2) { animation-delay: 0.15s; }
+    .kn-think.on i:nth-child(3) { animation-delay: 0.3s; }
+    @keyframes kn-blink { 50% { opacity: 0; } }
+    @keyframes kn-dot { 0%, 100% { opacity: 0.3; transform: translateY(0); } 50% { opacity: 1; transform: translateY(-3px); } }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .kn-user, .kn-ans, .kn-lines li, .kn-chip, .kn-acts, .kn-typed { transition: none; }
+  }
+</style>

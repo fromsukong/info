@@ -30,6 +30,12 @@ body {
   line-height: 1.4;
   -webkit-font-smoothing: antialiased;
   overflow-x: clip;
+  /* short pages (e.g. a one-post blog): keep the footer at the bottom of the
+     viewport instead of leaving a cream gap under it */
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
 }
 img { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
@@ -51,7 +57,7 @@ button { font: inherit; color: inherit; }
 }
 .eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--orange); flex: none; }
 
-.btn-ink, .btn-white, .btn-ghost {
+.btn-ink {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -65,10 +71,6 @@ button { font: inherit; color: inherit; }
 }
 .btn-ink { background: var(--ink); color: var(--canvas); border: 1.5px solid var(--ink); font-weight: 500; }
 .btn-ink:hover { background: var(--charcoal); }
-.btn-white { background: var(--white); color: var(--ink); border: 1.5px solid var(--white); font-weight: 500; }
-.btn-white:hover { background: var(--canvas); border-color: var(--canvas); }
-.btn-ghost { background: transparent; color: var(--white); border: 1.5px solid rgba(255, 255, 255, 0.4); font-weight: 450; }
-.btn-ghost:hover { border-color: rgba(255, 255, 255, 0.8); }
 
 /* ---------- 3. page head (about / blog / demo) ---------- */
 .page-head {
@@ -156,9 +158,95 @@ button { font: inherit; color: inherit; }
 .info-card h2::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--orange); flex: none; }
 .info-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
 .info-list li { font-size: 15.5px; line-height: 1.65; color: var(--charcoal); }
+.info-list li { position: relative; padding-left: 18px; }
+.info-list li::before { content: ''; position: absolute; left: 2px; top: 0.78em; width: 6px; height: 6px; border-radius: 50%; background: var(--orange); }
 .info-list strong { color: var(--ink); font-weight: 600; }
 .info-list a { color: var(--orange); }
 .info-list a:hover { text-decoration: underline; }
+
+/* ---------- 5b. about — portrait + timeline ---------- */
+.about-photo {
+  width: 200px;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: 50% 38%; /* face + shoulders of the tall portrait */
+  margin-top: 28px;
+  border-radius: 28px;
+  box-shadow: var(--shadow-halo);
+  background: var(--ghost);
+}
+.timeline {
+  --rail: 112px;
+  list-style: none;
+  max-width: var(--page-max);
+  margin: 52px auto 0;
+  padding: 0 var(--gutter);
+  position: relative;
+}
+/* the vertical line runs through the dots */
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: calc(var(--gutter) + var(--rail) + 6px);
+  width: 2px;
+  background: var(--ghost);
+  border-radius: 2px;
+}
+.tl-item {
+  display: grid;
+  grid-template-columns: var(--rail) 14px 1fr;
+  column-gap: 14px;
+  align-items: start;
+  padding-bottom: 18px;
+}
+.tl-item:last-child { padding-bottom: 0; }
+.tl-when {
+  text-align: right;
+  padding-top: 22px;
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--slate);
+}
+.tl-dot {
+  position: relative;
+  z-index: 1;
+  width: 14px;
+  height: 14px;
+  margin-top: 25px;
+  border-radius: 50%;
+  background: var(--canvas);
+  border: 3px solid var(--dust);
+  box-sizing: border-box;
+}
+.tl-item.is-now .tl-dot { background: var(--orange); border-color: var(--orange); box-shadow: 0 0 0 5px rgba(207, 69, 0, 0.16); }
+.tl-item.is-now .tl-when { color: var(--orange); }
+.tl-card {
+  background: var(--white);
+  border-radius: 24px;
+  padding: 20px 24px 22px;
+  box-shadow: var(--shadow-card);
+}
+.tl-card h2 { margin: 0 0 8px; font-size: 18px; line-height: 1.35; font-weight: 600; letter-spacing: -0.01em; color: var(--ink); }
+.tl-card p { margin: 0; font-size: 15.5px; line-height: 1.7; color: var(--charcoal); }
+.tl-card p + p { margin-top: 10px; }
+.tl-card strong { color: var(--ink); font-weight: 600; }
+.tl-card a { color: var(--orange); }
+.tl-card a:hover { text-decoration: underline; }
+.tl-item.is-now .tl-card { border: 1px solid rgba(207, 69, 0, 0.22); }
+.timeline + .about-stack { margin-top: 28px; }
+@media (max-width: 640px) {
+  .about-photo { width: 160px; }
+  .timeline { --rail: 0px; }
+  .timeline::before { left: calc(var(--gutter) + 6px); }
+  .tl-item { grid-template-columns: 14px 1fr; column-gap: 14px; }
+  .tl-when { grid-column: 2; grid-row: 1; text-align: left; padding: 0 0 6px; }
+  .tl-dot { grid-column: 1; grid-row: 1 / span 2; margin-top: 3px; }
+  .tl-card { grid-column: 2; grid-row: 2; }
+}
 
 /* ---------- 6. prose (blog article) ---------- */
 .post-page { max-width: var(--page-max); margin: 0 auto; padding: 64px var(--gutter) 0; }
@@ -215,7 +303,6 @@ button { font: inherit; color: inherit; }
 }
 .nav-left { display: flex; align-items: center; gap: 12px; min-width: 0; }
 .nav-brand { display: inline-flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 600; letter-spacing: -0.4px; color: var(--ink); white-space: nowrap; }
-.nav-brand img { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; }
 .nav-brand .brand-dot { color: var(--orange); }
 .nav-links { display: flex; align-items: center; gap: 40px; }
 .nav-links a { color: var(--ink); font-weight: 500; font-size: 16px; letter-spacing: -0.48px; white-space: nowrap; }
@@ -235,14 +322,7 @@ button { font: inherit; color: inherit; }
   .nav-links { display: none; }
   .nav-pill { padding-left: 12px; }
   .nav-menu-btn { display: inline-flex; }
-  .nav-pill .nav-brand img { display: none; } /* face replaced by the menu button */
 }
-@media (max-width: 480px) {
-  /* The menu button replaces the avatar; the wordmark stays so the pill
-     keeps its brand and doesn't read as an empty bar. */
-  .nav-pill .nav-brand img { display: none; }
-}
-
 /* Mobile sidebar drawer */
 html.nav-open { overflow: hidden; }
 .nav-backdrop {
@@ -267,7 +347,6 @@ html.nav-open { overflow: hidden; }
 .nav-drawer.is-open { transform: none; visibility: visible; transition: transform 0.26s ease, visibility 0s; }
 .nav-drawer-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 0 0 14px; }
 .drawer-brand { display: inline-flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 600; letter-spacing: -0.4px; color: var(--ink); white-space: nowrap; }
-.drawer-brand img { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; }
 .drawer-brand .brand-dot { color: var(--orange); }
 .nav-drawer-close {
   width: 38px; height: 38px; flex: none; display: grid; place-items: center;
@@ -287,11 +366,11 @@ html.nav-open { overflow: hidden; }
 }
 
 /* ---------- 8. dark footer ---------- */
+main { flex: 1 0 auto; }
 .footer { margin-top: 72px; background: var(--ink); color: var(--white); border-radius: var(--panel-radius) var(--panel-radius) 0 0; }
 .footer-inner { max-width: var(--content-max); margin: 0 auto; padding: 88px 24px 44px; display: grid; grid-template-columns: 1.4fr 1fr; column-gap: 64px; align-items: start; }
-.footer-main h2 { font-size: clamp(28px, 4vw, 34px); font-weight: 500; letter-spacing: -0.02em; margin: 0 0 14px; color: var(--white); }
+.footer-main h2 { font-size: clamp(28px, 4vw, 34px); font-weight: 500; letter-spacing: -0.02em; margin: 0; color: var(--white); }
 .footer-main p { font-size: 15px; font-weight: 450; line-height: 1.5; color: rgba(255, 255, 255, 0.65); margin: 0 0 28px; max-width: 440px; }
-.footer-actions { display: flex; flex-wrap: wrap; gap: 12px; }
 .footer-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
 .footer-col h3, .footer-col h4 { font-size: 12px; font-weight: 700; letter-spacing: 0.56px; text-transform: uppercase; color: rgba(255, 255, 255, 0.6); margin: 0 0 16px; }
 .footer-col a, .footer-col span { display: block; color: var(--white); font-size: 14px; font-weight: 450; line-height: 1.5; padding: 4px 0; }
@@ -348,3 +427,26 @@ html.nav-open { overflow: hidden; }
   html { scroll-behavior: auto; }
   .post-card, .post-card .pc-arrow, .nav-drawer, .nav-backdrop { transition: none; }
 }
+
+/* ---------- 9. Thai typography ----------
+   The site is Thai-only. Thai has no letter case and stacked vowel/tone
+   marks collide under negative or wide tracking, so neutralise tracking
+   and give headings a little more line-height. */
+:lang(th) .eyebrow,
+:lang(th) .info-card h2,
+:lang(th) .demo-head,
+:lang(th) .footer-col h3,
+:lang(th) .footer-col h4 { letter-spacing: 0; text-transform: none; }
+:lang(th) .page-title,
+:lang(th) .post-head h1,
+:lang(th) .footer-main h2,
+:lang(th) .prose h2,
+:lang(th) .tl-card h2,
+:lang(th) .btn-ink,
+:lang(th) .post-card .pc-title { letter-spacing: 0; }
+:lang(th) .page-title,
+:lang(th) .post-head h1 { line-height: 1.3; }
+:lang(th) .footer-main h2 { line-height: 1.35; }
+:lang(th) .prose h2 { line-height: 1.4; }
+:lang(th) .nav-links a,
+:lang(th) .nav-drawer-links a { letter-spacing: 0; }

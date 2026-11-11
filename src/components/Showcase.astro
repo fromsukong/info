@@ -1,0 +1,228 @@
+---
+import KnowledgePane from './showcase/KnowledgePane.astro';
+import ApiPane from './showcase/ApiPane.astro';
+import OtherPane from './showcase/OtherPane.astro';
+// Showcase section (Thai) — "project ideas that save time": a tabbed panel of
+// looping automation animations, placed after the hero on the home page.
+// Styles: .showcase / .demo-* in landing.css. Engine: inline script below.
+//
+// ENGINE CONTRACT — every pane root must be
+//   <div class="demo-tabpane" id="pane-KEY" role="tabpanel" aria-labelledby="tab-KEY"
+//        data-pane="KEY" data-loop="MS" data-steps='[[ms,"action"],...]'>
+// Actions run inside that pane, `ms` after the pane starts:
+//   "name" add .on to [data-a="name"]   "-name" remove .on
+//   "~name" add .pulse                  "~-name" remove .pulse
+// At data-loop ms all .on/.pulse in the pane are cleared and it replays (only
+// while that tab is active). Reduced motion / no timers: every [data-a] in
+// every pane gets .on, except elements marked data-transient (e.g. typing dots).
+
+// ---- PANES REGISTRY: tab order = array order; the FIRST entry is the initially
+// active tab. Entries with `component` render that component (its root follows
+// the contract, same KEY); chat is rendered inline below.
+// To register a new pane: import it from ./showcase/*.astro and add
+//   { key: 'knowledge', label: '...', component: Knowledge }
+const PANES: { key: string; label: string; component?: any }[] = [
+  { key: 'knowledge', label: 'ความรู้ในองค์กร', component: KnowledgePane },
+  { key: 'chat', label: 'แชตลูกค้า' },
+  { key: 'api', label: 'เชื่อม API', component: ApiPane },
+  { key: 'other', label: 'อื่น ๆ', component: OtherPane },
+];
+---
+
+<section class="showcase" aria-labelledby="showcase-title">
+  <h2 class="showcase-title" id="showcase-title">ไอเดียโปรเจกต์ที่ช่วยประหยัดเวลา</h2>
+
+  <div class="demo-panel" data-anim aria-label="ตัวอย่างระบบ AI อัตโนมัติ">
+    <div class="demo-head">
+      <span>ระบบอัตโนมัติของคุณ</span>
+      <span class="dh-live"><span class="chat-dot"></span>ทำงานอยู่</span>
+    </div>
+
+    <div class="demo-tabs" role="tablist" aria-label="ตัวอย่างระบบอัตโนมัติ">
+      {PANES.map((p, i) => (
+        <button class:list={['demo-tab', { 'is-active': i === 0 }]} type="button" role="tab" id={`tab-${p.key}`} aria-selected={i === 0 ? 'true' : 'false'} aria-controls={`pane-${p.key}`} data-tab={p.key}>{p.label}</button>
+      ))}
+    </div>
+
+    <div class="demo-panes">
+      {PANES.map((p) => (
+        <>
+          {p.component && <p.component />}
+          {p.key === 'chat' && (
+        <div class="demo-tabpane" id="pane-chat" role="tabpanel" aria-labelledby="tab-chat" data-pane="chat" data-loop="9500" data-steps='[[300,"n1"],[1000,"l1"],[1250,"n2"],[1950,"l2"],[2200,"n3"],[2850,"msg"],[4600,"typing"],[4600,"~n2"],[6100,"-typing"],[6100,"~-n2"],[6300,"reply"],[6300,"quick"],[6300,"tag"],[6300,"~n3"],[7500,"~-n3"]]'>
+
+        <div class="wf">
+          <div class="wf-node" data-a="n1">
+            <span class="box">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5.5h16v10.5H9.5L4 19.5z" stroke="var(--ink)" stroke-width="1.8" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="nm">ข้อความ LINE</span>
+          </div>
+          <span class="wf-link" data-a="l1"><i></i></span>
+          <div class="wf-node" data-a="n2">
+            <span class="box">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3.5l1.8 5.2 5.2 1.8-5.2 1.8L12 17.5l-1.8-5.2L5 10.5l5.2-1.8z" stroke="var(--orange)" stroke-width="1.7" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="nm">AI เอเจนต์</span>
+          </div>
+          <span class="wf-link" data-a="l2"><i></i></span>
+          <div class="wf-node" data-a="n3">
+            <span class="box">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4.5 12L20 4.5l-4 15.5-4.2-6.1z" stroke="var(--ink)" stroke-width="1.8" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="nm">ตอบอัตโนมัติ</span>
+          </div>
+        </div>
+
+        <div class="chat">
+          <div class="chat-head"><span class="chat-dot"></span>LINE · แชตลูกค้า</div>
+          <div class="chat-body">
+            <div class="bubble user" data-a="msg">สวัสดีครับ มีสีดำเหลือไหมครับ?</div>
+            <div class="bubble typing" data-a="typing" data-transient aria-hidden="true"><i></i><i></i><i></i></div>
+            <div class="bubble bot" data-a="reply">มีครับ เหลือ 2 ตัว ให้จองไว้ให้เลยไหมครับ?</div>
+            <div class="quick" data-a="quick"><span>จองเลย</span><span>ราคาเท่าไหร่?</span></div>
+          </div>
+        </div>
+
+        <div class="exec-tag" data-a="tag">
+          <svg viewBox="0 0 12 12" fill="none" stroke="var(--orange)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 6.2 L5 8.5 L9.5 4"></path></svg>
+          <span>ตอบอัตโนมัติใน 0.9 วินาที · ไม่ต้องใช้คน</span>
+        </div>
+        </div>
+          )}
+        </>
+      ))}
+    </div>
+  </div>
+  <p class="demo-cap">ตัวอย่างระบบที่ผมรับทำ ตั้งแต่ถามตอบความรู้ในทีม ตอบแชตลูกค้า ไปจนถึงเชื่อมระบบต่าง ๆ เข้าด้วยกัน</p>
+</section>
+
+<script is:inline>
+  // Showcase engine: data-driven tab panes (see ENGINE CONTRACT in the
+  // frontmatter). Each pane plays its data-steps and loops at data-loop ms.
+  (function () {
+    var panel = document.querySelector('.showcase [data-anim]');
+    if (!panel) return;
+    var tabsBar = panel.querySelector('.demo-tabs');
+    var tabs = Array.prototype.slice.call(panel.querySelectorAll('.demo-tab'));
+    var panes = Array.prototype.slice.call(panel.querySelectorAll('.demo-tabpane'));
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var timers = [];
+    var current = null;
+
+    var paneOf = function (key) {
+      for (var i = 0; i < panes.length; i++) { if (panes[i].getAttribute('data-pane') === key) return panes[i]; }
+      return null;
+    };
+    var q = function (pane, name) { return pane.querySelectorAll('[data-a="' + name + '"]'); };
+    var reset = function (pane) {
+      pane.querySelectorAll('.on, .pulse').forEach(function (el) { el.classList.remove('on'); el.classList.remove('pulse'); });
+    };
+    var run = function (pane, act) {
+      var pulse = act.charAt(0) === '~';
+      var name = pulse ? act.slice(1) : act;
+      var off = name.charAt(0) === '-';
+      if (off) name = name.slice(1);
+      q(pane, name).forEach(function (el) { el.classList.toggle(pulse ? 'pulse' : 'on', !off); });
+    };
+    var clearAll = function () {
+      timers.forEach(clearTimeout);
+      timers = [];
+      panes.forEach(reset);
+    };
+    var play = function (key) {
+      var pane = paneOf(key);
+      if (!pane) return;
+      var steps = [];
+      try { steps = JSON.parse(pane.getAttribute('data-steps') || '[]'); } catch (e) {}
+      var loop = parseInt(pane.getAttribute('data-loop') || '0', 10);
+      steps.forEach(function (s) { timers.push(setTimeout(function () { run(pane, s[1]); }, s[0])); });
+      if (loop > 0) {
+        timers.push(setTimeout(function () {
+          if (current === key) { clearAll(); play(key); }
+        }, loop));
+      }
+    };
+    var revealBar = function (btn) {
+      if (!tabsBar || tabsBar.scrollWidth <= tabsBar.clientWidth) return;
+      var left = btn.offsetLeft - (tabsBar.clientWidth - btn.offsetWidth) / 2;
+      tabsBar.scrollTo({ left: left, behavior: reduce ? 'auto' : 'smooth' });
+    };
+    var activate = function (key, user) {
+      current = key;
+      tabs.forEach(function (b) {
+        var on = b.getAttribute('data-tab') === key;
+        b.classList.toggle('is-active', on);
+        b.setAttribute('aria-selected', on ? 'true' : 'false');
+        b.setAttribute('tabindex', on ? '0' : '-1');
+        if (on && user) revealBar(b);
+      });
+      panes.forEach(function (p) { p.classList.toggle('is-active', p.getAttribute('data-pane') === key); });
+      if (!reduce) { clearAll(); play(key); }
+    };
+
+    tabs.forEach(function (b, idx) {
+      b.addEventListener('click', function () { activate(b.getAttribute('data-tab'), true); });
+      b.addEventListener('keydown', function (e) {
+        var to = -1;
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') to = (idx + 1) % tabs.length;
+        else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') to = (idx - 1 + tabs.length) % tabs.length;
+        if (to !== -1) {
+          e.preventDefault();
+          tabs[to].focus();
+          activate(tabs[to].getAttribute('data-tab'), true);
+        }
+      });
+    });
+
+    panel.classList.add('js-tabs');
+    if (!tabs.length) return;
+    if (reduce) {
+      // static end state: everything shown, nothing loops
+      panel.classList.add('anim-end');
+      panes.forEach(function (p) {
+        p.querySelectorAll('[data-a]').forEach(function (el) {
+          if (!el.hasAttribute('data-transient')) el.classList.add('on');
+        });
+      });
+    }
+    // Tab bar scrolling on small screens: edge fades show which side has more,
+    // mouse wheel / click-drag scroll it sideways (touch already swipes).
+    var updateEdges = function () {
+      var max = tabsBar.scrollWidth - tabsBar.clientWidth;
+      tabsBar.classList.toggle('has-left', tabsBar.scrollLeft > 4);
+      tabsBar.classList.toggle('has-right', max > 4 && tabsBar.scrollLeft < max - 4);
+    };
+    tabsBar.addEventListener('scroll', updateEdges, { passive: true });
+    window.addEventListener('resize', updateEdges);
+    tabsBar.addEventListener('wheel', function (e) {
+      if (tabsBar.scrollWidth <= tabsBar.clientWidth || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+      e.preventDefault();
+      tabsBar.scrollLeft += e.deltaY;
+    }, { passive: false });
+    var drag = null, moved = false;
+    tabsBar.addEventListener('pointerdown', function (e) {
+      if (e.pointerType !== 'mouse' || tabsBar.scrollWidth <= tabsBar.clientWidth) return;
+      drag = { x: e.clientX, left: tabsBar.scrollLeft }; moved = false;
+    });
+    window.addEventListener('pointermove', function (e) {
+      if (!drag) return;
+      var dx = e.clientX - drag.x;
+      if (Math.abs(dx) > 4) { moved = true; tabsBar.classList.add('is-dragging'); }
+      if (moved) tabsBar.scrollLeft = drag.left - dx;
+    });
+    window.addEventListener('pointerup', function () { drag = null; tabsBar.classList.remove('is-dragging'); });
+    tabsBar.addEventListener('click', function (e) { if (moved) { e.stopPropagation(); e.preventDefault(); moved = false; } }, true);
+    updateEdges();
+
+    activate(tabs[0].getAttribute('data-tab'), false);
+  })();
+</script>
+
+<noscript>
+  <style>
+    .demo-panel [data-a]:not([data-transient]) { opacity: 1 !important; transform: none !important; }
+    .demo-panel .wf-link { transform: scaleX(1) !important; }
+    .demo-panel .wf-link i { display: none; }
+  </style>
+</noscript>
