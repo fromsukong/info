@@ -127,7 +127,7 @@ const PANES: { key: string; label: string; component?: any }[] = [
       var icon = el.querySelector('.ot-fly-ic');
       if (!target || !icon || !target.animate) return;
       var a = icon.getBoundingClientRect(), b = target.getBoundingClientRect();
-      var size = 30;
+      var size = 40;
       var sx = a.left + a.width / 2 - size / 2, sy = a.top + a.height / 2 - size / 2;
       var ex = b.left + b.width / 2 - size / 2, ey = b.top + b.height / 2 - size / 2;
       var dx = ex - sx, dy = ey - sy;

@@ -248,7 +248,7 @@
   position: fixed; z-index: 1100; pointer-events: none; display: grid; place-items: center;
   color: var(--orange);
 }
-.fly-arrow svg { width: 14px; height: 14px; }
+.fly-arrow svg { width: 26px; height: 26px; }
 
 /* static state (prefers-reduced-motion) */
 .demo-panel.anim-end [data-a]:not([data-transient]) { opacity: 1; transform: none; }
