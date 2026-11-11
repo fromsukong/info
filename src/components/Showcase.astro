@@ -12,6 +12,8 @@ import OtherPane from './showcase/OtherPane.astro';
 // Actions run inside that pane, `ms` after the pane starts:
 //   "name" add .on to [data-a="name"]   "-name" remove .on
 //   "~name" add .pulse                  "~-name" remove .pulse
+//   (an element with data-fly-to="selector" also launches a flying arrow from
+//    its .ot-fly-ic icon to that target when "~name" fires — see fly() below)
 // At data-loop ms all .on/.pulse in the pane are cleared and it replays (only
 // while that tab is active). Reduced motion / no timers: every [data-a] in
 // every pane gets .on, except elements marked data-transient (e.g. typing dots).
@@ -118,12 +120,50 @@ const PANES: { key: string; label: string; component?: any }[] = [
     var reset = function (pane) {
       pane.querySelectorAll('.on, .pulse').forEach(function (el) { el.classList.remove('on'); el.classList.remove('pulse'); });
     };
+    // Flying arrow: a dark badge arcs from `el`'s icon to the target (the nav
+    // "hire me" button), then the target gets a one-shot .hit burst.
+    var fly = function (el) {
+      var target = document.querySelector(el.getAttribute('data-fly-to'));
+      var icon = el.querySelector('.ot-fly-ic');
+      if (!target || !icon || !target.animate) return;
+      var a = icon.getBoundingClientRect(), b = target.getBoundingClientRect();
+      var size = 30;
+      var sx = a.left + a.width / 2 - size / 2, sy = a.top + a.height / 2 - size / 2;
+      var ex = b.left + b.width / 2 - size / 2, ey = b.top + b.height / 2 - size / 2;
+      var dx = ex - sx, dy = ey - sy;
+      var arrow = document.createElement('div');
+      arrow.className = 'fly-arrow';
+      arrow.setAttribute('aria-hidden', 'true');
+      arrow.innerHTML = '<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 11.5 V2.5"></path><path d="M3.5 6 L7 2.5 L10.5 6"></path></svg>';
+      arrow.style.cssText = 'left:' + sx + 'px;top:' + sy + 'px;width:' + size + 'px;height:' + size + 'px';
+      document.body.appendChild(arrow);
+      // Curve: bow sideways mid-flight, then home in. Icon points "up" (0deg);
+      // rotate so it faces the direction of travel.
+      var ang = Math.atan2(dy, dx) * 180 / Math.PI + 90;
+      var bow = Math.min(90, Math.abs(dy) * 0.25) * (dx >= 0 ? -1 : 1);
+      var anim = arrow.animate([
+        { transform: 'translate(0,0) scale(0.6) rotate(' + ang + 'deg)', opacity: 0 },
+        { transform: 'translate(' + (dx * 0.15) + 'px,' + (dy * 0.15) + 'px) scale(1.15) rotate(' + ang + 'deg)', opacity: 1, offset: 0.12 },
+        { transform: 'translate(' + (dx * 0.55 + bow) + 'px,' + (dy * 0.55) + 'px) scale(1.2) rotate(' + ang + 'deg)', opacity: 1, offset: 0.6 },
+        { transform: 'translate(' + dx + 'px,' + dy + 'px) scale(0.5) rotate(' + ang + 'deg)', opacity: 0.9 }
+      ], { duration: 1100, easing: 'cubic-bezier(0.5, 0, 0.3, 1)', fill: 'forwards' });
+      anim.onfinish = function () {
+        arrow.remove();
+        target.classList.remove('hit');
+        void target.offsetWidth;
+        target.classList.add('hit');
+        setTimeout(function () { target.classList.remove('hit'); }, 900);
+      };
+    };
     var run = function (pane, act) {
       var pulse = act.charAt(0) === '~';
       var name = pulse ? act.slice(1) : act;
       var off = name.charAt(0) === '-';
       if (off) name = name.slice(1);
-      q(pane, name).forEach(function (el) { el.classList.toggle(pulse ? 'pulse' : 'on', !off); });
+      q(pane, name).forEach(function (el) {
+        el.classList.toggle(pulse ? 'pulse' : 'on', !off);
+        if (pulse && !off && !reduce && el.hasAttribute('data-fly-to')) fly(el);
+      });
     };
     var clearAll = function () {
       timers.forEach(clearTimeout);

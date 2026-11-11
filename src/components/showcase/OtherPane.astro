@@ -1,14 +1,13 @@
 ---
 // Showcase pane: "something else? let's talk" — idea chips + Fastwork CTA.
-import { FASTWORK_URL } from '../../config';
 
 const steps = [
-  [300, 'i1'], [800, 'i2'], [1300, 'i3'], [1800, 'i4'], [2400, 'i5'], [3200, 'head'], [3700, 'sub'], [4400, '~cta'],
+  [300, 'i1'], [800, 'i2'], [1300, 'i3'], [1800, 'i4'], [2400, 'i5'], [3200, 'head'], [3700, 'sub'], [4300, 'cta'], [5200, '~cta'],
 ];
 const ideas = ['สรุปรายงานอัตโนมัติ', 'ตอบอีเมลลูกค้า', 'ทำใบเสนอราคา', 'ดึงข้อมูลจากเว็บ'];
 ---
 
-<div class="demo-tabpane oth" id="pane-other" role="tabpanel" aria-labelledby="tab-other" data-pane="other" data-loop="9000" data-steps={JSON.stringify(steps)}>
+<div class="demo-tabpane oth" id="pane-other" role="tabpanel" aria-labelledby="tab-other" data-pane="other" data-loop="10500" data-steps={JSON.stringify(steps)}>
   <ul class="ot-ideas">
     {ideas.map((t, i) => <li class="ot-chip" data-a={`i${i + 1}`}><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M7 2.5 V11.5 M2.5 7 H11.5"></path></svg>{t}</li>)}
     <li class="ot-chip ot-more" data-a="i5">อื่น ๆ ที่คุณนึกอยู่…</li>
@@ -17,7 +16,10 @@ const ideas = ['สรุปรายงานอัตโนมัติ', 'ต
   <div class="ot-card">
     <h3 class="ot-head" data-a="head">ไอเดียของคุณไม่อยู่ในนี้? คุยกันก่อนได้</h3>
     <p class="ot-sub" data-a="sub">เล่างานที่กินเวลาคุณอยู่ ผมช่วยดูว่าทำอัตโนมัติได้ไหม</p>
-    <a class="btn-ink ot-cta" data-a="cta" href={FASTWORK_URL} target="_blank" rel="noopener">คุยเรื่องโปรเจกต์บน Fastwork <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7 H11"></path><path d="M8 4 L11 7 L8 10"></path></svg></a>
+    <p class="ot-fly" data-a="cta" data-fly-to=".nav-cta">
+      <svg class="ot-fly-ic" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 11.5 V2.5"></path><path d="M3.5 6 L7 2.5 L10.5 6"></path></svg>
+      กดปุ่ม “จ้างผม” ด้านบนได้เลย
+    </p>
   </div>
 </div>
 
@@ -41,18 +43,17 @@ const ideas = ['สรุปรายงานอัตโนมัติ', 'ต
   .ot-sub { margin: 0 0 8px; font-size: 14.5px; line-height: 1.6; color: var(--slate); max-width: 420px; text-wrap: balance; }
   .ot-head, .ot-sub { opacity: 0; transform: translateY(8px); transition: opacity 0.4s ease, transform 0.4s ease; }
   .ot-head.on, .ot-sub.on { opacity: 1; transform: none; }
-  .ot-cta { padding: 14px 26px; font-size: 15.5px; max-width: 100%; text-align: center; }
-  .ot-cta svg { width: 13px; height: 13px; flex: none; }
-  .ot-cta:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
-
-  @media (prefers-reduced-motion: no-preference) {
-    .ot-cta.pulse { animation: ot-pulse 1.4s ease-out 3; }
-    @keyframes ot-pulse {
-      0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--orange) 55%, transparent); }
-      100% { box-shadow: 0 0 0 16px transparent; }
-    }
+  .ot-fly {
+    margin: 4px 0 0; display: inline-flex; align-items: center; gap: 8px;
+    font-size: 15px; font-weight: 600; color: var(--ink);
+    background: var(--white); border: 1.5px solid var(--ghost); border-radius: 999px; padding: 10px 20px;
+    opacity: 0; transform: translateY(8px) scale(0.96); transition: opacity 0.4s ease, transform 0.4s ease;
   }
+  .ot-fly.on { opacity: 1; transform: none; }
+  .ot-fly-ic { width: 14px; height: 14px; flex: none; color: var(--orange); transition: opacity 0.15s ease; }
+  .ot-fly.pulse .ot-fly-ic { opacity: 0; }
+
   @media (prefers-reduced-motion: reduce) {
-    .ot-chip, .ot-head, .ot-sub { transition: none; }
+    .ot-chip, .ot-head, .ot-sub, .ot-fly { transition: none; }
   }
 </style>

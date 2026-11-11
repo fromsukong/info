@@ -322,6 +322,13 @@ button { font: inherit; color: inherit; }
   transform: translateX(-120%);
   animation: cta-sweep 4.8s ease-in-out infinite;
 }
+/* one-shot burst when the showcase's flying arrow lands on the button */
+.nav-pill .nav-cta.hit { animation: cta-hit 0.8s ease-out; }
+@keyframes cta-hit {
+  0%   { transform: scale(1); box-shadow: 0 0 0 0 rgba(20, 20, 19, 0.6); }
+  30%  { transform: scale(1.14); }
+  100% { transform: scale(1); box-shadow: 0 0 0 22px rgba(20, 20, 19, 0); }
+}
 @keyframes cta-pulse {
   0%   { box-shadow: 0 0 0 0 rgba(20, 20, 19, 0.45); }
   70%  { box-shadow: 0 0 0 12px rgba(20, 20, 19, 0); }
