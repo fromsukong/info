@@ -2,12 +2,12 @@
 // Showcase pane: "something else? let's talk" — idea chips + Fastwork CTA.
 
 const steps = [
-  [300, 'i1'], [800, 'i2'], [1300, 'i3'], [1800, 'i4'], [2400, 'i5'], [3200, 'head'], [3700, 'sub'], [4300, 'cta'], [5200, '~cta'],
+  [300, 'i1'], [800, 'i2'], [1300, 'i3'], [1800, 'i4'], [2400, 'i5'], [3200, 'head'], [3700, 'sub'], [4300, 'cta'], [5200, '~cta'], [6900, '~-cta'],
 ];
 const ideas = ['สรุปรายงานอัตโนมัติ', 'ตอบอีเมลลูกค้า', 'ทำใบเสนอราคา', 'ดึงข้อมูลจากเว็บ'];
 ---
 
-<div class="demo-tabpane oth" id="pane-other" role="tabpanel" aria-labelledby="tab-other" data-pane="other" data-loop="10500" data-steps={JSON.stringify(steps)}>
+<div class="demo-tabpane oth" id="pane-other" role="tabpanel" aria-labelledby="tab-other" data-pane="other" data-steps={JSON.stringify(steps)}>
   <ul class="ot-ideas">
     {ideas.map((t, i) => <li class="ot-chip" data-a={`i${i + 1}`}><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M7 2.5 V11.5 M2.5 7 H11.5"></path></svg>{t}</li>)}
     <li class="ot-chip ot-more" data-a="i5">อื่น ๆ ที่คุณนึกอยู่…</li>

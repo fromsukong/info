@@ -246,8 +246,7 @@
 
 .fly-arrow {
   position: fixed; z-index: 1100; pointer-events: none; display: grid; place-items: center;
-  border-radius: 50%; background: var(--ink); color: var(--canvas);
-  box-shadow: 0 6px 18px rgba(20, 20, 19, 0.35);
+  color: var(--orange);
 }
 .fly-arrow svg { width: 14px; height: 14px; }
 

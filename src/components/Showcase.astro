@@ -8,14 +8,14 @@ import OtherPane from './showcase/OtherPane.astro';
 //
 // ENGINE CONTRACT — every pane root must be
 //   <div class="demo-tabpane" id="pane-KEY" role="tabpanel" aria-labelledby="tab-KEY"
-//        data-pane="KEY" data-loop="MS" data-steps='[[ms,"action"],...]'>
+//        data-pane="KEY" data-steps='[[ms,"action"],...]'>
 // Actions run inside that pane, `ms` after the pane starts:
 //   "name" add .on to [data-a="name"]   "-name" remove .on
 //   "~name" add .pulse                  "~-name" remove .pulse
 //   (an element with data-fly-to="selector" also launches a flying arrow from
 //    its .ot-fly-ic icon to that target when "~name" fires — see fly() below)
-// At data-loop ms all .on/.pulse in the pane are cleared and it replays (only
-// while that tab is active). Reduced motion / no timers: every [data-a] in
+// A pane plays ONCE and stays on its end state; it replays only when the
+// visitor switches to it from another tab. Reduced motion / no timers: every [data-a] in
 // every pane gets .on, except elements marked data-transient (e.g. typing dots).
 
 // ---- PANES REGISTRY: tab order = array order; the FIRST entry is the initially
@@ -51,7 +51,7 @@ const PANES: { key: string; label: string; component?: any }[] = [
         <>
           {p.component && <p.component />}
           {p.key === 'chat' && (
-        <div class="demo-tabpane" id="pane-chat" role="tabpanel" aria-labelledby="tab-chat" data-pane="chat" data-loop="9500" data-steps='[[300,"n1"],[1000,"l1"],[1250,"n2"],[1950,"l2"],[2200,"n3"],[2850,"msg"],[4600,"typing"],[4600,"~n2"],[6100,"-typing"],[6100,"~-n2"],[6300,"reply"],[6300,"quick"],[6300,"tag"],[6300,"~n3"],[7500,"~-n3"]]'>
+        <div class="demo-tabpane" id="pane-chat" role="tabpanel" aria-labelledby="tab-chat" data-pane="chat" data-steps='[[300,"n1"],[1000,"l1"],[1250,"n2"],[1950,"l2"],[2200,"n3"],[2850,"msg"],[4600,"typing"],[4600,"~n2"],[6100,"-typing"],[6100,"~-n2"],[6300,"reply"],[6300,"quick"],[6300,"tag"],[6300,"~n3"],[7500,"~-n3"]]'>
 
         <div class="wf">
           <div class="wf-node" data-a="n1">
@@ -101,7 +101,7 @@ const PANES: { key: string; label: string; component?: any }[] = [
 
 <script is:inline>
   // Showcase engine: data-driven tab panes (see ENGINE CONTRACT in the
-  // frontmatter). Each pane plays its data-steps and loops at data-loop ms.
+  // frontmatter). Each pane plays its data-steps once; switching tabs replays.
   (function () {
     var panel = document.querySelector('.showcase [data-anim]');
     if (!panel) return;
@@ -190,6 +190,7 @@ const PANES: { key: string; label: string; component?: any }[] = [
     var clearAll = function () {
       timers.forEach(clearTimeout);
       timers = [];
+      document.querySelectorAll('.fly-arrow').forEach(function (a) { a.remove(); });
       panes.forEach(reset);
     };
     var play = function (key) {
@@ -197,13 +198,7 @@ const PANES: { key: string; label: string; component?: any }[] = [
       if (!pane) return;
       var steps = [];
       try { steps = JSON.parse(pane.getAttribute('data-steps') || '[]'); } catch (e) {}
-      var loop = parseInt(pane.getAttribute('data-loop') || '0', 10);
       steps.forEach(function (s) { timers.push(setTimeout(function () { run(pane, s[1]); }, s[0])); });
-      if (loop > 0) {
-        timers.push(setTimeout(function () {
-          if (current === key) { clearAll(); play(key); }
-        }, loop));
-      }
     };
     var revealBar = function (btn) {
       if (!tabsBar || tabsBar.scrollWidth <= tabsBar.clientWidth) return;
@@ -211,6 +206,7 @@ const PANES: { key: string; label: string; component?: any }[] = [
       tabsBar.scrollTo({ left: left, behavior: reduce ? 'auto' : 'smooth' });
     };
     var activate = function (key, user) {
+      if (key === current) return; // already showing — don't restart its animation
       current = key;
       tabs.forEach(function (b) {
         var on = b.getAttribute('data-tab') === key;
