@@ -2,7 +2,7 @@
 // Showcase pane: "something else? let's talk" — idea chips + Fastwork CTA.
 
 const steps = [
-  [300, 'i1'], [800, 'i2'], [1300, 'i3'], [1800, 'i4'], [2400, 'i5'], [3200, 'head'], [3700, 'sub'], [4300, 'cta'], [5200, '~cta'], [6900, '~-cta'],
+  [300, 'i1'], [800, 'i2'], [1300, 'i3'], [1800, 'i4'], [2400, 'i5'], [3200, 'head'], [3700, 'sub'], [4300, 'cta'], [4800, '~aim'], [5200, '~cta'], [6900, '~-cta'], [6900, '~-aim'],
 ];
 const ideas = ['สรุปรายงานอัตโนมัติ', 'ตอบอีเมลลูกค้า', 'ทำใบเสนอราคา', 'ดึงข้อมูลจากเว็บ'];
 ---
@@ -17,7 +17,7 @@ const ideas = ['สรุปรายงานอัตโนมัติ', 'ต
     <h3 class="ot-head" data-a="head">ไอเดียของคุณไม่อยู่ในนี้? คุยกันก่อนได้</h3>
     <p class="ot-sub" data-a="sub">เล่างานที่กินเวลาคุณอยู่ ผมช่วยดูว่าทำอัตโนมัติได้ไหม</p>
     <p class="ot-fly" data-a="cta" data-fly-to=".nav-cta">
-      <svg class="ot-fly-ic" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 11.5 V2.5"></path><path d="M3.5 6 L7 2.5 L10.5 6"></path></svg>
+      <svg class="ot-fly-ic" data-a="aim" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 11.5 V2.5"></path><path d="M3.5 6 L7 2.5 L10.5 6"></path></svg>
       กดปุ่ม “จ้างผม” ด้านบนได้เลย
     </p>
   </div>
@@ -50,7 +50,9 @@ const ideas = ['สรุปรายงานอัตโนมัติ', 'ต
     opacity: 0; transform: translateY(8px) scale(0.96); transition: opacity 0.4s ease, transform 0.4s ease;
   }
   .ot-fly.on { opacity: 1; transform: none; }
-  .ot-fly-ic { width: 14px; height: 14px; flex: none; color: var(--orange); transition: opacity 0.15s ease; }
+  .ot-fly-ic { width: 14px; height: 14px; flex: none; color: var(--orange); transition: opacity 0.15s ease, transform 0.35s ease; }
+  /* wind-up: icon turns head-down just before the flying arrow takes over */
+  .ot-fly-ic.pulse { transform: rotate(180deg); }
   .ot-fly.pulse .ot-fly-ic { opacity: 0; }
 
   @media (prefers-reduced-motion: reduce) {

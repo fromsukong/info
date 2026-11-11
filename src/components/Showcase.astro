@@ -162,9 +162,11 @@ const PANES: { key: string; label: string; component?: any }[] = [
         while (ang - prevAng < -180) ang += 360;
         prevAng = ang;
         var pos = pt(t);
+        // start at the icon's size (14/26) and grow into flight; shrink into the button at the end
+        var sc = u < 0.2 ? 0.54 + 0.61 * (u / 0.2) : (u > 0.9 ? 1.15 - (u - 0.9) * 6.5 : 1.15);
         frames.push({
-          transform: 'translate(' + (pos.x - sx) + 'px,' + (pos.y - sy) + 'px) rotate(' + ang + 'deg) scale(' + (u > 0.9 ? 1 - (u - 0.9) * 5 : 1.15) + ')',
-          opacity: u < 0.04 ? u / 0.04 : 1,
+          transform: 'translate(' + (pos.x - sx) + 'px,' + (pos.y - sy) + 'px) rotate(' + ang + 'deg) scale(' + sc + ')',
+          opacity: 1,
           offset: u
         });
       }
