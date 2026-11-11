@@ -179,7 +179,7 @@ node verify-site.mjs               # 59 checks: styles, fonts, nav, drawer, JSON
 ```
 
 Then: send screenshots to Prame → wait for explicit go → push to `main` →
-GitHub Actions builds + deploys to Cloudflare Pages → verify live with a
+Cloudflare Pages (Git integration) builds + deploys → verify live with a
 cache-busted curl. Never deploy without his go.
 
 ## History (why things are the way they are)

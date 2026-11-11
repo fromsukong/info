@@ -14,7 +14,7 @@ Privacy rule: no phone number or email on the site (JSON-LD, footer, copy).
 
 - **Astro 7** — static output, zero client frameworks (no React)
 - Plain CSS + design tokens (`src/styles/tokens.css`)
-- Hosted on **Cloudflare Pages** (project `info`), deployed from `main` by GitHub Actions
+- Hosted on **Cloudflare Pages** (project `info`), deployed from `main` by Cloudflare's Git integration
 
 ## Run locally
 
@@ -55,10 +55,9 @@ Full design rules and the verification checklist: **STYLEGUIDE.md**.
 
 ## Deploy
 
-Automatic on push to `main` via `.github/workflows/deploy.yml`: it runs
-`npm run build` and deploys `dist/` to the `info` Pages project (custom domain
-`fromsukong.com`). Required repo secrets (already configured):
-`CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`.
+Automatic on push to `main` via Cloudflare Pages' Git integration (build command
+`npm run build`, output dir `dist`, project `info`, custom domain `fromsukong.com`).
+No GitHub Actions workflow — it was removed.
 
 Manual alternative: `npx wrangler pages deploy dist --project-name=info`.
 
