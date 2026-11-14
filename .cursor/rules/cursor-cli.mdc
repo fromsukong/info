@@ -1,0 +1,13 @@
+---
+description: How Cursor CLI (Grok 4.7) works in fromsukong/info
+alwaysApply: true
+---
+
+# info (fromsukong.com)
+
+You are Cursor CLI on Grok 4.7. Follow `AGENTS.md` and `STYLEGUIDE.md`.
+
+- Thai UI only. No phone number or email anywhere on the site.
+- Astro and plain CSS. Do not add React.
+- `npm run build` before you call a page change done.
+- A merge to `main` deploys production. Do not merge, commit, or push unless asked.
